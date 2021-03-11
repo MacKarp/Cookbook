@@ -1,0 +1,86 @@
+%ustawienia
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[polish]{babel}
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[left=3.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{indentfirst} 
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0.7cm}
+\hypersetup{
+	colorlinks = true,
+	linkcolor = black,
+	filecolor = magenta,
+	urlcolor = blue,
+	}
+\urlstyle{same}	
+	
+\author{
+	\\\includegraphics[width=0.7\linewidth]{img/logoPWSZ.eps} \\\\\\\\
+	\hfill Karpiński Maciej\\
+	\hfill Kuczma Łukasz\\
+	\hfill Zawada Marcin\\\\
+	\hfill Prowadzący mgr inż. Marcin Tracz
+	}
+\title{\textbf{Zaawansowane metody programowania}\\\line(1,0){400}\\\textbf{laboratorium}}
+\date{}
+
+\begin{document}
+
+	%Stron tytułowa
+	\maketitle
+	\thispagestyle{fancy}
+	\fancyhf{}
+	\rhead{\textcolor{gray}{\footnotesize Państwowa Wyższa Szkoła Zawodowa im. Witelona w Legnicy\\Informatyka, rok III\\Semestr letni 2020/2021}}	
+	\renewcommand{\headrulewidth}{0pt}
+	\clearpage
+
+	%Spis treści
+	\pagestyle{fancy}
+	\rfoot{\thepage}	
+	\tableofcontents
+	\newpage
+
+	%opis funkcjonalny systemu oraz jego części składowych
+	\section{Opis funkcjonalny systemu}	
+	\newpage
+	
+	%Streszczenie opisu technologicznego każdej aplikacji
+	\section{Opis technologiczny}
+		\subsection{Aplikacja desktopowa}
+		\subsection{Aplikacja mobilna}
+		\subsection{Aplikacja webowa}
+	\newpage
+	
+	%Strzeszczenie wykorzystywanych wzorców projektowych w każdej aplikacji
+	\section{Wzorce projektowe}
+		\subsection{Aplikacja desktopowa}
+		\subsection{Aplikacja mobilna}
+		\subsection{Aplikacja webowa}	 
+	\newpage
+	
+	%Instrukcja lokalnego i zdalengo uruchamiania testów oraz samego systemu
+	\section{Instrukcja uruchamiania testów i systemu}
+		\subsection{Aplikacja desktopowa}
+		\subsection{Aplikacja mobilna}
+		\subsection{Aplikacja webowa}	 
+	
+	\newpage
+
+	%wnioski projektowe
+	\section{Wnioski projektowe}
+	\newpage
+
+	\newpage	
+	\section{Spis rysunków}
+		\listoffigures
+\end{document}
