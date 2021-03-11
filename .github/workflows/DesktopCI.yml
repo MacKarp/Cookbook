@@ -1,6 +1,9 @@
 name: DesktopCI
 
 on:
+  workflow_dispatch:
+      paths:
+      - 'Desktop/'
   push:
     paths:
       - 'Desktop/'
