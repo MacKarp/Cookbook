@@ -1,15 +1,6 @@
 name: DesktopCI
 
-on:
-  workflow_dispatch:
-      paths:
-      - 'Desktop/'
-  push:
-    paths:
-      - 'Desktop/'
-  pull_request:
-      paths:
-      - 'Desktop/'
+on: [workflow_dispatch, push, pull_request]
 
 jobs:
   check:
@@ -24,6 +15,7 @@ jobs:
           override: true
       - uses: actions-rs/cargo@v1
         with:
+          cwd: ./Desktop
           command: check
 
   test:
@@ -38,6 +30,7 @@ jobs:
           override: true
       - uses: actions-rs/cargo@v1
         with:
+          cwd: ./Desktop
           command: test
 
   fmt:
@@ -53,6 +46,7 @@ jobs:
       - run: rustup component add rustfmt
       - uses: actions-rs/cargo@v1
         with:
+          cwd: ./Desktop
           command: fmt
           args: --all -- --check
 
@@ -69,6 +63,7 @@ jobs:
       - run: rustup component add clippy
       - uses: actions-rs/cargo@v1
         with:
+          cwd: ./Desktop
           command: clippy
           args: -- -D warnings
 
