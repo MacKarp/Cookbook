@@ -2,42 +2,21 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkTextBuffer" id="RecipeIngredientsTextBuffer">
-    <property name="text" translatable="yes">750g Self-raising Flour
-6 tablespoons Sugar
-2 Eggs
-1 cup Milk</property>
-  </object>
-  <object class="GtkTextBuffer" id="RecipeNameTextBuffer">
-    <property name="text" translatable="yes">Home-made Mandazi</property>
-  </object>
-  <object class="GtkTextBuffer" id="RecipeTextBuffer">
-    <property name="text" translatable="yes">This is one recipe a lot of people have requested and I have tried to make it as simple as possible and I hope it will work for you. Make sure you use the right flour which is basically one with raising agents. Adjust the amount of sugar to your taste and try using different flavours to have variety whenever you have them.
-You can use Coconut milk instead of regular milk, you can also add desiccated coconut to the dry flour or other spices like powdered cloves or cinnamon.
-For “healthy looking” mandazis do not roll the dough too thin before frying and use the procedure I have indicated above.
-
-1. Mix the flour,cinnamon and sugar in a suitable bowl.
-2. In a separate bowl whisk the egg into the milk
-3. Make a well at the centre of the flour and add the milk and egg mixture and slowly mix to form a dough.
-4. Knead the dough for 3-4 minutes or until it stops sticking to the sides of the bowl and you have a smooth surface.
-5. Cover the dough with a damp cloth  and allow to rest for 15 minutes.
-6. Roll the dough on a lightly floured surface into a 1cm thick piece.
-7. Using a sharp small knife, cut the dough into the desired size setting aside ready for deep frying.
-8. Heat your oil in a suitable pot and gently dip the mandazi pieces to cook until light brown on the first side then turn to cook on the second side.
-9. Serve them warm or cold</property>
-  </object>
-  <object class="GtkApplicationWindow" id="MainWindow">
+  <object class="GtkTextBuffer" id="recipe_ingredients_text_buffer"/>
+  <object class="GtkTextBuffer" id="recipe_name_text_buffer"/>
+  <object class="GtkTextBuffer" id="recipe_text_buffer"/>
+  <object class="GtkApplicationWindow" id="main_window">
     <property name="width-request">1280</property>
     <property name="height-request">720</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Cookbook</property>
     <child>
-      <object class="GtkBox" id="MainBox">
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="TopBox">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
@@ -71,11 +50,12 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="RandomRecipeButton">
+                  <object class="GtkButton" id="random_recipe_button">
                     <property name="label" translatable="yes">Random Recipe</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="clicked" handler="on_random_recipe_button_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -127,7 +107,7 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="BottomBox">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
@@ -207,12 +187,12 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="BottomRightBox">
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="BottomRightTopBox">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
@@ -221,11 +201,11 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
                         <property name="can-focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkTextView" id="RecipeNameTextView">
+                          <object class="GtkTextView" id="recipe_name_text_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="justification">center</property>
-                            <property name="buffer">RecipeNameTextBuffer</property>
+                            <property name="buffer">recipe_name_text_buffer</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -234,11 +214,11 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTextView" id="RecipeIngredientsTextView">
+                          <object class="GtkTextView" id="recipe_ingredients_text_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="justification">fill</property>
-                            <property name="buffer">RecipeIngredientsTextBuffer</property>
+                            <property name="buffer">recipe_ingredients_text_buffer</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -273,12 +253,12 @@ For “healthy looking” mandazis do not roll the dough too thin before frying 
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkTextView" id="RecipeTextView">
+                  <object class="GtkTextView" id="recipe_text_view">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="hscroll-policy">natural</property>
                     <property name="wrap-mode">word-char</property>
-                    <property name="buffer">RecipeTextBuffer</property>
+                    <property name="buffer">recipe_text_buffer</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
