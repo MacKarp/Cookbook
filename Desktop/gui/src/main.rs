@@ -2,7 +2,7 @@ use gio::prelude::*;
 use glib;
 use gtk::prelude::*;
 use std::env::args;
-
+mod main_window;
 fn main() {
     let application =
         gtk::Application::new(Some("com.github.mackarp.cookbook"), Default::default())
@@ -24,40 +24,27 @@ fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("../ui/Main_Window.glade");
     let builder = gtk::Builder::from_string(glade_src);
 
-    let main_window: gtk::Window = builder
-        .get_object("main_window")
-        .expect("\"main_window\" ID in \"Main_Window.glade\" should exist.");
-    main_window.set_application(Some(application));
+    let main_window = main_window::MainWindow::new(builder.clone());
+    main_window.window.set_application(Some(application));
+    main_window
+        .recipe_name_text_buffer
+        .set_text(get_recipe_name());
+    main_window
+        .recipe_ingredients_text_buffer
+        .set_text(get_recipe_ingredients());
+    main_window.recipe_text_buffer.set_text(get_recipe_text());
 
-    let recipe_name_text_buffer: gtk::TextBuffer = builder
-        .get_object("recipe_name_text_buffer")
-        .expect("\"recipe_name_text_buffer\" ID in \"Main_Window.glade\" should exist.");
-    recipe_name_text_buffer.set_text(get_recipe_name());
-
-    let recipe_ingredients_text_buffer: gtk::TextBuffer = builder
-        .get_object("recipe_ingredients_text_buffer")
-        .expect("\"recipe_ingredients_text_buffer\" ID in \"Main_Window.glade\" should exist.");
-    recipe_ingredients_text_buffer.set_text(get_recipe_ingredients());
-
-    let recipe_text_buffer: gtk::TextBuffer = builder
-        .get_object("recipe_text_buffer")
-        .expect("\"recipe_text_buffer\" ID in \"Main_Window.glade\" should exist.");
-    recipe_text_buffer.set_text(get_recipe_text());
-
-    let button: gtk::Button = builder
-        .get_object("random_recipe_button")
-        .expect("\"random_recipe_button\" ID in \"Main_Window.glade\" should exist.");
-
+    let random_button = main_window.button;
     builder.connect_signals(move |_, handler_name| match handler_name {
         "on_random_recipe_button_clicked" => Box::new(
-            glib::clone!(@weak button => @default-return None, move |_| {
+            glib::clone!(@weak random_button => @default-return None, move |_| {
               on_random_recipe_button_clicked();
               None}),
         ),
         _ => Box::new(|_| None),
     });
 
-    main_window.show_all();
+    main_window.window.show_all();
 }
 
 fn get_recipe_name() -> &'static str {
