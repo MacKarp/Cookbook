@@ -15,6 +15,6 @@ jobs:
           override: true
       - uses: actions-rs/cargo@v1
         with:
-          args: cd Desktop && cargo test
+          args: cd Desktop && cargo test -- --test-threads=1
 
 
