@@ -1,8 +1,10 @@
 [package]
 name = "cookbook"
 version = "0.1.0"
-authors = ["karpiu"]
-edition = "2018"
+authors = ["MacKarp"]
+ edition = "2018"
+description = "Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica"
+repository = "https://github.com/MacKarp/Cookbook" 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
