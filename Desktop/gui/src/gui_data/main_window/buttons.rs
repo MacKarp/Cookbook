@@ -1,4 +1,6 @@
+use cookbook::data::*;
 use gtk::prelude::*;
+
 #[derive(Clone, PartialEq, Debug)]
 pub struct MainWindowButtons {
     pub random_recipe_button: gtk::Button,
@@ -17,7 +19,8 @@ impl MainWindowButtons {
 }
 
 fn on_random_recipe_button_clicked() {
-    println!("Random recipe button clicked");
+    let meal = meal::get_random_recipe();
+    println!("{:?}", meal);
 }
 #[test]
 fn on_random_recipe_button_clicked_test() {
