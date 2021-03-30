@@ -1,4 +1,4 @@
-use serde::*;
+use serde::Deserialize;
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Meals {
