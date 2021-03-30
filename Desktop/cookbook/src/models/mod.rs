@@ -1,2 +1,3 @@
-pub mod cocktail;
+mod cocktail;
 pub mod meal;
+pub mod recipe;

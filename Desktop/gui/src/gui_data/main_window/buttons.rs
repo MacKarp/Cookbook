@@ -19,7 +19,7 @@ impl MainWindowButtons {
 }
 
 fn on_random_recipe_button_clicked() {
-    let meal = meal::get_random_recipe();
+    let meal = meal::get_random_meal_recipe();
     println!("{:?}", meal);
 }
 #[test]
