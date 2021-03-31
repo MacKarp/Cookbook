@@ -50,8 +50,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="random_recipe_button">
-                    <property name="label" translatable="yes">Random Recipe</property>
+                  <object class="GtkButton" id="random_meal_recipe_button">
+                    <property name="label" translatable="yes">Random meal</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>

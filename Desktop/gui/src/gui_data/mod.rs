@@ -1,5 +1,8 @@
-pub mod main_window;
 use gtk::prelude::*;
+
+pub mod connections;
+pub mod main_window;
+
 #[derive(Clone, PartialEq, Debug)]
 pub struct GuiData {
     // Glade builder
