@@ -1,1 +1,1 @@
-pub mod random_meal;
+pub mod buttons;

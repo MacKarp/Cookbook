@@ -3,6 +3,7 @@ use gtk::prelude::*;
 #[derive(Clone, PartialEq, Debug)]
 pub struct MainWindowButtons {
     pub random_meal_recipe_button: gtk::Button,
+    pub random_drink_recipe_button: gtk::Button,
 }
 
 impl MainWindowButtons {
@@ -10,8 +11,13 @@ impl MainWindowButtons {
         let random_meal_recipe_button: gtk::Button = builder
             .get_object("random_meal_recipe_button")
             .expect("\"random_meal_recipe_button\" ID in \"Main_Window.glade\" should exist.");
+        let random_drink_recipe_button: gtk::Button = builder
+            .get_object("random_drink_recipe_button")
+            .expect("\"random_drink_recipe_button\" ID in \"Main_Window.glade\" should exist.");
+
         Self {
             random_meal_recipe_button,
+            random_drink_recipe_button,
         }
     }
 }
@@ -25,9 +31,13 @@ fn create_from_builder_test() {
     let random_meal_recipe_button: gtk::Button = builder
         .get_object("random_meal_recipe_button")
         .expect("\"random_meal_recipe_button\" ID in \"Main_Window.glade\" should exist.");
+    let random_drink_recipe_button: gtk::Button = builder
+        .get_object("random_drink_recipe_button")
+        .expect("\"random_drink_recipe_button\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowButtons {
         random_meal_recipe_button,
+        random_drink_recipe_button,
     };
 
     let tested = MainWindowButtons::create_from_builder(&builder);

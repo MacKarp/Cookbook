@@ -479,9 +479,11 @@ name = "gui"
 version = "0.1.0"
 dependencies = [
  "cookbook",
+ "gdk-pixbuf",
  "gio",
  "glib",
  "gtk",
+ "reqwest",
 ]
 
 [[package]]

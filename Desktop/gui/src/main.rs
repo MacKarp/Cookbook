@@ -1,13 +1,13 @@
 mod gui_data;
 
 use gtk::prelude::*;
-use gui_data::connections::random_meal::connect_random_recipe_button;
+use gui_data::connections::buttons;
 
 fn main() {
     gtk::init().expect("Failed to initialize GTK...");
     let gui_data = gui_data::GuiData::new();
 
-    connect_random_recipe_button(&gui_data);
+    buttons::connect(&gui_data);
 
     {
         let window_main = gui_data.main_window;
