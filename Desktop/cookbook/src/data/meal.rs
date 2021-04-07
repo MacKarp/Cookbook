@@ -1,6 +1,6 @@
 use crate::models::{
     meal::{Meal, Meals},
-    recipe::MealRecipe,
+    meal_recipe::MealRecipe,
 };
 use reqwest::blocking::get;
 
@@ -27,6 +27,6 @@ fn get_random_meal_test() {
     let should_be_meal = get_random_meal();
     assert!(
         should_be_meal.is_some(),
-        format!("Random meal is 'None', is API online?")
+        "Random meal is 'None', is API online?"
     );
 }

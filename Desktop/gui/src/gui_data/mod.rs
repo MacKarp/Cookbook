@@ -17,6 +17,9 @@ pub struct GuiData {
 
     // Buttons
     pub main_window_buttons: main_window::buttons::MainWindowButtons,
+
+    // Images
+    pub main_window_images: main_window::images::MainWindowImages,
 }
 
 impl GuiData {
@@ -34,12 +37,17 @@ impl GuiData {
         let main_window_text = main_window::text::MainWindowText::create_from_builder(&builder);
         let main_window_buttons =
             main_window::buttons::MainWindowButtons::create_from_builder(&builder);
+
+        let main_window_images =
+            main_window::images::MainWindowImages::create_from_builder(&builder);
+
         Self {
             glade_src,
             builder,
             main_window,
             main_window_text,
             main_window_buttons,
+            main_window_images,
         }
     }
 }
@@ -57,12 +65,14 @@ fn new_gui_data_test() {
     let main_window_buttons =
         main_window::buttons::MainWindowButtons::create_from_builder(&builder);
 
+    let main_window_images = main_window::images::MainWindowImages::create_from_builder(&builder);
     let should_be = GuiData {
         glade_src,
         builder,
         main_window,
         main_window_text,
         main_window_buttons,
+        main_window_images,
     };
 
     let tested = GuiData::new();

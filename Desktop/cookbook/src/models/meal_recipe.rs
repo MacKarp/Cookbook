@@ -38,7 +38,7 @@ impl MealRecipe {
     }
     pub fn from_meal(meal: Meal) -> Self {
         let id = match &meal.id_meal {
-            Some(str_id) => str_id.clone().parse().unwrap_or_default(),
+            Some(str) => str.clone().parse().unwrap_or_default(),
             None => 0,
         };
         let meal_name = match &meal.str_meal {

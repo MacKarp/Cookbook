@@ -1,3 +1,4 @@
-mod cocktail;
+pub mod drink;
+pub mod drink_recipe;
 pub mod meal;
-pub mod recipe;
+pub mod meal_recipe;

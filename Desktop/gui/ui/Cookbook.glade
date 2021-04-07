@@ -50,6 +50,19 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkButton" id="random_drink_recipe_button">
+                    <property name="label" translatable="yes">Random drink</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkButton" id="random_meal_recipe_button">
                     <property name="label" translatable="yes">Random meal</property>
                     <property name="visible">True</property>
@@ -59,7 +72,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -233,10 +246,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkImage" id="RecipeImage">
+                      <object class="GtkImage" id="image_recipe">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="pixbuf">gui/thazgm1555350962.jpg</property>
+                        <property name="stock">gtk-missing-image</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
