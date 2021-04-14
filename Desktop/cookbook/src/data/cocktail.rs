@@ -1,15 +1,14 @@
-use crate::models::{
-    drink::{Drink, Drinks},
-    drink_recipe::DrinkRecipe,
-};
+use crate::models::drink::api::{AllDrinksAPI, DrinkAPI};
+use crate::models::drink::recipe::DrinkRecipe;
 
 use reqwest::blocking::get;
 
-pub fn get_random_drink() -> Option<Drink> {
-    let recieved_cocktail: Drinks = get(" https://www.thecocktaildb.com/api/json/v1/1/random.php")
-        .unwrap()
-        .json()
-        .unwrap();
+pub fn get_random_drink() -> Option<DrinkAPI> {
+    let recieved_cocktail: AllDrinksAPI =
+        get(" https://www.thecocktaildb.com/api/json/v1/1/random.php")
+            .unwrap()
+            .json()
+            .unwrap();
     if recieved_cocktail.drinks.get(0).is_some() {
         return Some(recieved_cocktail.drinks[0].clone());
     }

@@ -1,11 +1,10 @@
-use crate::models::{
-    meal::{Meal, Meals},
-    meal_recipe::MealRecipe,
-};
+use crate::models::meal::api::{AllMealsAPI, MealAPI};
+use crate::models::meal::recipe::MealRecipe;
+
 use reqwest::blocking::get;
 
-pub fn get_random_meal() -> Option<Meal> {
-    let recieved_meals: Meals = get("https://www.themealdb.com/api/json/v1/1/random.php")
+pub fn get_random_meal() -> Option<MealAPI> {
+    let recieved_meals: AllMealsAPI = get("https://www.themealdb.com/api/json/v1/1/random.php")
         .unwrap()
         .json()
         .unwrap();
