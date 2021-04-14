@@ -51,6 +51,10 @@ impl GuiData {
         }
     }
 }
+
+// This test should check if `GuiData::new()` generate proper GuiData structure,
+// This test fails and i don't know why
+
 #[test]
 #[ignore]
 fn new_gui_data_test() {
@@ -64,8 +68,8 @@ fn new_gui_data_test() {
     let main_window_text = main_window::text::MainWindowText::create_from_builder(&builder);
     let main_window_buttons =
         main_window::buttons::MainWindowButtons::create_from_builder(&builder);
-
     let main_window_images = main_window::images::MainWindowImages::create_from_builder(&builder);
+
     let should_be = GuiData {
         glade_src,
         builder,
@@ -77,6 +81,6 @@ fn new_gui_data_test() {
 
     let tested = GuiData::new();
 
-    //there should be equal but are not, but dunno why(different pointers?)
+    //there should be equal but are not, but dunno why(different pointers value?)
     assert_eq!(tested, should_be);
 }
