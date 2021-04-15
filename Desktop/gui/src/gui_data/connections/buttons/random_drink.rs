@@ -1,5 +1,5 @@
 use crate::gui_data::{connections::buttons::common, GuiData};
-use cookbook::{data::cocktail::get_random_drink_recipe, models::drink::recipe::DrinkRecipe};
+use cookbook::{data::drink::get_random_drink_recipe, models::drink::recipe::DrinkRecipe};
 
 use gtk::prelude::*;
 

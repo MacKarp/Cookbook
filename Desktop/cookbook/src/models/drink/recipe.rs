@@ -238,7 +238,7 @@ fn measure_ingredient(measure: &Option<String>, ingredient: &Option<String>) -> 
 
 #[test]
 fn ingredients_list_test() {
-    let drink = crate::data::cocktail::get_random_drink().expect("Should be valid Drink");
+    let drink = crate::data::drink::get_random_drink().expect("Should be valid Drink");
     let should_be = ingredients_list(&drink);
     assert!(should_be.len() > 0);
 }

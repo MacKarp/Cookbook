@@ -1,3 +1,6 @@
+pub mod area;
+pub mod categories;
+
 use crate::models::meal::api::{AllMealsAPI, MealAPI};
 use crate::models::meal::recipe::MealRecipe;
 
