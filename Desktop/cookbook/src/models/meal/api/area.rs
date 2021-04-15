@@ -2,12 +2,12 @@ use serde::Deserialize;
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AllDrinkCategoryAPI {
-    pub drinks: Vec<DrinkCategoryAPI>,
+pub struct AllAreaAPI {
+    pub meals: Vec<AreaAPI>,
 }
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct DrinkCategoryAPI {
-    pub str_category: Option<String>,
+pub struct AreaAPI {
+    pub str_area: Option<String>,
 }

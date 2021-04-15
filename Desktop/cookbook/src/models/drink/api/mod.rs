@@ -1,4 +1,7 @@
+pub mod alcoholic;
 pub mod categories;
+pub mod glass;
+pub mod ingredient;
 
 use serde::Deserialize;
 

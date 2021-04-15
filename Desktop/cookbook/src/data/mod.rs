@@ -1,3 +1,2 @@
-pub mod categories;
-pub mod cocktail;
+pub mod drink;
 pub mod meal;
