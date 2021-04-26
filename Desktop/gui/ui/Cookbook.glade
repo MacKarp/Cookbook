@@ -2,6 +2,12 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkTreeStore" id="meal_category_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkTextBuffer" id="recipe_ingredients_text_buffer"/>
   <object class="GtkTextBuffer" id="recipe_name_text_buffer"/>
   <object class="GtkTextBuffer" id="recipe_text_buffer"/>
@@ -123,20 +129,33 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkNotebook" id="CategoryTabs">
+              <object class="GtkNotebook">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <child>
-                  <object class="GtkTreeView" id="FavoriteTabList">
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection"/>
+                    <property name="shadow-type">in</property>
+                    <child>
+                      <object class="GtkViewport">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkTreeView">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
                     </child>
                   </object>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="FavoritesLabel">
+                  <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Favorites</property>
@@ -146,11 +165,37 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkTreeView" id="MealTabList">
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection"/>
+                    <property name="shadow-type">in</property>
+                    <child>
+                      <object class="GtkViewport">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkTreeView">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="model">meal_category_tree_store</property>
+                            <property name="headers-visible">False</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn">
+                                <property name="title" translatable="yes">column</property>
+                                <child>
+                                  <object class="GtkCellRendererText"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
                     </child>
                   </object>
                   <packing>
@@ -158,10 +203,10 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="MealLabel">
+                  <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Meals</property>
+                    <property name="label" translatable="yes">Meal</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
@@ -169,11 +214,25 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkTreeView" id="CocktailTabList">
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection"/>
+                    <property name="shadow-type">in</property>
+                    <child>
+                      <object class="GtkViewport">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="vexpand">True</property>
+                        <child>
+                          <object class="GtkTreeView">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
                     </child>
                   </object>
                   <packing>
@@ -181,10 +240,10 @@
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="CocktailLabel">
+                  <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Cocktails</property>
+                    <property name="label" translatable="yes">Drink</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
@@ -226,11 +285,19 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTextView" id="recipe_ingredients_text_view">
+                          <object class="GtkScrolledWindow">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
-                            <property name="justification">fill</property>
-                            <property name="buffer">recipe_ingredients_text_buffer</property>
+                            <property name="shadow-type">in</property>
+                            <property name="propagate-natural-height">True</property>
+                            <child>
+                              <object class="GtkTextView" id="recipe_ingredients_text_view">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                                <property name="justification">fill</property>
+                                <property name="buffer">recipe_ingredients_text_buffer</property>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -265,12 +332,20 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkTextView" id="recipe_text_view">
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="hscroll-policy">natural</property>
-                    <property name="wrap-mode">word-char</property>
-                    <property name="buffer">recipe_text_buffer</property>
+                    <property name="shadow-type">in</property>
+                    <property name="propagate-natural-height">True</property>
+                    <child>
+                      <object class="GtkTextView" id="recipe_text_view">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="hscroll-policy">natural</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="buffer">recipe_text_buffer</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
