@@ -20,6 +20,9 @@ pub struct GuiData {
 
     // Images
     pub main_window_images: main_window::images::MainWindowImages,
+
+    // Category Notebook
+    pub main_window_category_notebook: main_window::category_notebook::MainWindowCategoryNotebook,
 }
 
 impl GuiData {
@@ -41,6 +44,11 @@ impl GuiData {
         let main_window_images =
             main_window::images::MainWindowImages::create_from_builder(&builder);
 
+        let main_window_category_notebook =
+            main_window::category_notebook::MainWindowCategoryNotebook::create_from_builder(
+                &builder,
+            );
+
         Self {
             glade_src,
             builder,
@@ -48,6 +56,7 @@ impl GuiData {
             main_window_text,
             main_window_buttons,
             main_window_images,
+            main_window_category_notebook,
         }
     }
 }
@@ -69,6 +78,8 @@ fn new_gui_data_test() {
     let main_window_buttons =
         main_window::buttons::MainWindowButtons::create_from_builder(&builder);
     let main_window_images = main_window::images::MainWindowImages::create_from_builder(&builder);
+    let main_window_category_notebook =
+        main_window::category_notebook::MainWindowCategoryNotebook::create_from_builder(&builder);
 
     let should_be = GuiData {
         glade_src,
@@ -77,10 +88,11 @@ fn new_gui_data_test() {
         main_window_text,
         main_window_buttons,
         main_window_images,
+        main_window_category_notebook,
     };
 
     let tested = GuiData::new();
 
-    //there should be equal but are not, but dunno why(different pointers value?)
+    //there should be equal but are not, but dunno why
     assert_eq!(tested, should_be);
 }
