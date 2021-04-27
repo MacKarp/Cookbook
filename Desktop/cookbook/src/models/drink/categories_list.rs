@@ -2,7 +2,7 @@ use super::api::categories::AllDrinkCategoryAPI;
 
 #[derive(Debug)]
 pub struct DrinkCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl DrinkCategoryList {
     pub fn default() -> Self {

@@ -2,6 +2,12 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkTreeStore" id="drink_category_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkTreeStore" id="meal_category_tree_store">
     <columns>
       <!-- column-name gchararray1 -->
@@ -174,7 +180,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <child>
-                          <object class="GtkTreeView">
+                          <object class="GtkTreeView" id="meal_category_tree_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="model">meal_category_tree_store</property>
@@ -189,6 +195,7 @@
                                   <object class="GtkCellRendererText"/>
                                   <attributes>
                                     <attribute name="text">0</attribute>
+                                    <attribute name="max-width-chars">2</attribute>
                                   </attributes>
                                 </child>
                               </object>
@@ -224,11 +231,24 @@
                         <property name="can-focus">False</property>
                         <property name="vexpand">True</property>
                         <child>
-                          <object class="GtkTreeView">
+                          <object class="GtkTreeView" id="drink_category_tree_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="model">drink_category_tree_store</property>
+                            <property name="headers-visible">False</property>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection"/>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn">
+                                <property name="title" translatable="yes">column</property>
+                                <child>
+                                  <object class="GtkCellRendererText"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
                             </child>
                           </object>
                         </child>

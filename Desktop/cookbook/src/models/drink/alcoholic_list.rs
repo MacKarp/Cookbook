@@ -2,7 +2,7 @@ use super::api::alcoholic::AllAlcoholicAPI;
 
 #[derive(Debug)]
 pub struct AlcoholicCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl AlcoholicCategoryList {
     pub fn default() -> Self {

@@ -2,7 +2,7 @@ use crate::models::meal::api::area::AllAreaAPI;
 
 #[derive(Debug)]
 pub struct AreaCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl AreaCategoryList {
     pub fn default() -> Self {

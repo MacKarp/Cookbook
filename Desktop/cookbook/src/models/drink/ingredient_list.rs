@@ -2,7 +2,7 @@ use super::api::ingredient::AllIngredientAPI;
 
 #[derive(Debug)]
 pub struct IngredientCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl IngredientCategoryList {
     pub fn default() -> Self {
