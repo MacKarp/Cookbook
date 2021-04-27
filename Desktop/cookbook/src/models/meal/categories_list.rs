@@ -2,7 +2,7 @@ use crate::models::meal::api::categories::AllMealCategoriesAPI;
 
 #[derive(Debug)]
 pub struct MealCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl MealCategoryList {
     pub fn default() -> Self {

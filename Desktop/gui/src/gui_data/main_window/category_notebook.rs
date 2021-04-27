@@ -3,6 +3,10 @@ use gtk::prelude::*;
 #[derive(Clone, PartialEq, Debug)]
 pub struct MainWindowCategoryNotebook {
     pub meal_category_tree_store: gtk::TreeStore,
+    pub meal_category_tree_view: gtk::TreeView,
+
+    pub drink_category_tree_store: gtk::TreeStore,
+    pub drink_category_tree_view: gtk::TreeView,
 }
 
 impl MainWindowCategoryNotebook {
@@ -10,27 +14,23 @@ impl MainWindowCategoryNotebook {
         let meal_category_tree_store: gtk::TreeStore = builder
             .get_object("meal_category_tree_store")
             .expect("\"meal_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+        let meal_category_tree_view: gtk::TreeView = builder
+            .get_object("meal_category_tree_view")
+            .expect("\"meal_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
 
-        for i in 0..10 {
-            let iter = meal_category_tree_store.insert_with_values(
-                None,
-                None,
-                &[0],
-                &[&format!("Hello {}", i)],
-            );
-
-            for _ in 0..i {
-                meal_category_tree_store.insert_with_values(
-                    Some(&iter),
-                    None,
-                    &[0],
-                    &[&format!("I'm a child node")],
-                );
-            }
-        }
+        let drink_category_tree_store: gtk::TreeStore = builder
+            .get_object("drink_category_tree_store")
+            .expect("\"drink_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+        let drink_category_tree_view: gtk::TreeView = builder
+            .get_object("drink_category_tree_view")
+            .expect("\"drink_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
 
         Self {
             meal_category_tree_store,
+            meal_category_tree_view,
+
+            drink_category_tree_store,
+            drink_category_tree_view,
         }
     }
 }
@@ -44,9 +44,22 @@ fn create_from_builder_test() {
     let meal_category_tree_store: gtk::TreeStore = builder
         .get_object("meal_category_tree_store")
         .expect("\"meal_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+    let meal_category_tree_view: gtk::TreeView = builder
+        .get_object("meal_category_tree_view")
+        .expect("\"meal_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
+    let drink_category_tree_store: gtk::TreeStore = builder
+        .get_object("drink_category_tree_store")
+        .expect("\"drink_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+    let drink_category_tree_view: gtk::TreeView = builder
+        .get_object("drink_category_tree_view")
+        .expect("\"drink_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowCategoryNotebook {
         meal_category_tree_store,
+        meal_category_tree_view,
+
+        drink_category_tree_store,
+        drink_category_tree_view,
     };
 
     let tested = MainWindowCategoryNotebook::create_from_builder(&builder);

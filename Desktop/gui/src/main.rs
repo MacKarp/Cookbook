@@ -1,3 +1,4 @@
+mod gui;
 mod gui_data;
 
 use gtk::prelude::*;
@@ -7,6 +8,7 @@ fn main() {
     gtk::init().expect("Failed to initialize GTK...");
     let gui_data = gui_data::GuiData::new();
 
+    gui::initialize(&gui_data);
     buttons::connect(&gui_data);
 
     {

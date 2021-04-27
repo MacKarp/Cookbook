@@ -12,7 +12,12 @@ pub fn random_button(gui_data: &GuiData) {
     random_meal_button.connect_clicked(move |_| on_random_recipe_button_clicked(&gui_data));
 }
 
-fn on_random_recipe_button_clicked(gui_data: &GuiData) {
+pub fn on_random_recipe_button_clicked(gui_data: &GuiData) {
+    gui_data
+        .main_window_stack
+        .stack
+        .set_visible_child(&gui_data.main_window_stack.recipe_editor_box);
+
     let meal = get_random_meal_recipe();
     set_recipe_fields(&gui_data, meal);
 }

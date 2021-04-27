@@ -2,7 +2,7 @@ use super::api::glass::AllGlassAPI;
 
 #[derive(Debug)]
 pub struct GlassCategoryList {
-    categories: Vec<String>,
+    pub categories: Vec<String>,
 }
 impl GlassCategoryList {
     pub fn default() -> Self {

@@ -2,6 +2,12 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkTreeStore" id="drink_category_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkTreeStore" id="meal_category_tree_store">
     <columns>
       <!-- column-name gchararray1 -->
@@ -16,6 +22,8 @@
     <property name="height-request">720</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Cookbook</property>
+    <property name="icon">gui/ui/coocklogo.png</property>
+    <property name="show-menubar">False</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -174,7 +182,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <child>
-                          <object class="GtkTreeView">
+                          <object class="GtkTreeView" id="meal_category_tree_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="model">meal_category_tree_store</property>
@@ -189,6 +197,7 @@
                                   <object class="GtkCellRendererText"/>
                                   <attributes>
                                     <attribute name="text">0</attribute>
+                                    <attribute name="max-width-chars">2</attribute>
                                   </attributes>
                                 </child>
                               </object>
@@ -224,11 +233,24 @@
                         <property name="can-focus">False</property>
                         <property name="vexpand">True</property>
                         <child>
-                          <object class="GtkTreeView">
+                          <object class="GtkTreeView" id="drink_category_tree_view">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="model">drink_category_tree_store</property>
+                            <property name="headers-visible">False</property>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection"/>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn">
+                                <property name="title" translatable="yes">column</property>
+                                <child>
+                                  <object class="GtkCellRendererText"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
                             </child>
                           </object>
                         </child>
@@ -258,46 +280,69 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkStack" id="main_window_stack">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox">
+                  <object class="GtkBox" id="recipe_editor_box">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkTextView" id="recipe_name_text_view">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="justification">center</property>
-                            <property name="buffer">recipe_name_text_buffer</property>
+                            <property name="can-focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkTextView" id="recipe_name_text_view">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                                <property name="justification">center</property>
+                                <property name="buffer">recipe_name_text_buffer</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkScrolledWindow">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                                <property name="shadow-type">in</property>
+                                <property name="propagate-natural-height">True</property>
+                                <child>
+                                  <object class="GtkTextView" id="recipe_ingredients_text_view">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="justification">fill</property>
+                                    <property name="buffer">recipe_ingredients_text_buffer</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
+                            <property name="expand">True</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScrolledWindow">
+                          <object class="GtkImage" id="image_recipe">
                             <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="shadow-type">in</property>
-                            <property name="propagate-natural-height">True</property>
-                            <child>
-                              <object class="GtkTextView" id="recipe_ingredients_text_view">
-                                <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="justification">fill</property>
-                                <property name="buffer">recipe_ingredients_text_buffer</property>
-                              </object>
-                            </child>
+                            <property name="can-focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -307,16 +352,26 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image_recipe">
+                      <object class="GtkScrolledWindow">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
+                        <property name="can-focus">True</property>
+                        <property name="shadow-type">in</property>
+                        <property name="propagate-natural-height">True</property>
+                        <child>
+                          <object class="GtkTextView" id="recipe_text_view">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="hscroll-policy">natural</property>
+                            <property name="wrap-mode">word-char</property>
+                            <property name="buffer">recipe_text_buffer</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -326,30 +381,20 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="name">page0</property>
+                    <property name="title" translatable="yes">page0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScrolledWindow">
+                  <object class="GtkButton" id="child">
+                    <property name="label" translatable="yes">button</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="shadow-type">in</property>
-                    <property name="propagate-natural-height">True</property>
-                    <child>
-                      <object class="GtkTextView" id="recipe_text_view">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="hscroll-policy">natural</property>
-                        <property name="wrap-mode">word-char</property>
-                        <property name="buffer">recipe_text_buffer</property>
-                      </object>
-                    </child>
+                    <property name="receives-default">True</property>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
+                    <property name="name">page1</property>
+                    <property name="title" translatable="yes">page1</property>
                     <property name="position">1</property>
                   </packing>
                 </child>

@@ -483,6 +483,7 @@ dependencies = [
  "gio",
  "glib",
  "gtk",
+ "rand",
  "reqwest",
 ]
 
