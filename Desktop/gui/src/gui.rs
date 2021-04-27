@@ -1,15 +1,31 @@
-use crate::gui_data::GuiData;
+use crate::gui_data::{
+    connections::buttons::{random_drink, random_meal},
+    GuiData,
+};
 use cookbook::data::drink::{
     alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
     ingredient::get_ingredient_list,
 };
 use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
+
 use gtk::prelude::TreeStoreExtManual;
 use gtk::TreeViewExt;
+use rand::prelude::*;
 
 pub fn initialize(gui_data: &GuiData) {
     initialize_meal_category_tab(&gui_data);
     initialize_drink_category_tab(&gui_data);
+    initialize_stack(&gui_data);
+}
+
+fn initialize_stack(gui_data: &GuiData) -> () {
+    let mut rng = rand::thread_rng();
+    let rand_recipe: u8 = rng.gen_range(0..2);
+    match rand_recipe {
+        0 => random_drink::on_random_recipe_button_clicked(&gui_data),
+        1 => random_meal::on_random_recipe_button_clicked(&gui_data),
+        _ => (),
+    }
 }
 
 fn initialize_drink_category_tab(gui_data: &GuiData) -> () {

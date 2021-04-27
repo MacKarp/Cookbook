@@ -23,6 +23,8 @@ pub struct GuiData {
 
     // Category Notebook
     pub main_window_category_notebook: main_window::category_notebook::MainWindowCategoryNotebook,
+
+    pub main_window_stack: main_window::stack::MainWindowStack,
 }
 
 impl GuiData {
@@ -49,6 +51,8 @@ impl GuiData {
                 &builder,
             );
 
+        let main_window_stack = main_window::stack::MainWindowStack::create_from_builder(&builder);
+
         Self {
             glade_src,
             builder,
@@ -57,6 +61,7 @@ impl GuiData {
             main_window_buttons,
             main_window_images,
             main_window_category_notebook,
+            main_window_stack,
         }
     }
 }
@@ -80,6 +85,7 @@ fn new_gui_data_test() {
     let main_window_images = main_window::images::MainWindowImages::create_from_builder(&builder);
     let main_window_category_notebook =
         main_window::category_notebook::MainWindowCategoryNotebook::create_from_builder(&builder);
+    let main_window_stack = main_window::stack::MainWindowStack::create_from_builder(&builder);
 
     let should_be = GuiData {
         glade_src,
@@ -89,6 +95,7 @@ fn new_gui_data_test() {
         main_window_buttons,
         main_window_images,
         main_window_category_notebook,
+        main_window_stack,
     };
 
     let tested = GuiData::new();
