@@ -1,4 +1,5 @@
-use crate::models::drink::{api::glass::AllGlassAPI, glass_list::GlassCategoryList};
+use crate::dto::drink::glass_list::GlassCategoryList;
+use crate::models::drink::glass::AllGlassAPI;
 
 use reqwest::blocking::get;
 

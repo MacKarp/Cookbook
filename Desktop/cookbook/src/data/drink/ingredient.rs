@@ -1,6 +1,5 @@
-use crate::models::drink::{
-    api::ingredient::AllIngredientAPI, ingredient_list::IngredientCategoryList,
-};
+use crate::dto::drink::ingredient_list::IngredientCategoryList;
+use crate::models::drink::ingredient::AllIngredientAPI;
 
 use reqwest::blocking::get;
 

@@ -1,5 +1,6 @@
 use crate::gui_data::{connections::buttons::common, GuiData};
-use cookbook::{data::meal::get_random_meal_recipe, models::meal::recipe::MealRecipe};
+use cookbook::data::meal::get_random_meal_recipe;
+use cookbook::dto::meal::recipe::MealRecipe;
 
 use gtk::prelude::*;
 

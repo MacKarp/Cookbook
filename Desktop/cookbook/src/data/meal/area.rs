@@ -1,4 +1,5 @@
-use crate::models::meal::{api::area::AllAreaAPI, area_list::AreaCategoryList};
+use crate::dto::meal::area_list::AreaCategoryList;
+use crate::models::meal::area::AllAreaAPI;
 
 use reqwest::blocking::get;
 

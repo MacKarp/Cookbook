@@ -1,20 +1,20 @@
-use super::api::ingredient::AllIngredientAPI;
+use crate::models::meal::categories::AllMealCategoriesAPI;
 
 #[derive(Debug)]
-pub struct IngredientCategoryList {
+pub struct MealCategoryList {
     pub categories: Vec<String>,
 }
-impl IngredientCategoryList {
+impl MealCategoryList {
     pub fn default() -> Self {
         let categories = Vec::<String>::new();
         Self { categories }
     }
 
-    pub fn from_api(ingredient_categories: AllIngredientAPI) -> Self {
+    pub fn from_api(meal_categories: AllMealCategoriesAPI) -> Self {
         let mut categories = Vec::<String>::new();
 
-        for c in ingredient_categories.drinks {
-            match c.str_ingredient1 {
+        for c in meal_categories.meals {
+            match c.str_category {
                 Some(category) => categories.push(category),
                 None => break,
             }

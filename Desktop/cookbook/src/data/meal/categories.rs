@@ -1,5 +1,5 @@
-use crate::models::meal::api::categories::AllMealCategoriesAPI;
-use crate::models::meal::categories_list::MealCategoryList;
+use crate::dto::meal::categories_list::MealCategoryList;
+use crate::models::meal::categories::AllMealCategoriesAPI;
 
 use reqwest::blocking::get;
 

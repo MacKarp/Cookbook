@@ -5,6 +5,9 @@ pub struct MainWindowStack {
     pub stack: gtk::Stack,
 
     pub recipe_editor_box: gtk::Box,
+    pub selected_category_tree_store: gtk::TreeStore,
+    pub selected_category_tree_view: gtk::TreeView,
+    pub selected_category_tree_selection: gtk::TreeSelection,
 }
 
 impl MainWindowStack {
@@ -15,10 +18,24 @@ impl MainWindowStack {
         let recipe_editor_box: gtk::Box = builder
             .get_object("recipe_editor_box")
             .expect("\"recipe_editor_box\" ID in \"Main_Window.glade\" should exist.");
+        let selected_category_tree_store: gtk::TreeStore = builder
+            .get_object("selected_category_tree_store")
+            .expect("\"selected_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+        let selected_category_tree_view: gtk::TreeView = builder
+            .get_object("selected_category_tree_view")
+            .expect("\"selected_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
+        let selected_category_tree_selection: gtk::TreeSelection = builder
+            .get_object("selected_category_tree_selection")
+            .expect(
+                "\"selected_category_tree_selection\" ID in \"Main_Window.glade\" should exist.",
+            );
 
         Self {
             stack,
             recipe_editor_box,
+            selected_category_tree_store,
+            selected_category_tree_view,
+            selected_category_tree_selection,
         }
     }
 }
@@ -35,10 +52,22 @@ fn create_from_builder_test() {
     let recipe_editor_box: gtk::Box = builder
         .get_object("recipe_editor_box")
         .expect("\"recipe_editor_box\" ID in \"Main_Window.glade\" should exist.");
+    let selected_category_tree_store: gtk::TreeStore = builder
+        .get_object("selected_category_tree_store")
+        .expect("\"selected_category_tree_store\" ID in \"Main_Window.glade\" should exist.");
+    let selected_category_tree_view: gtk::TreeView = builder
+        .get_object("selected_category_tree_view")
+        .expect("\"selected_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
+    let selected_category_tree_selection: gtk::TreeSelection = builder
+        .get_object("selected_category_tree_selection")
+        .expect("\"selected_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowStack {
         stack,
         recipe_editor_box,
+        selected_category_tree_store,
+        selected_category_tree_view,
+        selected_category_tree_selection,
     };
 
     let tested = MainWindowStack::create_from_builder(&builder);

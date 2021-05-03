@@ -1,4 +1,4 @@
-use crate::models::meal::api::MealAPI;
+use crate::models::meal::MealAPI;
 
 #[derive(Debug)]
 pub struct MealRecipe {

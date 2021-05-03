@@ -1,5 +1,5 @@
-use crate::models::drink::api::categories::AllDrinkCategoryAPI;
-use crate::models::drink::categories_list::DrinkCategoryList;
+use crate::dto::drink::categories_list::DrinkCategoryList;
+use crate::models::drink::categories::AllDrinkCategoryAPI;
 
 use reqwest::blocking::get;
 

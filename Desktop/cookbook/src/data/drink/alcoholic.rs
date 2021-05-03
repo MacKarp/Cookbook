@@ -1,6 +1,5 @@
-use crate::models::drink::{
-    alcoholic_list::AlcoholicCategoryList, api::alcoholic::AllAlcoholicAPI,
-};
+use crate::dto::drink::alcoholic_list::AlcoholicCategoryList;
+use crate::models::drink::alcoholic::AllAlcoholicAPI;
 
 use reqwest::blocking::get;
 

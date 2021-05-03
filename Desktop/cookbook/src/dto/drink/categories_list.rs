@@ -1,20 +1,20 @@
-use super::api::alcoholic::AllAlcoholicAPI;
+use crate::models::drink::categories::AllDrinkCategoryAPI;
 
 #[derive(Debug)]
-pub struct AlcoholicCategoryList {
+pub struct DrinkCategoryList {
     pub categories: Vec<String>,
 }
-impl AlcoholicCategoryList {
+impl DrinkCategoryList {
     pub fn default() -> Self {
         let categories = Vec::<String>::new();
         Self { categories }
     }
 
-    pub fn from_api(alcoholic_categories: AllAlcoholicAPI) -> Self {
+    pub fn from_api(drink_categories: AllDrinkCategoryAPI) -> Self {
         let mut categories = Vec::<String>::new();
 
-        for c in alcoholic_categories.drinks {
-            match c.str_alcoholic {
+        for c in drink_categories.drinks {
+            match c.str_category {
                 Some(category) => categories.push(category),
                 None => break,
             }

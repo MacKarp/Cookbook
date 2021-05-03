@@ -7,6 +7,9 @@ pub struct MainWindowCategoryNotebook {
 
     pub drink_category_tree_store: gtk::TreeStore,
     pub drink_category_tree_view: gtk::TreeView,
+
+    pub meal_category_tree_selection: gtk::TreeSelection,
+    pub drink_category_tree_selection: gtk::TreeSelection,
 }
 
 impl MainWindowCategoryNotebook {
@@ -25,12 +28,21 @@ impl MainWindowCategoryNotebook {
             .get_object("drink_category_tree_view")
             .expect("\"drink_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
 
+        let meal_category_tree_selection: gtk::TreeSelection = builder
+            .get_object("meal_category_tree_selection")
+            .expect("\"meal_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
+        let drink_category_tree_selection: gtk::TreeSelection = builder
+            .get_object("drink_category_tree_selection")
+            .expect("\"drink_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
+
         Self {
             meal_category_tree_store,
             meal_category_tree_view,
+            meal_category_tree_selection,
 
             drink_category_tree_store,
             drink_category_tree_view,
+            drink_category_tree_selection,
         }
     }
 }
@@ -53,13 +65,21 @@ fn create_from_builder_test() {
     let drink_category_tree_view: gtk::TreeView = builder
         .get_object("drink_category_tree_view")
         .expect("\"drink_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
+    let meal_category_tree_selection: gtk::TreeSelection = builder
+        .get_object("meal_category_tree_selection")
+        .expect("\"meal_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
+    let drink_category_tree_selection: gtk::TreeSelection = builder
+        .get_object("drink_category_tree_selection")
+        .expect("\"drink_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowCategoryNotebook {
         meal_category_tree_store,
         meal_category_tree_view,
+        meal_category_tree_selection,
 
         drink_category_tree_store,
         drink_category_tree_view,
+        drink_category_tree_selection,
     };
 
     let tested = MainWindowCategoryNotebook::create_from_builder(&builder);

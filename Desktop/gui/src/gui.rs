@@ -8,19 +8,24 @@ use cookbook::data::drink::{
 };
 use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
 
-use gtk::prelude::TreeStoreExtManual;
-use gtk::TreeViewExt;
+use gtk::prelude::*;
 use rand::prelude::*;
 
 pub fn initialize(gui_data: &GuiData) {
     initialize_meal_category_tab(&gui_data);
     initialize_drink_category_tab(&gui_data);
     initialize_stack(&gui_data);
+    initialize_buttons(&gui_data);
+}
+
+fn initialize_buttons(gui_data: &GuiData) -> () {
+    let previous_stack_button = gui_data.main_window_buttons.previous_stack_button.clone();
+    previous_stack_button.set_sensitive(false);
 }
 
 fn initialize_stack(gui_data: &GuiData) -> () {
     let mut rng = rand::thread_rng();
-    let rand_recipe: u8 = rng.gen_range(0..2);
+    let rand_recipe: u8 = rng.gen_range(0..=1);
     match rand_recipe {
         0 => random_drink::on_random_recipe_button_clicked(&gui_data),
         1 => random_meal::on_random_recipe_button_clicked(&gui_data),

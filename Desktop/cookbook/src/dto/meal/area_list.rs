@@ -1,20 +1,20 @@
-use super::api::categories::AllDrinkCategoryAPI;
+use crate::models::meal::area::AllAreaAPI;
 
 #[derive(Debug)]
-pub struct DrinkCategoryList {
+pub struct AreaCategoryList {
     pub categories: Vec<String>,
 }
-impl DrinkCategoryList {
+impl AreaCategoryList {
     pub fn default() -> Self {
         let categories = Vec::<String>::new();
         Self { categories }
     }
 
-    pub fn from_api(drink_categories: AllDrinkCategoryAPI) -> Self {
+    pub fn from_api(area_categories: AllAreaAPI) -> Self {
         let mut categories = Vec::<String>::new();
 
-        for c in drink_categories.drinks {
-            match c.str_category {
+        for c in area_categories.meals {
+            match c.str_area {
                 Some(category) => categories.push(category),
                 None => break,
             }
