@@ -3,8 +3,8 @@ pub mod categories;
 pub mod glass;
 pub mod ingredient;
 
-use crate::models::drink::api::{AllDrinksAPI, DrinkAPI};
-use crate::models::drink::recipe::DrinkRecipe;
+use crate::dto::drink::recipe::DrinkRecipe;
+use crate::models::drink::{AllDrinksAPI, DrinkAPI};
 
 use reqwest::blocking::get;
 

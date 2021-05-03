@@ -1,20 +1,20 @@
-use super::api::glass::AllGlassAPI;
+use crate::models::drink::ingredient::AllIngredientAPI;
 
 #[derive(Debug)]
-pub struct GlassCategoryList {
+pub struct IngredientCategoryList {
     pub categories: Vec<String>,
 }
-impl GlassCategoryList {
+impl IngredientCategoryList {
     pub fn default() -> Self {
         let categories = Vec::<String>::new();
         Self { categories }
     }
 
-    pub fn from_api(glass_categories: AllGlassAPI) -> Self {
+    pub fn from_api(ingredient_categories: AllIngredientAPI) -> Self {
         let mut categories = Vec::<String>::new();
 
-        for c in glass_categories.drinks {
-            match c.str_glass {
+        for c in ingredient_categories.drinks {
+            match c.str_ingredient1 {
                 Some(category) => categories.push(category),
                 None => break,
             }

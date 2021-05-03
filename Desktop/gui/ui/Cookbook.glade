@@ -17,6 +17,12 @@
   <object class="GtkTextBuffer" id="recipe_ingredients_text_buffer"/>
   <object class="GtkTextBuffer" id="recipe_name_text_buffer"/>
   <object class="GtkTextBuffer" id="recipe_text_buffer"/>
+  <object class="GtkTreeStore" id="selected_category_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkApplicationWindow" id="main_window">
     <property name="width-request">1280</property>
     <property name="height-request">720</property>
@@ -109,7 +115,23 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="previous_stack_button">
+                <property name="label">gtk-undo</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-stock">True</property>
+                <property name="image-position">right</property>
+                <property name="always-show-image">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -122,7 +144,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">4</property>
               </packing>
             </child>
           </object>
@@ -188,7 +210,7 @@
                             <property name="model">meal_category_tree_store</property>
                             <property name="headers-visible">False</property>
                             <child internal-child="selection">
-                              <object class="GtkTreeSelection"/>
+                              <object class="GtkTreeSelection" id="meal_category_tree_selection"/>
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn">
@@ -239,7 +261,7 @@
                             <property name="model">drink_category_tree_store</property>
                             <property name="headers-visible">False</property>
                             <child internal-child="selection">
-                              <object class="GtkTreeSelection"/>
+                              <object class="GtkTreeSelection" id="drink_category_tree_selection"/>
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn">
@@ -386,11 +408,38 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="child">
-                    <property name="label" translatable="yes">button</property>
+                  <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="shadow-type">in</property>
+                    <child>
+                      <object class="GtkViewport">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkTreeView" id="selected_category_tree_view">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="model">selected_category_tree_store</property>
+                            <property name="headers-visible">False</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="selected_category_tree_selection"/>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn">
+                                <property name="title" translatable="yes">column</property>
+                                <child>
+                                  <object class="GtkCellRendererText"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="name">page1</property>

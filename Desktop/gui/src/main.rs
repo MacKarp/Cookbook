@@ -2,7 +2,7 @@ mod gui;
 mod gui_data;
 
 use gtk::prelude::*;
-use gui_data::connections::buttons;
+use gui_data::connections::*;
 
 fn main() {
     gtk::init().expect("Failed to initialize GTK...");
@@ -10,6 +10,7 @@ fn main() {
 
     gui::initialize(&gui_data);
     buttons::connect(&gui_data);
+    tree_selections::connect(&gui_data);
 
     {
         let window_main = gui_data.main_window;

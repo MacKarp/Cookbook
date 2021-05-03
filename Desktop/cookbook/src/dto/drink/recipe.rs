@@ -1,4 +1,5 @@
-use super::api::DrinkAPI;
+use crate::models::drink::DrinkAPI;
+
 #[derive(Debug)]
 pub struct DrinkRecipe {
     pub id: u64,
