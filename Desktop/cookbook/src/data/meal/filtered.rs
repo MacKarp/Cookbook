@@ -33,3 +33,61 @@ fn get_filtered_meal_from_api(url: String) -> MealFilteredList {
 
     MealFilteredList::from_api(filtered_list)
 }
+
+
+#[test]
+fn get_categories_filtered_meal_category_items() {
+    let value = (
+        String::from("Beef"),
+        Some(String::from("Categories"))
+    );
+
+    // First drink name returned from API, it can change!
+    let should_be=String::from("Beef and Mustard Pie"); 
+
+    let tested = get_filtered_meal_category_items(&value).filtered_meals;
+    let tested = tested[0].str_meal.clone();
+
+    assert_eq!(
+        should_be,tested,
+        "Incorecct filtered 'Meal Categories' name, check if API is online and first drink name is: Beef and Mustard Pie"
+    );
+}
+
+#[test]
+fn get_area_filtered_meal_category_items() {
+    let value = (
+        String::from("American"),
+        Some(String::from("Area"))
+    );
+
+    // First drink name returned from API, it can change!
+    let should_be=String::from("Banana Pancakes"); 
+
+    let tested = get_filtered_meal_category_items(&value).filtered_meals;
+    let tested = tested[0].str_meal.clone();
+
+    assert_eq!(
+        should_be,tested,
+        "Incorecct filtered 'Meal Area' name, check if API is online and first drink name is: Banana Pancakes"
+    );
+}
+
+#[test]
+fn get_ingredients_filtered_meal_category_items() {
+    let value = (
+        String::from("Chicken"),
+        Some(String::from("Ingredients"))
+    );
+
+    // First drink name returned from API, it can change!
+    let should_be=String::from("Brown Stew Chicken"); 
+
+    let tested = get_filtered_meal_category_items(&value).filtered_meals;
+    let tested = tested[0].str_meal.clone();
+
+    assert_eq!(
+        should_be,tested,
+        "Incorecct filtered 'Meal Ingredients' name, check if API is online and first drink name is: Brown Stew Chicken"
+    );
+}
