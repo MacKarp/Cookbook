@@ -1,4 +1,4 @@
-use crate::models::drink::DrinkAPI;
+use crate::models::drink::DrinkApi;
 
 #[derive(Debug)]
 pub struct DrinkRecipe {
@@ -53,7 +53,7 @@ impl DrinkRecipe {
         }
     }
 
-    pub fn from_drink(drink: DrinkAPI) -> Self {
+    pub fn from_drink(drink: DrinkApi) -> Self {
         let id = match &drink.id_drink {
             Some(str_id) => str_id.clone().parse().unwrap_or_default(),
             None => 0,
@@ -173,7 +173,7 @@ impl DrinkRecipe {
     }
 }
 
-fn ingredients_list(drink: &DrinkAPI) -> Vec<String> {
+fn ingredients_list(drink: &DrinkApi) -> Vec<String> {
     let mut ingredients = Vec::new();
 
     let mut measured_ingredient = measure_ingredient(&drink.str_measure1, &drink.str_ingredient1);

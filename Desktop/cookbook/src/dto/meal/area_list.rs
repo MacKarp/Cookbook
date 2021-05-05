@@ -1,4 +1,4 @@
-use crate::models::meal::area::AllAreaAPI;
+use crate::models::meal::area::AllAreaApi;
 
 #[derive(Debug)]
 pub struct AreaCategoryList {
@@ -10,7 +10,7 @@ impl AreaCategoryList {
         Self { categories }
     }
 
-    pub fn from_api(area_categories: AllAreaAPI) -> Self {
+    pub fn from_api(area_categories: AllAreaApi) -> Self {
         let mut categories = Vec::<String>::new();
 
         for c in area_categories.meals {

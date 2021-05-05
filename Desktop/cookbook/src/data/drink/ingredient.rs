@@ -1,10 +1,10 @@
 use crate::dto::drink::ingredient_list::IngredientCategoryList;
-use crate::models::drink::ingredient::AllIngredientAPI;
+use crate::models::drink::ingredient::AllIngredientApi;
 
 use reqwest::blocking::get;
 
-pub fn get_ingredient_category_list_from_api() -> Option<AllIngredientAPI> {
-    let recieved_ingredient_list: AllIngredientAPI =
+pub fn get_ingredient_category_list_from_api() -> Option<AllIngredientApi> {
+    let recieved_ingredient_list: AllIngredientApi =
         get("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list")
             .unwrap()
             .json()
@@ -17,9 +17,9 @@ pub fn get_ingredient_category_list_from_api() -> Option<AllIngredientAPI> {
 
 pub fn get_drink_ingredient_list() -> IngredientCategoryList {
     match get_ingredient_category_list_from_api() {
-        Some(list) => return IngredientCategoryList::from_api(list),
-        None => return IngredientCategoryList::default(),
-    };
+        Some(list) => IngredientCategoryList::from_api(list),
+        None => IngredientCategoryList::default(),
+    }
 }
 
 #[test]

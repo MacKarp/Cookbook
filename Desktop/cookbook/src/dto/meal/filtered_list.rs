@@ -1,4 +1,4 @@
-use crate::models::meal::filter::AllMealFilteredAPI;
+use crate::models::meal::filter::AllMealFilteredApi;
 
 #[derive(Debug)]
 pub struct MealFilteredList {
@@ -10,7 +10,7 @@ impl MealFilteredList {
         Self { filtered_meals }
     }
 
-    pub fn from_api(meal_list: AllMealFilteredAPI) -> Self {
+    pub fn from_api(meal_list: AllMealFilteredApi) -> Self {
         let mut filtered_meals = Vec::<Meal>::new();
 
         for m in meal_list.meals {

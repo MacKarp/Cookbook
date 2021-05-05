@@ -6,13 +6,13 @@ pub mod ingredient;
 use serde::Deserialize;
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AllMealsAPI {
-    pub meals: Vec<MealAPI>,
+pub struct AllMealsApi {
+    pub meals: Vec<MealApi>,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct MealAPI {
+pub struct MealApi {
     pub id_meal: Option<String>,
     pub str_meal: Option<String>,
     pub str_drink_alternate: Option<String>,

@@ -1,4 +1,4 @@
-use crate::models::drink::alcoholic::AllAlcoholicAPI;
+use crate::models::drink::alcoholic::AllAlcoholicApi;
 
 #[derive(Debug)]
 pub struct AlcoholicCategoryList {
@@ -10,7 +10,7 @@ impl AlcoholicCategoryList {
         Self { categories }
     }
 
-    pub fn from_api(alcoholic_categories: AllAlcoholicAPI) -> Self {
+    pub fn from_api(alcoholic_categories: AllAlcoholicApi) -> Self {
         let mut categories = Vec::<String>::new();
 
         for c in alcoholic_categories.drinks {

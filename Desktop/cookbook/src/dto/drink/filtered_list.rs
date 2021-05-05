@@ -1,4 +1,4 @@
-use crate::models::drink::filter::AllDrinkFilteredAPI;
+use crate::models::drink::filter::AllDrinkFilteredApi;
 
 #[derive(Debug)]
 pub struct DrinkFilteredList {
@@ -10,7 +10,7 @@ impl DrinkFilteredList {
         Self { filtered_drinks }
     }
 
-    pub fn from_api(drink_list: AllDrinkFilteredAPI) -> Self {
+    pub fn from_api(drink_list: AllDrinkFilteredApi) -> Self {
         let mut filtered_drinks = Vec::<Drink>::new();
 
         for d in drink_list.drinks {

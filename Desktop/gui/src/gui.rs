@@ -19,12 +19,12 @@ pub fn initialize(gui_data: &GuiData) {
     initialize_buttons(&gui_data);
 }
 
-fn initialize_buttons(gui_data: &GuiData) -> () {
+fn initialize_buttons(gui_data: &GuiData) {
     let previous_stack_button = gui_data.main_window_buttons.previous_stack_button.clone();
     previous_stack_button.set_sensitive(false);
 }
 
-fn initialize_stack(gui_data: &GuiData) -> () {
+fn initialize_stack(gui_data: &GuiData) {
     let mut rng = rand::thread_rng();
     let rand_recipe: u8 = rng.gen_range(0..=1);
     match rand_recipe {
@@ -34,14 +34,18 @@ fn initialize_stack(gui_data: &GuiData) -> () {
     }
 }
 
-fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
+fn initialize_drink_category_tab(gui_data: &GuiData) {
     let drink_category_tree_store = gui_data
         .main_window_category_notebook
         .drink_category_tree_store
         .clone();
 
-    let drink_category_iter =
-        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Categories")]);
+    let drink_category_iter = drink_category_tree_store.insert_with_values(
+        None,
+        None,
+        &[0],
+        &[&"Categories".to_string()],
+    );
     let drink_category = get_drink_category_list();
     let drink_category = drink_category.categories;
     for s in drink_category {
@@ -49,7 +53,7 @@ fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
     }
 
     let drink_glass_iter =
-        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Glass")]);
+        drink_category_tree_store.insert_with_values(None, None, &[0], &[&"Glass".to_string()]);
     let drink_glass = get_glass_list();
     let drink_glass = drink_glass.categories;
     for s in drink_glass {
@@ -57,7 +61,7 @@ fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
     }
 
     let drink_alcoholic_iter =
-        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Alcoholic")]);
+        drink_category_tree_store.insert_with_values(None, None, &[0], &[&"Alcoholic".to_string()]);
     let drink_alcoholic = get_alcoholic_list();
     let drink_alcoholic = drink_alcoholic.categories;
     for s in drink_alcoholic {
@@ -68,8 +72,12 @@ fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
             &[&s],
         );
     }
-    let drink_ingredient_iter =
-        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Ingredients")]);
+    let drink_ingredient_iter = drink_category_tree_store.insert_with_values(
+        None,
+        None,
+        &[0],
+        &[&"Ingredients".to_string()],
+    );
     let drink_ingredient = get_drink_ingredient_list();
     let drink_ingredient = drink_ingredient.categories;
     for s in drink_ingredient {
@@ -89,14 +97,14 @@ fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
     drink_category_tree_view.expand_all();
 }
 
-fn initialize_meal_category_tab(gui_data: &GuiData) -> () {
+fn initialize_meal_category_tab(gui_data: &GuiData) {
     let meal_category_tree_store = gui_data
         .main_window_category_notebook
         .meal_category_tree_store
         .clone();
 
     let meal_category_iter =
-        meal_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Categories")]);
+        meal_category_tree_store.insert_with_values(None, None, &[0], &[&"Categories".to_string()]);
     let meal_category = get_meal_category_list();
     let meal_category = meal_category.categories;
     for s in meal_category {
@@ -104,15 +112,19 @@ fn initialize_meal_category_tab(gui_data: &GuiData) -> () {
     }
 
     let meal_area_iter =
-        meal_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Area")]);
+        meal_category_tree_store.insert_with_values(None, None, &[0], &[&"Area".to_string()]);
     let meal_area = get_area_category_list();
     let meal_area = meal_area.categories;
     for s in meal_area {
         meal_category_tree_store.insert_with_values(Some(&meal_area_iter), None, &[0], &[&s]);
     }
 
-    let meal_ingredient_iter =
-        meal_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Ingredients")]);
+    let meal_ingredient_iter = meal_category_tree_store.insert_with_values(
+        None,
+        None,
+        &[0],
+        &[&"Ingredients".to_string()],
+    );
     let meal_ingredient = get_meal_ingredient_list();
     let meal_ingredient = meal_ingredient.categories;
     for s in meal_ingredient {

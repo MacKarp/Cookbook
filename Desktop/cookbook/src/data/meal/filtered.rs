@@ -1,5 +1,5 @@
 use crate::dto::meal::filtered_list::MealFilteredList;
-use crate::models::meal::filter::AllMealFilteredAPI;
+use crate::models::meal::filter::AllMealFilteredApi;
 
 use reqwest::blocking::get;
 
@@ -8,15 +8,15 @@ pub fn get_filtered_meal_category_items(value: &(String, Option<String>)) -> Mea
     let category = value.1.clone().unwrap();
     let link = match category.as_str() {
         "Categories" => {
-            format!("https://www.themealdb.com/api/json/v1/1/filter.php?c=") + &selected
+            "https://www.themealdb.com/api/json/v1/1/filter.php?c=".to_string() + &selected
         }
-        "Area" => format!("https://www.themealdb.com/api/json/v1/1/filter.php?a=") + &selected,
+        "Area" => "https://www.themealdb.com/api/json/v1/1/filter.php?a=".to_string() + &selected,
 
         "Ingredients" => {
-            format!("https://www.themealdb.com/api/json/v1/1/filter.php?i=") + &selected
+            "https://www.themealdb.com/api/json/v1/1/filter.php?i=".to_string() + &selected
         }
 
-        _ => format!("Default"),
+        _ => "Default".to_string(),
     };
     get_filtered_meal_from_api(link)
 }
@@ -26,24 +26,20 @@ fn get_filtered_meal_from_api(url: String) -> MealFilteredList {
         return MealFilteredList::default();
     }
 
-    let filtered_list: AllMealFilteredAPI = get(url)
+    let filtered_list: AllMealFilteredApi = get(url)
         .unwrap()
         .json()
-        .unwrap_or(AllMealFilteredAPI::default());
+        .unwrap_or_else(|_| AllMealFilteredApi::default());
 
     MealFilteredList::from_api(filtered_list)
 }
 
-
 #[test]
 fn get_categories_filtered_meal_category_items() {
-    let value = (
-        String::from("Beef"),
-        Some(String::from("Categories"))
-    );
+    let value = (String::from("Beef"), Some(String::from("Categories")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("Beef and Mustard Pie"); 
+    let should_be = String::from("Beef and Mustard Pie");
 
     let tested = get_filtered_meal_category_items(&value).filtered_meals;
     let tested = tested[0].str_meal.clone();
@@ -56,13 +52,10 @@ fn get_categories_filtered_meal_category_items() {
 
 #[test]
 fn get_area_filtered_meal_category_items() {
-    let value = (
-        String::from("American"),
-        Some(String::from("Area"))
-    );
+    let value = (String::from("American"), Some(String::from("Area")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("Banana Pancakes"); 
+    let should_be = String::from("Banana Pancakes");
 
     let tested = get_filtered_meal_category_items(&value).filtered_meals;
     let tested = tested[0].str_meal.clone();
@@ -75,13 +68,10 @@ fn get_area_filtered_meal_category_items() {
 
 #[test]
 fn get_ingredients_filtered_meal_category_items() {
-    let value = (
-        String::from("Chicken"),
-        Some(String::from("Ingredients"))
-    );
+    let value = (String::from("Chicken"), Some(String::from("Ingredients")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("Brown Stew Chicken"); 
+    let should_be = String::from("Brown Stew Chicken");
 
     let tested = get_filtered_meal_category_items(&value).filtered_meals;
     let tested = tested[0].str_meal.clone();

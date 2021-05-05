@@ -1,5 +1,5 @@
 use crate::dto::drink::filtered_list::DrinkFilteredList;
-use crate::models::drink::filter::AllDrinkFilteredAPI;
+use crate::models::drink::filter::AllDrinkFilteredApi;
 
 use reqwest::blocking::get;
 
@@ -9,19 +9,21 @@ pub fn get_filtered_drink_category_items(value: &(String, Option<String>)) -> Dr
     println!("test: {:?}", value);
     let link = match category.as_str() {
         "Alcoholic" => {
-            format!("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=") + &selected
+            "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=".to_string() + &selected
         }
         "Categories" => {
-            format!("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=") + &selected
+            "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=".to_string() + &selected
         }
 
-        "Glass" => format!("https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=") + &selected,
+        "Glass" => {
+            "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=".to_string() + &selected
+        }
 
         "Ingredients" => {
-            format!("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=") + &selected
+            "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=".to_string() + &selected
         }
 
-        _ => format!("Default"),
+        _ => "Default".to_string(),
     };
     get_filtered_drink_from_api(link)
 }
@@ -31,23 +33,20 @@ fn get_filtered_drink_from_api(url: String) -> DrinkFilteredList {
         return DrinkFilteredList::default();
     }
 
-    let filtered_list: AllDrinkFilteredAPI = get(url)
+    let filtered_list: AllDrinkFilteredApi = get(url)
         .unwrap()
         .json()
-        .unwrap_or(AllDrinkFilteredAPI::default());
+        .unwrap_or_else(|_| AllDrinkFilteredApi::default());
 
     DrinkFilteredList::from_api(filtered_list)
 }
 
 #[test]
 fn get_alcoholic_filtered_drink_category_items() {
-    let value = (
-        String::from("Alcoholic"),
-        Some(String::from("Alcoholic")),
-    );
+    let value = (String::from("Alcoholic"), Some(String::from("Alcoholic")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("1-900-FUK-MEUP"); 
+    let should_be = String::from("1-900-FUK-MEUP");
 
     let tested = get_filtered_drink_category_items(&value).filtered_drinks;
     let tested = tested[0].str_drink.clone();
@@ -58,7 +57,6 @@ fn get_alcoholic_filtered_drink_category_items() {
     );
 }
 
-
 #[test]
 fn get_categories_filtered_drink_category_items() {
     let value = (
@@ -67,7 +65,7 @@ fn get_categories_filtered_drink_category_items() {
     );
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("3-Mile Long Island Iced Tea"); 
+    let should_be = String::from("3-Mile Long Island Iced Tea");
 
     let tested = get_filtered_drink_category_items(&value).filtered_drinks;
     let tested = tested[0].str_drink.clone();
@@ -78,16 +76,12 @@ fn get_categories_filtered_drink_category_items() {
     );
 }
 
-
 #[test]
 fn get_glass_filtered_drink_category_items() {
-    let value = (
-        String::from("Highball glass"),
-        Some(String::from("Glass")),
-    );
+    let value = (String::from("Highball glass"), Some(String::from("Glass")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("57 Chevy with a White License Plate"); 
+    let should_be = String::from("57 Chevy with a White License Plate");
 
     let tested = get_filtered_drink_category_items(&value).filtered_drinks;
     let tested = tested[0].str_drink.clone();
@@ -100,13 +94,10 @@ fn get_glass_filtered_drink_category_items() {
 
 #[test]
 fn get_ingredients_filtered_drink_category_items() {
-    let value = (
-        String::from("Light rum"),
-        Some(String::from("Ingredients")),
-    );
+    let value = (String::from("Light rum"), Some(String::from("Ingredients")));
 
     // First drink name returned from API, it can change!
-    let should_be=String::from("151 Florida Bushwacker"); 
+    let should_be = String::from("151 Florida Bushwacker");
 
     let tested = get_filtered_drink_category_items(&value).filtered_drinks;
     let tested = tested[0].str_drink.clone();

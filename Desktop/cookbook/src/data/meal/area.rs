@@ -1,10 +1,10 @@
 use crate::dto::meal::area_list::AreaCategoryList;
-use crate::models::meal::area::AllAreaAPI;
+use crate::models::meal::area::AllAreaApi;
 
 use reqwest::blocking::get;
 
-pub fn get_area_category_list_from_api() -> Option<AllAreaAPI> {
-    let recieved_area_categories: AllAreaAPI =
+pub fn get_area_category_list_from_api() -> Option<AllAreaApi> {
+    let recieved_area_categories: AllAreaApi =
         get("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
             .unwrap()
             .json()
@@ -17,9 +17,9 @@ pub fn get_area_category_list_from_api() -> Option<AllAreaAPI> {
 
 pub fn get_area_category_list() -> AreaCategoryList {
     match get_area_category_list_from_api() {
-        Some(list) => return AreaCategoryList::from_api(list),
-        None => return AreaCategoryList::default(),
-    };
+        Some(list) => AreaCategoryList::from_api(list),
+        None => AreaCategoryList::default(),
+    }
 }
 
 #[test]

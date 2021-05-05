@@ -12,7 +12,7 @@ pub fn category_tree_selection(gui_data: &GuiData) {
     tree_selection.connect_changed(move |_| on_drink_category_selection_changed(&gui_data));
 }
 
-fn on_drink_category_selection_changed(gui_data: &GuiData) -> () {
+fn on_drink_category_selection_changed(gui_data: &GuiData) {
     let tree_selection = gui_data
         .main_window_category_notebook
         .drink_category_tree_selection
@@ -25,9 +25,8 @@ fn on_drink_category_selection_changed(gui_data: &GuiData) -> () {
 
     let mut category = None;
 
-    if category_iter.is_some() {
-        let category_iter = category_iter.unwrap();
-        let category_value = tree_model.get_value(&category_iter, 0);
+    if let Some(ti) = category_iter {
+        let category_value = tree_model.get_value(&ti, 0);
         category = category_value.get::<String>().unwrap();
     }
 

@@ -1,10 +1,10 @@
 use crate::dto::drink::glass_list::GlassCategoryList;
-use crate::models::drink::glass::AllGlassAPI;
+use crate::models::drink::glass::AllGlassApi;
 
 use reqwest::blocking::get;
 
-pub fn get_glass_category_list_from_api() -> Option<AllGlassAPI> {
-    let recieved_glass_list: AllGlassAPI =
+pub fn get_glass_category_list_from_api() -> Option<AllGlassApi> {
+    let recieved_glass_list: AllGlassApi =
         get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
             .unwrap()
             .json()
@@ -17,9 +17,9 @@ pub fn get_glass_category_list_from_api() -> Option<AllGlassAPI> {
 
 pub fn get_glass_list() -> GlassCategoryList {
     match get_glass_category_list_from_api() {
-        Some(list) => return GlassCategoryList::from_api(list),
-        None => return GlassCategoryList::default(),
-    };
+        Some(list) => GlassCategoryList::from_api(list),
+        None => GlassCategoryList::default(),
+    }
 }
 
 #[test]

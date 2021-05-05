@@ -5,12 +5,12 @@ pub mod glass;
 pub mod ingredient;
 
 use crate::dto::drink::recipe::DrinkRecipe;
-use crate::models::drink::{AllDrinksAPI, DrinkAPI};
+use crate::models::drink::{AllDrinksApi, DrinkApi};
 
 use reqwest::blocking::get;
 
-pub fn get_random_drink() -> Option<DrinkAPI> {
-    let recieved_cocktail: AllDrinksAPI =
+pub fn get_random_drink() -> Option<DrinkApi> {
+    let recieved_cocktail: AllDrinksApi =
         get(" https://www.thecocktaildb.com/api/json/v1/1/random.php")
             .unwrap()
             .json()
@@ -23,9 +23,9 @@ pub fn get_random_drink() -> Option<DrinkAPI> {
 
 pub fn get_random_drink_recipe() -> DrinkRecipe {
     match get_random_drink() {
-        Some(drink) => return DrinkRecipe::from_drink(drink),
-        None => return DrinkRecipe::default(),
-    };
+        Some(drink) => DrinkRecipe::from_drink(drink),
+        None => DrinkRecipe::default(),
+    }
 }
 
 #[test]

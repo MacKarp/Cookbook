@@ -1,10 +1,10 @@
 use crate::dto::meal::categories_list::MealCategoryList;
-use crate::models::meal::categories::AllMealCategoriesAPI;
+use crate::models::meal::categories::AllMealCategoriesApi;
 
 use reqwest::blocking::get;
 
-pub fn get_meal_category_list_from_api() -> Option<AllMealCategoriesAPI> {
-    let recieved_meal_categories: AllMealCategoriesAPI =
+pub fn get_meal_category_list_from_api() -> Option<AllMealCategoriesApi> {
+    let recieved_meal_categories: AllMealCategoriesApi =
         get("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
             .unwrap()
             .json()
@@ -17,9 +17,9 @@ pub fn get_meal_category_list_from_api() -> Option<AllMealCategoriesAPI> {
 
 pub fn get_meal_category_list() -> MealCategoryList {
     match get_meal_category_list_from_api() {
-        Some(list) => return MealCategoryList::from_api(list),
-        None => return MealCategoryList::default(),
-    };
+        Some(list) => MealCategoryList::from_api(list),
+        None => MealCategoryList::default(),
+    }
 }
 
 #[test]

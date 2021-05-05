@@ -1,4 +1,4 @@
-use crate::models::meal::MealAPI;
+use crate::models::meal::MealApi;
 
 #[derive(Debug)]
 pub struct MealRecipe {
@@ -36,7 +36,7 @@ impl MealRecipe {
             date_modified: "Default date modified".to_string(),
         }
     }
-    pub fn from_meal(meal: MealAPI) -> Self {
+    pub fn from_meal(meal: MealApi) -> Self {
         let id = match &meal.id_meal {
             Some(str) => str.clone().parse().unwrap_or_default(),
             None => 0,
@@ -119,7 +119,7 @@ impl MealRecipe {
     }
 }
 
-fn ingredients_list(meal: &MealAPI) -> Vec<String> {
+fn ingredients_list(meal: &MealApi) -> Vec<String> {
     let mut ingredients = Vec::new();
 
     let mut measured_ingredient = measure_ingredient(&meal.str_measure1, &meal.str_ingredient1);
