@@ -1,8 +1,8 @@
 pub mod alcoholic;
 pub mod categories;
+pub mod filter;
 pub mod glass;
 pub mod ingredient;
-
 use serde::Deserialize;
 
 #[derive(Debug, PartialEq, Deserialize)]

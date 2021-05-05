@@ -3,7 +3,7 @@ use serde::Deserialize;
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AllIngredientsAPI {
-    pub meals: Vec<Meal>,
+    pub meals: Vec<IngredientAPI>,
 }
 
 #[derive(Debug, PartialEq, Deserialize)]

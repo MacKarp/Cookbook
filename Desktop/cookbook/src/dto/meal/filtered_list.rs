@@ -1,3 +1,5 @@
+use crate::models::meal::filter::AllMealFilteredAPI;
+
 #[derive(Debug)]
 pub struct MealFilteredList {
     pub filtered_meals: Vec<Meal>,
@@ -8,13 +10,29 @@ impl MealFilteredList {
         Self { filtered_meals }
     }
 
-    pub fn from_api(meal_filtered_category: &String) -> Self {
+    pub fn from_api(meal_list: AllMealFilteredAPI) -> Self {
         let mut filtered_meals = Vec::<Meal>::new();
 
-        //let meal_filtered = Vec::<Mea
-
-        //for m in meal_filtered.meals {
-        //}
+        for m in meal_list.meals {
+            let id_meal = match m.id_meal {
+                Some(s) => s,
+                None => String::from("0"),
+            };
+            let str_meal = match m.str_meal {
+                Some(s) => s,
+                None => String::default(),
+            };
+            let str_meal_thumb = match m.str_meal_thumb {
+                Some(s) => s,
+                None => String::default(),
+            };
+            let meal = Meal {
+                id_meal,
+                str_meal,
+                str_meal_thumb,
+            };
+            filtered_meals.push(meal);
+        }
 
         Self { filtered_meals }
     }

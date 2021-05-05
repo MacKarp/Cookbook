@@ -13,3 +13,16 @@ pub struct MealAPI {
     pub str_meal_thumb: Option<String>,
     pub id_meal: Option<String>,
 }
+
+impl AllMealFilteredAPI {
+    pub fn default() -> Self {
+        let ingredient = MealAPI {
+            id_meal: Some(String::from("0")),
+            str_meal: None,
+            str_meal_thumb: None,
+        };
+        Self {
+            meals: vec![ingredient],
+        }
+    }
+}

@@ -1,8 +1,9 @@
 pub mod area;
 pub mod categories;
 pub mod filtered;
+pub mod ingredient;
 
-use crate::dto::meal::{filtered_list::MealFilteredList, recipe::MealRecipe};
+use crate::dto::meal::recipe::MealRecipe;
 use crate::models::meal::{AllMealsAPI, MealAPI};
 
 use reqwest::blocking::get;

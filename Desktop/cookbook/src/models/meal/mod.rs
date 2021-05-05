@@ -1,6 +1,7 @@
 pub mod area;
 pub mod categories;
 pub mod filter;
+pub mod ingredient;
 
 use serde::Deserialize;
 #[derive(Debug, PartialEq, Deserialize)]

@@ -4,8 +4,9 @@ use crate::gui_data::{
 };
 use cookbook::data::drink::{
     alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
-    ingredient::get_ingredient_list,
+    ingredient::get_drink_ingredient_list,
 };
+use cookbook::data::meal::ingredient::get_meal_ingredient_list;
 use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
 
 use gtk::prelude::*;
@@ -68,8 +69,8 @@ fn initialize_drink_category_tab(gui_data: &GuiData) -> () {
         );
     }
     let drink_ingredient_iter =
-        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Ingredient")]);
-    let drink_ingredient = get_ingredient_list();
+        drink_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Ingredients")]);
+    let drink_ingredient = get_drink_ingredient_list();
     let drink_ingredient = drink_ingredient.categories;
     for s in drink_ingredient {
         drink_category_tree_store.insert_with_values(
@@ -108,6 +109,14 @@ fn initialize_meal_category_tab(gui_data: &GuiData) -> () {
     let meal_area = meal_area.categories;
     for s in meal_area {
         meal_category_tree_store.insert_with_values(Some(&meal_area_iter), None, &[0], &[&s]);
+    }
+
+    let meal_ingredient_iter =
+        meal_category_tree_store.insert_with_values(None, None, &[0], &[&format!("Ingredients")]);
+    let meal_ingredient = get_meal_ingredient_list();
+    let meal_ingredient = meal_ingredient.categories;
+    for s in meal_ingredient {
+        meal_category_tree_store.insert_with_values(Some(&meal_ingredient_iter), None, &[0], &[&s]);
     }
 
     let meal_category_tree_view = gui_data
