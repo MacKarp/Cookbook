@@ -2,12 +2,12 @@ use serde::Deserialize;
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AllIngredientAPI {
-    pub drinks: Vec<IngredientAPI>,
+pub struct AllIngredientApi {
+    pub drinks: Vec<IngredientApi>,
 }
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct IngredientAPI {
+pub struct IngredientApi {
     pub str_ingredient1: Option<String>,
 }

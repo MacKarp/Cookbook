@@ -1,14 +1,15 @@
 pub mod area;
 pub mod categories;
 pub mod filtered;
+pub mod ingredient;
 
-use crate::dto::meal::{filtered_list::MealFilteredList, recipe::MealRecipe};
-use crate::models::meal::{AllMealsAPI, MealAPI};
+use crate::dto::meal::recipe::MealRecipe;
+use crate::models::meal::{AllMealsApi, MealApi};
 
 use reqwest::blocking::get;
 
-pub fn get_random_meal() -> Option<MealAPI> {
-    let recieved_meals: AllMealsAPI = get("https://www.themealdb.com/api/json/v1/1/random.php")
+pub fn get_random_meal() -> Option<MealApi> {
+    let recieved_meals: AllMealsApi = get("https://www.themealdb.com/api/json/v1/1/random.php")
         .unwrap()
         .json()
         .unwrap();
@@ -20,9 +21,9 @@ pub fn get_random_meal() -> Option<MealAPI> {
 
 pub fn get_random_meal_recipe() -> MealRecipe {
     match get_random_meal() {
-        Some(meal) => return MealRecipe::from_meal(meal),
-        None => return MealRecipe::default(),
-    };
+        Some(meal) => MealRecipe::from_meal(meal),
+        None => MealRecipe::default(),
+    }
 }
 
 #[test]

@@ -1,10 +1,10 @@
 use crate::dto::drink::categories_list::DrinkCategoryList;
-use crate::models::drink::categories::AllDrinkCategoryAPI;
+use crate::models::drink::categories::AllDrinkCategoryApi;
 
 use reqwest::blocking::get;
 
-pub fn get_drink_category_list_from_api() -> Option<AllDrinkCategoryAPI> {
-    let recieved_drink_categories: AllDrinkCategoryAPI =
+pub fn get_drink_category_list_from_api() -> Option<AllDrinkCategoryApi> {
+    let recieved_drink_categories: AllDrinkCategoryApi =
         get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
             .unwrap()
             .json()
@@ -17,9 +17,9 @@ pub fn get_drink_category_list_from_api() -> Option<AllDrinkCategoryAPI> {
 
 pub fn get_drink_category_list() -> DrinkCategoryList {
     match get_drink_category_list_from_api() {
-        Some(list) => return DrinkCategoryList::from_api(list),
-        None => return DrinkCategoryList::default(),
-    };
+        Some(list) => DrinkCategoryList::from_api(list),
+        None => DrinkCategoryList::default(),
+    }
 }
 
 #[test]

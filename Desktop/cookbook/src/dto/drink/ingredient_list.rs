@@ -1,4 +1,4 @@
-use crate::models::drink::ingredient::AllIngredientAPI;
+use crate::models::drink::ingredient::AllIngredientApi;
 
 #[derive(Debug)]
 pub struct IngredientCategoryList {
@@ -10,7 +10,7 @@ impl IngredientCategoryList {
         Self { categories }
     }
 
-    pub fn from_api(ingredient_categories: AllIngredientAPI) -> Self {
+    pub fn from_api(ingredient_categories: AllIngredientApi) -> Self {
         let mut categories = Vec::<String>::new();
 
         for c in ingredient_categories.drinks {

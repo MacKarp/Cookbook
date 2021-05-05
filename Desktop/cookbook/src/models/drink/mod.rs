@@ -1,19 +1,19 @@
 pub mod alcoholic;
 pub mod categories;
+pub mod filter;
 pub mod glass;
 pub mod ingredient;
-
 use serde::Deserialize;
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AllDrinksAPI {
-    pub drinks: Vec<DrinkAPI>,
+pub struct AllDrinksApi {
+    pub drinks: Vec<DrinkApi>,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct DrinkAPI {
+pub struct DrinkApi {
     pub id_drink: Option<String>,
     pub str_drink: Option<String>,
     pub str_drink_alternate: Option<String>,

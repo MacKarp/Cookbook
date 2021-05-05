@@ -1,4 +1,4 @@
-use crate::models::drink::glass::AllGlassAPI;
+use crate::models::drink::glass::AllGlassApi;
 
 #[derive(Debug)]
 pub struct GlassCategoryList {
@@ -10,7 +10,7 @@ impl GlassCategoryList {
         Self { categories }
     }
 
-    pub fn from_api(glass_categories: AllGlassAPI) -> Self {
+    pub fn from_api(glass_categories: AllGlassApi) -> Self {
         let mut categories = Vec::<String>::new();
 
         for c in glass_categories.drinks {
