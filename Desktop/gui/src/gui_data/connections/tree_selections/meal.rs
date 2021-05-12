@@ -51,12 +51,20 @@ fn update_stack(gui_data: &GuiData, value: (String, Option<String>)) {
         .main_window_stack
         .selected_category_tree_view
         .clone();
+    let selected_category_tree_selection = gui_data
+        .main_window_stack
+        .selected_category_tree_selection
+        .clone();
+
+    selected_category_tree_selection.unselect_all();
 
     let selected_category = get_filtered_meal_category_items(&value);
     let selected_category = selected_category.filtered_meals;
+
     tree_store.clear();
     for s in selected_category {
-        tree_store.insert_with_values(None, None, &[0], &[&s.str_meal]);
+        let id = s.id_meal.parse::<i32>().unwrap_or_default();
+        tree_store.insert_with_values(None, None, &[0, 1], &[&s.str_meal, &id]);
     }
 
     tree_view.expand_all();
