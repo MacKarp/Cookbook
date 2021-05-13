@@ -1,6 +1,6 @@
 use crate::field_set::set_drink_recipe_fields;
 use crate::gui_data::GuiData;
-use cookbook::data::drink::get_random_drink_recipe;
+use cookbook::data::drink::random::get_random_drink_recipe;
 
 use gtk::prelude::*;
 

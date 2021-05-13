@@ -1,8 +1,8 @@
 use crate::field_set::set_drink_recipe_fields;
 use crate::field_set::set_meal_recipe_fields;
 use crate::gui_data::GuiData;
-use cookbook::data::drink::get_drink_recipe_by_id;
-use cookbook::data::meal::get_meal_recipe_by_id;
+use cookbook::data::drink::id::get_drink_recipe_by_id;
+use cookbook::data::meal::id::get_meal_recipe_by_id;
 
 use gtk::prelude::*;
 

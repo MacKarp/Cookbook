@@ -1,6 +1,6 @@
 use crate::field_set::set_meal_recipe_fields;
 use crate::gui_data::GuiData;
-use cookbook::data::meal::get_random_meal_recipe;
+use cookbook::data::meal::random::get_random_meal_recipe;
 
 use gtk::prelude::*;
 
