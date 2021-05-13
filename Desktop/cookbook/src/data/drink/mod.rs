@@ -5,3 +5,4 @@ pub mod glass;
 pub mod id;
 pub mod ingredient;
 pub mod random;
+pub mod search;
