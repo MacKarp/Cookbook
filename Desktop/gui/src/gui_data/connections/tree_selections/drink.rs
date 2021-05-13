@@ -62,7 +62,12 @@ fn update_stack(gui_data: &GuiData, value: (String, Option<String>)) {
     tree_store.clear();
     for s in selected_category {
         let id = s.id_drink.parse::<i32>().unwrap_or_default();
-        tree_store.insert_with_values(None, None, &[0, 1], &[&s.str_drink, &id]);
+        tree_store.insert_with_values(
+            None,
+            None,
+            &[0, 1, 2],
+            &[&s.str_drink, &id, &String::from("Drink")],
+        );
     }
 
     tree_view.expand_all();
