@@ -17,6 +17,7 @@ fn on_meal_category_selection_changed(gui_data: &GuiData) {
         .main_window_category_notebook
         .meal_category_tree_selection
         .clone();
+
     let t = tree_selection.get_selected().unwrap();
     let tree_model = t.0;
     let tree_iter = t.1;
@@ -57,14 +58,18 @@ fn update_stack(gui_data: &GuiData, value: (String, Option<String>)) {
         .clone();
 
     selected_category_tree_selection.unselect_all();
-
     let selected_category = get_filtered_meal_category_items(&value);
     let selected_category = selected_category.filtered_meals;
 
     tree_store.clear();
     for s in selected_category {
         let id = s.id_meal.parse::<i32>().unwrap_or_default();
-        tree_store.insert_with_values(None, None, &[0, 1], &[&s.str_meal, &id]);
+        tree_store.insert_with_values(
+            None,
+            None,
+            &[0, 1, 2],
+            &[&s.str_meal, &id, &String::from("Meal")],
+        );
     }
 
     tree_view.expand_all();

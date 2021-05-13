@@ -1,6 +1,6 @@
-use crate::gui_data::{connections::buttons::common, GuiData};
-use cookbook::data::meal::get_random_meal_recipe;
-use cookbook::dto::meal::recipe::MealRecipe;
+use crate::field_set::set_meal_recipe_fields;
+use crate::gui_data::GuiData;
+use cookbook::data::meal::random::get_random_meal_recipe;
 
 use gtk::prelude::*;
 
@@ -20,30 +20,7 @@ pub fn on_random_recipe_button_clicked(gui_data: &GuiData) {
         .set_visible_child(&gui_data.main_window_stack.recipe_editor_box);
 
     let meal = get_random_meal_recipe();
-    set_recipe_fields(&gui_data, meal);
-}
-
-fn set_recipe_fields(gui_data: &GuiData, meal: MealRecipe) {
-    set_recipe_text_fields(&gui_data, &meal);
-    set_recipe_image_fields(&gui_data, &meal);
-}
-
-fn set_recipe_text_fields(gui_data: &GuiData, meal: &MealRecipe) {
-    let recipe_name_text_buffer = gui_data.main_window_text.recipe_name_text_buffer.clone();
-    let recipe_ingredients_text_buffer = gui_data
-        .main_window_text
-        .recipe_ingredients_text_buffer
-        .clone();
-    let recipe_text_buffer = gui_data.main_window_text.recipe_text_buffer.clone();
-
-    recipe_name_text_buffer.set_text(&*meal.meal_name);
-    recipe_ingredients_text_buffer.set_text(&*common::get_recipe_ingredients(&meal.ingredients));
-    recipe_text_buffer.set_text(&*meal.instructions);
-}
-
-fn set_recipe_image_fields(gui_data: &GuiData, meal: &MealRecipe) {
-    let image_recipe = gui_data.main_window_images.image_recipe.clone();
-    image_recipe.set_from_pixbuf(Some(&common::get_recipe_image(&meal.thumb)));
+    set_meal_recipe_fields(&gui_data, meal);
 }
 
 #[test]

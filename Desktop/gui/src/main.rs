@@ -1,3 +1,4 @@
+mod field_set;
 mod gui;
 mod gui_data;
 
@@ -11,6 +12,7 @@ fn main() {
     gui::initialize(&gui_data);
     buttons::connect(&gui_data);
     tree_selections::connect(&gui_data);
+    others::connect_search_bar(&gui_data);
 
     {
         let window_main = gui_data.main_window;

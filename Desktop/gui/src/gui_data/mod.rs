@@ -24,7 +24,11 @@ pub struct GuiData {
     // Category Notebook
     pub main_window_category_notebook: main_window::category_notebook::MainWindowCategoryNotebook,
 
+    // Stack
     pub main_window_stack: main_window::stack::MainWindowStack,
+
+    // Others
+    pub main_window_search_bar: gtk::SearchEntry,
 }
 
 impl GuiData {
@@ -37,7 +41,6 @@ impl GuiData {
         let main_window: gtk::Window = builder
             .get_object("main_window")
             .expect("\"main_window\" ID in \"Cookbook.glade\" should exist.");
-        main_window.show_all();
 
         let main_window_text = main_window::text::MainWindowText::create_from_builder(&builder);
         let main_window_buttons =
@@ -52,6 +55,11 @@ impl GuiData {
             );
 
         let main_window_stack = main_window::stack::MainWindowStack::create_from_builder(&builder);
+        let main_window_search_bar: gtk::SearchEntry = builder
+            .get_object("SearchBar")
+            .expect("\"SearchBar\" ID in \"Cookbook.glade\" should exist.");
+
+        main_window.show_all();
 
         Self {
             glade_src,
@@ -62,6 +70,7 @@ impl GuiData {
             main_window_images,
             main_window_category_notebook,
             main_window_stack,
+            main_window_search_bar,
         }
     }
 }
@@ -86,6 +95,9 @@ fn new_gui_data_test() {
     let main_window_category_notebook =
         main_window::category_notebook::MainWindowCategoryNotebook::create_from_builder(&builder);
     let main_window_stack = main_window::stack::MainWindowStack::create_from_builder(&builder);
+    let main_window_search_bar = builder
+        .get_object("SearchBar")
+        .expect("\"SearchBar\" ID in \"Cookbook.glade\" should exist.");
 
     let should_be = GuiData {
         glade_src,
@@ -96,6 +108,7 @@ fn new_gui_data_test() {
         main_window_images,
         main_window_category_notebook,
         main_window_stack,
+        main_window_search_bar,
     };
 
     let tested = GuiData::new();
