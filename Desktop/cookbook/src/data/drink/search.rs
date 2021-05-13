@@ -3,7 +3,7 @@ use crate::models::drink::AllDrinksApi;
 
 use reqwest::blocking::get;
 
-pub fn get_drink_recipe_by_search(searched: &String) -> Vec<DrinkRecipe> {
+pub fn get_drink_recipe_by_search(searched: &str) -> Vec<DrinkRecipe> {
     let mut drinks = Vec::<DrinkRecipe>::new();
     match get_drink_by_search(searched) {
         Some(drink) => {
@@ -16,8 +16,8 @@ pub fn get_drink_recipe_by_search(searched: &String) -> Vec<DrinkRecipe> {
     drinks
 }
 
-fn get_drink_by_search(searched: &String) -> Option<AllDrinksApi> {
-    let url = format!("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=") + searched;
+fn get_drink_by_search(searched: &str) -> Option<AllDrinksApi> {
+    let url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=".to_string() + searched;
 
     let recived_drink: AllDrinksApi = get(url).unwrap().json().unwrap();
     if recived_drink.drinks.get(0).is_some() {

@@ -12,7 +12,7 @@ pub fn get_meal_recipe_by_id(id: i32) -> MealRecipe {
 
 fn get_meal_by_id(id: i32) -> Option<MealApi> {
     let id = id.to_string();
-    let url = format!("https://www.themealdb.com/api/json/v1/1/lookup.php?i=") + &id;
+    let url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=".to_string() + &id;
 
     let recieved_meals: AllMealsApi = get(url).unwrap().json().unwrap();
     if recieved_meals.meals.get(0).is_some() {

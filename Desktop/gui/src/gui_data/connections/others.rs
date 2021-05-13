@@ -19,7 +19,7 @@ pub fn on_search_bar_search_changed(gui_data: &GuiData) {
     update_stack(gui_data, &searched_name);
 }
 
-fn update_stack(gui_data: &GuiData, searched_name: &String) {
+fn update_stack(gui_data: &GuiData, searched_name: &str) {
     let stack = gui_data.main_window_stack.stack.clone();
     let previous_stack_button = gui_data.main_window_buttons.previous_stack_button.clone();
     let tree_store = gui_data
@@ -47,7 +47,7 @@ fn update_stack(gui_data: &GuiData, searched_name: &String) {
     stack.set_visible_child_name("page1");
 }
 
-fn insert_drink_recipes(gui_data: &GuiData, searched_name: &String) -> () {
+fn insert_drink_recipes(gui_data: &GuiData, searched_name: &str)  {
     let tree_store = gui_data
         .main_window_stack
         .selected_category_tree_store
@@ -66,7 +66,7 @@ fn insert_drink_recipes(gui_data: &GuiData, searched_name: &String) -> () {
     }
 }
 
-fn insert_meal_recipes(gui_data: &GuiData, searched_name: &String) -> () {
+fn insert_meal_recipes(gui_data: &GuiData, searched_name: &str)  {
     let tree_store = gui_data
         .main_window_stack
         .selected_category_tree_store

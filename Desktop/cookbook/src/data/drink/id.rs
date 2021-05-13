@@ -12,7 +12,7 @@ pub fn get_drink_recipe_by_id(id: i32) -> DrinkRecipe {
 
 fn get_drink_by_id(id: i32) -> Option<DrinkApi> {
     let id = id.to_string();
-    let url = format!("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=") + &id;
+    let url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=".to_string() + &id;
 
     let recived_drink: AllDrinksApi = get(url).unwrap().json().unwrap();
     if recived_drink.drinks.get(0).is_some() {

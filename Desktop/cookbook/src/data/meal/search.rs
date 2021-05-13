@@ -3,7 +3,7 @@ use crate::models::meal::AllMealsApi;
 
 use reqwest::blocking::get;
 
-pub fn get_meal_recipe_by_search(searched: &String) -> Vec<MealRecipe> {
+pub fn get_meal_recipe_by_search(searched: &str) -> Vec<MealRecipe> {
     let mut meals = Vec::<MealRecipe>::new();
     match get_meal_by_search(searched) {
         Some(meal) => {
@@ -16,8 +16,8 @@ pub fn get_meal_recipe_by_search(searched: &String) -> Vec<MealRecipe> {
     meals
 }
 
-fn get_meal_by_search(searched: &String) -> Option<AllMealsApi> {
-    let url = format!("https://www.themealdb.com/api/json/v1/1/search.php?s=") + searched.as_str();
+fn get_meal_by_search(searched: &str) -> Option<AllMealsApi> {
+    let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=".to_string() + searched;
 
     let recieved_meals: AllMealsApi = get(url).unwrap().json().unwrap();
     if recieved_meals.meals.get(0).is_some() {
