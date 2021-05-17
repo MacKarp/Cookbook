@@ -1,6 +1,7 @@
 use gtk::prelude::*;
 
 pub mod connections;
+pub mod login_window;
 pub mod main_window;
 
 #[derive(Clone, PartialEq, Debug)]
@@ -11,6 +12,7 @@ pub struct GuiData {
 
     // Windows
     pub main_window: gtk::Window,
+    pub login_window: login_window::LoginWindow,
 
     // Text buffers
     pub main_window_text: main_window::text::MainWindowText,
@@ -41,7 +43,9 @@ impl GuiData {
         let main_window: gtk::Window = builder
             .get_object("main_window")
             .expect("\"main_window\" ID in \"Cookbook.glade\" should exist.");
+        let login_window = login_window::LoginWindow::create_from_builder(&builder);
 
+        //Main window elements
         let main_window_text = main_window::text::MainWindowText::create_from_builder(&builder);
         let main_window_buttons =
             main_window::buttons::MainWindowButtons::create_from_builder(&builder);
@@ -65,6 +69,7 @@ impl GuiData {
             glade_src,
             builder,
             main_window,
+            login_window,
             main_window_text,
             main_window_buttons,
             main_window_images,
@@ -88,6 +93,9 @@ fn new_gui_data_test() {
     let main_window: gtk::Window = builder
         .get_object("main_window")
         .expect("\"main_window\" ID in \"Cookbook.glade\" should exist.");
+
+    let login_window = login_window::LoginWindow::create_from_builder(&builder);
+
     let main_window_text = main_window::text::MainWindowText::create_from_builder(&builder);
     let main_window_buttons =
         main_window::buttons::MainWindowButtons::create_from_builder(&builder);
@@ -103,6 +111,7 @@ fn new_gui_data_test() {
         glade_src,
         builder,
         main_window,
+        login_window,
         main_window_text,
         main_window_buttons,
         main_window_images,

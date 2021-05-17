@@ -5,6 +5,7 @@ pub struct MainWindowButtons {
     pub random_meal_recipe_button: gtk::Button,
     pub random_drink_recipe_button: gtk::Button,
     pub previous_stack_button: gtk::Button,
+    pub login_button: gtk::Button,
 }
 
 impl MainWindowButtons {
@@ -18,11 +19,14 @@ impl MainWindowButtons {
         let previous_stack_button: gtk::Button = builder
             .get_object("previous_stack_button")
             .expect("\"previous_stack_button\" ID in \"Main_Window.glade\" should exist.");
-
+        let login_button: gtk::Button = builder
+            .get_object("login_button")
+            .expect("\"login_button\" ID in \"Main_Window.glade\" should exist.");
         Self {
             random_meal_recipe_button,
             random_drink_recipe_button,
             previous_stack_button,
+            login_button,
         }
     }
 }
@@ -42,11 +46,15 @@ fn create_from_builder_test() {
     let previous_stack_button: gtk::Button = builder
         .get_object("previous_stack_button")
         .expect("\"previous_stack_button\" ID in \"Main_Window.glade\" should exist.");
+    let login_button: gtk::Button = builder
+        .get_object("login_button")
+        .expect("\"login_button\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowButtons {
         random_meal_recipe_button,
         random_drink_recipe_button,
         previous_stack_button,
+        login_button,
     };
 
     let tested = MainWindowButtons::create_from_builder(&builder);
