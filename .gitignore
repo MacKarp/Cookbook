@@ -1,3 +1,6 @@
 /Desktop/target/
 /Desktop/gui/ui/*.glade~
 /Desktop/.vscode/launch.json
+/Desktop/firebase_handler/firebase-service-account.json
+/Desktop/firebase_handler/securetoken.jwks
+/Desktop/firebase_handler/service-account.jwks
