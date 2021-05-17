@@ -47,7 +47,7 @@ fn update_stack(gui_data: &GuiData, searched_name: &str) {
     stack.set_visible_child_name("page1");
 }
 
-fn insert_drink_recipes(gui_data: &GuiData, searched_name: &str)  {
+fn insert_drink_recipes(gui_data: &GuiData, searched_name: &str) {
     let tree_store = gui_data
         .main_window_stack
         .selected_category_tree_store
@@ -66,7 +66,7 @@ fn insert_drink_recipes(gui_data: &GuiData, searched_name: &str)  {
     }
 }
 
-fn insert_meal_recipes(gui_data: &GuiData, searched_name: &str)  {
+fn insert_meal_recipes(gui_data: &GuiData, searched_name: &str) {
     let tree_store = gui_data
         .main_window_stack
         .selected_category_tree_store
