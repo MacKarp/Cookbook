@@ -1,2 +1,2 @@
 [workspace]
-members = ["cookbook","gui"]
+members = ["cookbook","gui","firebase_handler"]

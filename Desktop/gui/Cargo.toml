@@ -10,6 +10,7 @@ repository = "https://github.com/MacKarp/Cookbook"
 
 [dependencies]
 cookbook = { path = "../cookbook" }
+firebase_handler = {path = "../firebase_handler"}
 gio = "0.9.1"
 glib = "0.10.3"
 reqwest = { version = "0.11.2", features = ["blocking"] }
