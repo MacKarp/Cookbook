@@ -5,25 +5,31 @@ use reqwest::blocking::get;
 
 pub fn get_meal_recipe_by_search(searched: &str) -> Vec<MealRecipe> {
     let mut meals = Vec::<MealRecipe>::new();
-    match get_meal_by_search(searched) {
-        Some(meal) => {
-            for m in meal.meals {
-                meals.push(MealRecipe::from_meal(m));
+    let searched_result = get_meal_by_search(searched);
+    if searched_result.is_ok() {
+        match searched_result.ok().unwrap() {
+            Some(meal) => {
+                for m in meal.meals {
+                    meals.push(MealRecipe::from_meal(m));
+                }
+            }
+            None => {
+                meals.push(MealRecipe::default());
+                return meals;
             }
         }
-        None => meals.push(MealRecipe::default()),
     }
     meals
 }
 
-fn get_meal_by_search(searched: &str) -> Option<AllMealsApi> {
+fn get_meal_by_search(searched: &str) -> Result<Option<AllMealsApi>, reqwest::Error> {
     let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=".to_string() + searched;
 
-    let recieved_meals: AllMealsApi = get(url).unwrap().json().unwrap();
+    let recieved_meals: AllMealsApi = get(url)?.json()?;
     if recieved_meals.meals.get(0).is_some() {
-        return Some(recieved_meals);
+        return Ok(Some(recieved_meals));
     }
-    None
+    Ok(None)
 }
 
 #[test]
