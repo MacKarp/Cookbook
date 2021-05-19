@@ -1,4 +1,4 @@
-<p align="center"><img src="Common/coocklogo.png"></p>
+<p align="center"><img src="Common/logo.png"></p>
 
 Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica
 

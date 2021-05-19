@@ -10,6 +10,8 @@
   </object>
   <object class="GtkWindow" id="login_window">
     <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Sing in</property>
+    <property name="icon">gui/ui/logo.png</property>
     <child>
       <object class="GtkStack" id="login_stack">
         <property name="visible">True</property>
@@ -104,6 +106,20 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="login_error_label">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <attributes>
+                  <attribute name="foreground" value="#e0e01b1b2424"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="email_login_button">
                 <property name="label" translatable="yes">email_login_button</property>
                 <property name="visible">True</property>
@@ -117,7 +133,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -134,7 +150,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">3</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -151,7 +167,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
@@ -187,7 +203,7 @@
     <property name="height-request">720</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Cookbook</property>
-    <property name="icon">gui/ui/coocklogo.png</property>
+    <property name="icon">gui/ui/logo.png</property>
     <property name="show-menubar">False</property>
     <child>
       <object class="GtkBox">
