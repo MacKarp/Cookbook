@@ -8,6 +8,7 @@ pub struct LoginWindow {
     pub email_login_button: gtk::Button,
     pub google_login_button: gtk::Button,
     pub facebook_login_button: gtk::Button,
+    pub login_error_label: gtk::Label,
 }
 impl LoginWindow {
     pub fn create_from_builder(builder: &gtk::Builder) -> Self {
@@ -29,6 +30,9 @@ impl LoginWindow {
         let facebook_login_button: gtk::Button = builder
             .get_object("facebook_login_button")
             .expect("\"facebook_login_button\" ID in \"Cookbook.glade\" should exist.");
+        let login_error_label: gtk::Label = builder
+            .get_object("login_error_label")
+            .expect("\"login_error_label\" ID in \"Cookbook.glade\" should exist.");
 
         Self {
             window,
@@ -37,6 +41,7 @@ impl LoginWindow {
             email_login_button,
             google_login_button,
             facebook_login_button,
+            login_error_label,
         }
     }
 }
@@ -65,6 +70,9 @@ fn create_from_builder_test() {
     let facebook_login_button: gtk::Button = builder
         .get_object("facebook_login_button")
         .expect("\"facebook_login_button\" ID in \"Cookbook.glade\" should exist.");
+    let login_error_label: gtk::Label = builder
+        .get_object("login_error_label")
+        .expect("\"login_error_label\" ID in \"Cookbook.glade\" should exist.");
 
     let should_be = LoginWindow {
         window,
@@ -73,6 +81,7 @@ fn create_from_builder_test() {
         email_login_button,
         google_login_button,
         facebook_login_button,
+        login_error_label,
     };
 
     let tested = LoginWindow::create_from_builder(&builder);
