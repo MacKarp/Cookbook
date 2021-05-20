@@ -44,16 +44,17 @@ fn on_email_login_button_clicked(login_window: &LoginWindow) {
         Ok(session) => {
             let api_key = session.api_key.clone();
             let refresh_token = session.refresh_token.clone();
-            let user_id = session.user_id.clone();
+            let user_id = session.user_id;
             println!(
                 "api key:{},\nuser_id: {},\nrefresh_token: {:?}",
                 api_key, user_id, refresh_token
             );
-            firebase_handler::get_user_info(&session);
+            //firebase_handler::get_user_info(&session);
+            let _x = firebase_handler::favorites::get_favorites(user_id.as_str());
             window.hide();
         }
         Err(e) => {
-            println!("Login error: {}",e);
+            println!("Login error: {}", e);
             let login_error_label = login_window.login_error_label.clone();
             login_error_label.set_text("Incorrect email or password");
         }
