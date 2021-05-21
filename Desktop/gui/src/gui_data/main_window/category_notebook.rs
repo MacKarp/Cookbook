@@ -4,12 +4,15 @@ use gtk::prelude::*;
 pub struct MainWindowCategoryNotebook {
     pub meal_category_tree_store: gtk::TreeStore,
     pub meal_category_tree_view: gtk::TreeView,
+    pub meal_category_tree_selection: gtk::TreeSelection,
 
     pub drink_category_tree_store: gtk::TreeStore,
     pub drink_category_tree_view: gtk::TreeView,
-
-    pub meal_category_tree_selection: gtk::TreeSelection,
     pub drink_category_tree_selection: gtk::TreeSelection,
+
+    pub favorite_tree_store: gtk::TreeStore,
+    pub favorite_tree_view: gtk::TreeView,
+    pub favorite_tree_selection: gtk::TreeSelection,
 }
 
 impl MainWindowCategoryNotebook {
@@ -20,6 +23,9 @@ impl MainWindowCategoryNotebook {
         let meal_category_tree_view: gtk::TreeView = builder
             .get_object("meal_category_tree_view")
             .expect("\"meal_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
+        let meal_category_tree_selection: gtk::TreeSelection = builder
+            .get_object("meal_category_tree_selection")
+            .expect("\"meal_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
 
         let drink_category_tree_store: gtk::TreeStore = builder
             .get_object("drink_category_tree_store")
@@ -27,13 +33,19 @@ impl MainWindowCategoryNotebook {
         let drink_category_tree_view: gtk::TreeView = builder
             .get_object("drink_category_tree_view")
             .expect("\"drink_category_tree_view\" ID in \"Main_Window.glade\" should exist.");
-
-        let meal_category_tree_selection: gtk::TreeSelection = builder
-            .get_object("meal_category_tree_selection")
-            .expect("\"meal_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
         let drink_category_tree_selection: gtk::TreeSelection = builder
             .get_object("drink_category_tree_selection")
             .expect("\"drink_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
+
+        let favorite_tree_store: gtk::TreeStore = builder
+            .get_object("favorite_tree_store")
+            .expect("\"favorite_tree_store\" ID in \"Main_Window.glade\" should exist.");
+        let favorite_tree_view: gtk::TreeView = builder
+            .get_object("favorite_tree_view")
+            .expect("\"favorite_tree_view\" ID in \"Main_Window.glade\" should exist.");
+        let favorite_tree_selection: gtk::TreeSelection = builder
+            .get_object("favorite_tree_selection")
+            .expect("\"favorite_tree_selection\" ID in \"Main_Window.glade\" should exist.");
 
         Self {
             meal_category_tree_store,
@@ -43,6 +55,10 @@ impl MainWindowCategoryNotebook {
             drink_category_tree_store,
             drink_category_tree_view,
             drink_category_tree_selection,
+
+            favorite_tree_store,
+            favorite_tree_view,
+            favorite_tree_selection,
         }
     }
 }
@@ -72,6 +88,16 @@ fn create_from_builder_test() {
         .get_object("drink_category_tree_selection")
         .expect("\"drink_category_tree_selection\" ID in \"Main_Window.glade\" should exist.");
 
+    let favorite_tree_store: gtk::TreeStore = builder
+        .get_object("favorite_tree_store")
+        .expect("\"favorite_tree_store\" ID in \"Main_Window.glade\" should exist.");
+    let favorite_tree_view: gtk::TreeView = builder
+        .get_object("favorite_tree_view")
+        .expect("\"favorite_tree_view\" ID in \"Main_Window.glade\" should exist.");
+    let favorite_tree_selection: gtk::TreeSelection = builder
+        .get_object("favorite_tree_selection")
+        .expect("\"favorite_tree_selection\" ID in \"Main_Window.glade\" should exist.");
+
     let should_be = MainWindowCategoryNotebook {
         meal_category_tree_store,
         meal_category_tree_view,
@@ -80,6 +106,10 @@ fn create_from_builder_test() {
         drink_category_tree_store,
         drink_category_tree_view,
         drink_category_tree_selection,
+
+        favorite_tree_store,
+        favorite_tree_view,
+        favorite_tree_selection,
     };
 
     let tested = MainWindowCategoryNotebook::create_from_builder(&builder);

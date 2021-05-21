@@ -20,35 +20,25 @@ pub fn get_user_info(session: &sessions::user::Session) {
     println!("test: {:#?}", a);
 }
 
-pub fn user_session_with_cached_refresh_token(
-    cred: &Credentials,
-    user_id: &str,
-) -> errors::Result<sessions::user::Session> {
-    println!("Refresh token from file");
-    // Read refresh token from file if possible instead of generating a new refresh token each time
-    let refresh_token: String = match std::fs::read_to_string("refresh-token-for-tests.txt") {
+pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {
+    let refresh_token: String = match std::fs::read_to_string("token.txt") {
         Ok(v) => v,
         Err(e) => {
             if e.kind() != std::io::ErrorKind::NotFound {
                 return Err(errors::FirebaseError::IO(e));
             }
-            String::new()
+            return Err(errors::FirebaseError::Generic("Refresh token not found"));
         }
     };
 
-    // Generate a new refresh token if necessary
-    println!("Generate new user auth token");
-    let user_session: sessions::user::Session = if refresh_token.is_empty() {
-        let session = sessions::user::Session::by_user_id(&cred, user_id, true)?;
-        std::fs::write(
-            "refresh-token-for-tests.txt",
-            &session.refresh_token.as_ref().unwrap(),
-        )?;
-        session
-    } else {
-        println!("user::Session::by_refresh_token");
-        sessions::user::Session::by_refresh_token(&cred, &refresh_token)?
-    };
-
+    let credentials = get_credentials();
+    let user_session = sessions::user::Session::by_refresh_token(&credentials, &refresh_token)?;
     Ok(user_session)
+}
+
+pub fn write_cached_refresh_token(user_id: &str) -> errors::Result<()> {
+    let credentials = get_credentials();
+    let user_session = sessions::user::Session::by_user_id(&credentials, user_id, true)?;
+    std::fs::write("token.txt", &user_session.refresh_token.as_ref().unwrap())?;
+    Ok(())
 }
