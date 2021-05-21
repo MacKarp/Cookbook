@@ -1,3 +1,10 @@
+use glib::timeout_add_local;
+use gtk::prelude::*;
+use rand::prelude::*;
+
+use cookbook::data::meal::ingredient::get_meal_ingredient_list;
+use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
+
 use crate::gui_data::{
     connections::buttons::{random_drink, random_meal},
     GuiData,
@@ -6,17 +13,19 @@ use cookbook::data::drink::{
     alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
     ingredient::get_drink_ingredient_list,
 };
-use cookbook::data::meal::ingredient::get_meal_ingredient_list;
-use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
-
-use gtk::prelude::*;
-use rand::prelude::*;
 
 pub fn initialize(gui_data: &GuiData) {
     initialize_meal_category_tab(&gui_data);
     initialize_drink_category_tab(&gui_data);
     initialize_stack(&gui_data);
     initialize_buttons(&gui_data);
+    favorites_update(&gui_data);
+
+    let gui_data = gui_data.clone();
+    timeout_add_local(5000, move || {
+        favorites_update(&gui_data);
+        Continue(true)
+    });
 }
 
 fn initialize_buttons(gui_data: &GuiData) {
@@ -137,4 +146,27 @@ fn initialize_meal_category_tab(gui_data: &GuiData) {
         .clone();
 
     meal_category_tree_view.expand_all();
+}
+
+pub fn favorites_update(gui_data: &GuiData) {
+    let tree_store = gui_data
+        .main_window_category_notebook
+        .favorite_tree_store
+        .clone();
+
+    let favorites = firebase_handler::favorites::get_favorites();
+
+    tree_store.clear();
+    for f in favorites {
+        let name = f.meal_name.unwrap();
+        let id = f.meal_id.unwrap().parse::<i32>().unwrap();
+        let category = "Meal";
+        tree_store.insert_with_values(None, None, &[0, 1, 2], &[&name, &id, &category]);
+    }
+
+    let tree_view = gui_data
+        .main_window_category_notebook
+        .favorite_tree_view
+        .clone();
+    tree_view.expand_all();
 }

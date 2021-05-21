@@ -3,6 +3,7 @@ mod gui;
 mod gui_data;
 
 use gtk::prelude::*;
+
 use gui_data::connections::*;
 
 fn main() {
