@@ -1,7 +1,12 @@
+use gdk_pixbuf::{InterpType, Pixbuf};
 use glib::timeout_add_local;
 use gtk::prelude::*;
 use rand::prelude::*;
 
+use cookbook::data::drink::{
+    alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
+    ingredient::get_drink_ingredient_list,
+};
 use cookbook::data::meal::ingredient::get_meal_ingredient_list;
 use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
 
@@ -9,16 +14,15 @@ use crate::gui_data::{
     connections::buttons::{random_drink, random_meal},
     GuiData,
 };
-use cookbook::data::drink::{
-    alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
-    ingredient::get_drink_ingredient_list,
-};
+use crate::user::get_user_image;
 
 pub fn initialize(gui_data: &GuiData) {
+    initialize_logo(&gui_data);
     initialize_meal_category_tab(&gui_data);
     initialize_drink_category_tab(&gui_data);
     initialize_stack(&gui_data);
     initialize_buttons(&gui_data);
+    initialize_user(&gui_data);
     favorites_update(&gui_data);
 
     let gui_data = gui_data.clone();
@@ -26,6 +30,39 @@ pub fn initialize(gui_data: &GuiData) {
         favorites_update(&gui_data);
         Continue(true)
     });
+}
+
+fn initialize_logo(gui_data: &GuiData){
+    let logo_image = gui_data.main_window_logo_image.clone();
+    let pixbuf = Pixbuf::from_file("gui/ui/logo.png").unwrap();
+    let pixbuf = pixbuf.scale_simple(135, 84, InterpType::Bilinear).unwrap();
+    logo_image.set_from_pixbuf(Some(&pixbuf));
+}
+
+pub fn initialize_user(gui_data: &GuiData) {
+    let users = firebase_handler::get_user_info();
+    let login_button = gui_data.main_window_buttons.login_button.clone();
+    let user_image = gui_data.main_window_images.user_image.clone();
+    let welcome_label = gui_data.main_window_welcome_label.clone();
+    match users {
+        Ok(u) => {
+            let user_name = u.users[0]
+                .displayName
+                .clone()
+                .unwrap_or_else(|| String::from("Guest"));
+            let user_welcome = "Welcome ".to_owned() + &user_name;
+            let user_welcome = user_welcome + "!";
+            welcome_label.set_text(&user_welcome);
+
+            let user_img = u.users[0].photoUrl.clone();
+            user_image.set_from_pixbuf(Some(&get_user_image(user_img)));
+            login_button.set_label("Logout");
+        }
+        Err(_) => {
+            welcome_label.set_text("Welcome Geust!");
+            login_button.set_label("Login");
+        }
+    };
 }
 
 fn initialize_buttons(gui_data: &GuiData) {
@@ -156,6 +193,11 @@ pub fn favorites_update(gui_data: &GuiData) {
 
     let favorites = firebase_handler::favorites::get_favorites();
 
+    let tree_selection = gui_data
+        .main_window_category_notebook
+        .favorite_tree_selection
+        .clone();
+    tree_selection.set_mode(gtk::SelectionMode::None);
     tree_store.clear();
     for f in favorites {
         let name = f.meal_name.unwrap();
@@ -168,5 +210,7 @@ pub fn favorites_update(gui_data: &GuiData) {
         .main_window_category_notebook
         .favorite_tree_view
         .clone();
+
+    tree_selection.set_mode(gtk::SelectionMode::Single);
     tree_view.expand_all();
 }

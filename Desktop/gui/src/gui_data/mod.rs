@@ -22,6 +22,7 @@ pub struct GuiData {
 
     // Images
     pub main_window_images: main_window::images::MainWindowImages,
+    pub main_window_logo_image: gtk::Image,
 
     // Category Notebook
     pub main_window_category_notebook: main_window::category_notebook::MainWindowCategoryNotebook,
@@ -31,6 +32,7 @@ pub struct GuiData {
 
     // Others
     pub main_window_search_bar: gtk::SearchEntry,
+    pub main_window_welcome_label: gtk::Label,
 }
 
 impl GuiData {
@@ -62,7 +64,13 @@ impl GuiData {
         let main_window_search_bar: gtk::SearchEntry = builder
             .get_object("SearchBar")
             .expect("\"SearchBar\" ID in \"Cookbook.glade\" should exist.");
+        let main_window_welcome_label: gtk::Label = builder
+            .get_object("welcome_label")
+            .expect("\"welcome_label\" ID in \"Cookbook.glade\" should exist.");
 
+        let main_window_logo_image: gtk::Image = builder
+            .get_object("logo_image")
+            .expect("\"logo_image\" ID in \"Cookbook.glade\" should exist.");
         main_window.show_all();
 
         Self {
@@ -76,6 +84,8 @@ impl GuiData {
             main_window_category_notebook,
             main_window_stack,
             main_window_search_bar,
+            main_window_welcome_label,
+            main_window_logo_image,
         }
     }
 }
@@ -106,6 +116,12 @@ fn new_gui_data_test() {
     let main_window_search_bar = builder
         .get_object("SearchBar")
         .expect("\"SearchBar\" ID in \"Cookbook.glade\" should exist.");
+    let main_window_welcome_label: gtk::Label = builder
+        .get_object("welcome_label")
+        .expect("\"welcome_label\" ID in \"Cookbook.glade\" should exist.");
+    let main_window_logo_image: gtk::Image = builder
+        .get_object("logo_image")
+        .expect("\"logo_image\" ID in \"Cookbook.glade\" should exist.");
 
     let should_be = GuiData {
         glade_src,
@@ -118,6 +134,8 @@ fn new_gui_data_test() {
         main_window_category_notebook,
         main_window_stack,
         main_window_search_bar,
+        main_window_welcome_label,
+        main_window_logo_image,
     };
 
     let tested = GuiData::new();

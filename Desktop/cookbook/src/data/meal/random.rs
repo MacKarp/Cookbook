@@ -3,7 +3,7 @@ use crate::models::meal::{AllMealsApi, MealApi};
 
 use reqwest::blocking::get;
 
-fn get_random_meal() -> Option<MealApi> {
+pub fn get_random_meal() -> Option<MealApi> {
     let recieved_meals: AllMealsApi = get("https://www.themealdb.com/api/json/v1/1/random.php")
         .unwrap()
         .json()

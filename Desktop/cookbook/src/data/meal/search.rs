@@ -34,7 +34,7 @@ fn get_meal_by_search(searched: &str) -> Result<Option<AllMealsApi>, reqwest::Er
 
 #[test]
 fn get_meal_by_search_test() {
-    let should_be_meal = get_meal_by_search(&String::from("Arrabiata"));
+    let should_be_meal = get_meal_by_search(&String::from("Arrabiata")).unwrap();
     assert!(
         should_be_meal.is_some(),
         "Search meal by name is 'None', is API online?"

@@ -3,6 +3,7 @@ use gtk::prelude::*;
 #[derive(Clone, PartialEq, Debug)]
 pub struct MainWindowImages {
     pub image_recipe: gtk::Image,
+    pub user_image: gtk::Image,
 }
 
 impl MainWindowImages {
@@ -10,8 +11,14 @@ impl MainWindowImages {
         let image_recipe: gtk::Image = builder
             .get_object("image_recipe")
             .expect("\"image_recipe\" ID in \"Main_Window.glade\" should exist.");
+        let user_image: gtk::Image = builder
+            .get_object("user_image")
+            .expect("\"user_image\" ID in \"Main_Window.glade\" should exist.");
 
-        Self { image_recipe }
+        Self {
+            image_recipe,
+            user_image,
+        }
     }
 }
 
@@ -24,8 +31,14 @@ fn create_from_builder_test() {
     let image_recipe: gtk::Image = builder
         .get_object("image_recipe")
         .expect("\"image_recipe\" ID in \"Main_Window.glade\" should exist.");
+    let user_image: gtk::Image = builder
+        .get_object("user_image")
+        .expect("\"user_image\" ID in \"Main_Window.glade\" should exist.");
 
-    let should_be = MainWindowImages { image_recipe };
+    let should_be = MainWindowImages {
+        image_recipe,
+        user_image,
+    };
 
     let tested = MainWindowImages::create_from_builder(&builder);
     assert_eq!(tested, should_be);

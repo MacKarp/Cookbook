@@ -3,7 +3,7 @@ use crate::models::drink::{AllDrinksApi, DrinkApi};
 
 use reqwest::blocking::get;
 
-fn get_random_drink() -> Option<DrinkApi> {
+pub fn get_random_drink() -> Option<DrinkApi> {
     let recieved_cocktail: AllDrinksApi =
         get(" https://www.thecocktaildb.com/api/json/v1/1/random.php")
             .unwrap()
