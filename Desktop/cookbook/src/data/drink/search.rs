@@ -35,7 +35,7 @@ fn get_drink_by_search(searched: &str) -> Result<Option<AllDrinksApi>, reqwest::
 
 #[test]
 fn get_drink_by_search_test() {
-    let should_be_drink = get_drink_by_search(&String::from("margarrita"));
+    let should_be_drink = get_drink_by_search(&String::from("Margarita")).unwrap();
     assert!(
         should_be_drink.is_some(),
         "Search cocktail by name is 'None', is API online?"

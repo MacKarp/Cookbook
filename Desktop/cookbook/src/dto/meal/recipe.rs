@@ -200,7 +200,7 @@ fn measure_ingredient(measure: &Option<String>, ingredient: &Option<String>) -> 
 
 #[test]
 fn ingredients_list_test() {
-    let meal = crate::data::meal::get_random_meal().expect("Should be valid Meal");
+    let meal = crate::data::meal::random::get_random_meal().expect("Should be valid Meal");
     let should_be = ingredients_list(&meal);
     assert!(should_be.len() > 0);
 }
