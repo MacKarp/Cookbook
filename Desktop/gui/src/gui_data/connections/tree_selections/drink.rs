@@ -17,7 +17,11 @@ fn on_drink_category_selection_changed(gui_data: &GuiData) {
         .main_window_category_notebook
         .drink_category_tree_selection
         .clone();
-    let t = tree_selection.get_selected().unwrap();
+
+    let t = match tree_selection.get_selected() {
+        Some(t) => t,
+        None => return,
+    };
     let tree_model = t.0;
     let tree_iter = t.1;
 

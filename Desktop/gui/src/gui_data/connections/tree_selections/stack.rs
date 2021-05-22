@@ -33,10 +33,10 @@ fn on_selected_category_tree_selection_changed(gui_data: &GuiData) {
     let recipe_id = selected_id.get::<i32>().unwrap().unwrap();
     let recipe_type = selected_type.get::<String>().unwrap().unwrap();
 
-    update_stack(gui_data, (recipe_id, recipe_type));
+    update_stack_with_recipe(gui_data, (recipe_id, recipe_type));
 }
 
-fn update_stack(gui_data: &GuiData, value: (i32, String)) {
+fn update_stack_with_recipe(gui_data: &GuiData, value: (i32, String)) {
     let stack = gui_data.main_window_stack.stack.clone();
     let recipe_id = value.0;
     let recipe_type = value.1;

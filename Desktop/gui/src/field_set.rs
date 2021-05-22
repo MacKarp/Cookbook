@@ -2,7 +2,7 @@ use crate::gui_data::GuiData;
 use cookbook::dto::drink::recipe::DrinkRecipe;
 use cookbook::dto::meal::recipe::MealRecipe;
 
-use gdk_pixbuf::Pixbuf;
+use gdk_pixbuf::{InterpType, Pixbuf};
 use gio::{MemoryInputStream, NONE_CANCELLABLE};
 use gtk::prelude::*;
 
@@ -57,7 +57,8 @@ fn get_recipe_image(thumb: &str) -> Pixbuf {
     let bytes = result.bytes().unwrap().to_vec();
     let bytes = glib::Bytes::from(&bytes.to_vec());
     let stream = MemoryInputStream::from_bytes(&bytes);
-    Pixbuf::from_stream(&stream, NONE_CANCELLABLE).unwrap()
+    let pix = Pixbuf::from_stream(&stream, NONE_CANCELLABLE).unwrap();
+    pix.scale_simple(450, 450, InterpType::Bilinear).unwrap()
 }
 
 fn get_recipe_ingredients(ingredients: &[String]) -> String {

@@ -6,13 +6,13 @@ use serde::{Deserialize, Serialize};
 
 pub fn query_favorites() -> errors::Result<Vec<Document>> {
     let user_session = super::read_cached_refresh_token()?;
-    let ff = firestore_db_and_auth::users::user_info(&user_session).unwrap();
-    println!("test: {:#?}", &ff.users);
-    let dd = ff.users[0].displayName.clone().unwrap();
+    let user = firestore_db_and_auth::users::user_info(&user_session).unwrap();
+    let user = &user.users[0];
+    let dispaly_name = user.displayName.clone().unwrap();
     let results: Vec<Document> = query(
         &user_session,
         "favorites",
-        dd.into(),
+        dispaly_name.into(),
         FieldOperator::EQUAL,
         "userName",
     )

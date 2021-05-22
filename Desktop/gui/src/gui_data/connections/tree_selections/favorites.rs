@@ -1,9 +1,13 @@
 use gtk::prelude::*;
 
+use cookbook::data::drink::id::get_drink_recipe_by_id;
+use cookbook::data::meal::id::get_meal_recipe_by_id;
+
+use crate::field_set::set_drink_recipe_fields;
+use crate::field_set::set_meal_recipe_fields;
 use crate::gui_data::GuiData;
 
 pub fn favorite_tree_selection(gui_data: &GuiData) {
-    println!("favorites update");
     let gui_data = gui_data.clone();
     let tree_selection = gui_data
         .main_window_category_notebook
@@ -12,61 +16,53 @@ pub fn favorite_tree_selection(gui_data: &GuiData) {
     tree_selection.connect_changed(move |_| on_favorite_selection_changed(&gui_data));
 }
 
-fn on_favorite_selection_changed(gui_data: &GuiData) -> () {
+fn on_favorite_selection_changed(gui_data: &GuiData)  {
     let tree_selection = gui_data
         .main_window_category_notebook
         .favorite_tree_selection
         .clone();
 
-    let t = tree_selection.get_selected().unwrap();
+    let t = match tree_selection.get_selected() {
+        Some(t) => t,
+        None => return,
+    };
     let tree_model = t.0;
     let tree_iter = t.1;
 
-    let selected_value_id = tree_model.get_value(&tree_iter, 1);
-    let _selected_value_id = selected_value_id
-        .get::<String>()
-        .unwrap()
-        .unwrap()
-        .parse::<i32>()
-        .unwrap_or(0);
+    let selected_id = tree_model.get_value(&tree_iter, 1);
     let selected_category = tree_model.get_value(&tree_iter, 2);
-    let _selected_category = selected_category.get::<String>().unwrap().unwrap();
-}
-/*
-fn update_stack(gui_data: &GuiData, value: (u32, String)) {
-let stack = gui_data.main_window_stack.stack.clone();
-let previous_stack_button = gui_data.main_window_buttons.previous_stack_button.clone();
-let tree_store = gui_data
-    .main_window_stack
-    .selected_category_tree_store
-    .clone();
-let tree_view = gui_data
-    .main_window_stack
-    .selected_category_tree_view
-    .clone();
-let selected_category_tree_selection = gui_data
-    .main_window_stack
-    .selected_category_tree_selection
-    .clone();
 
-selected_category_tree_selection.unselect_all();
-let selected_category = get_filtered_meal_category_items(&value);
-let selected_category = selected_category.filtered_meals;
+    let selected_id = selected_id.get::<i32>().unwrap().unwrap();
+    let selected_category = selected_category.get::<String>().unwrap().unwrap();
 
-tree_store.clear();
-for s in selected_category {
-    let id = s.id_meal.parse::<i32>().unwrap_or_default();
-    tree_store.insert_with_values(
-        None,
-        None,
-        &[0, 1, 2],
-        &[&s.str_meal, &id, &String::from("Meal")],
-    );
+    update_stack_with_recipe(&gui_data, (selected_id, selected_category));
 }
 
-tree_view.expand_all();
-previous_stack_button.set_sensitive(true);
+fn update_stack_with_recipe(gui_data: &GuiData, value: (i32, String)) {
+    let stack = gui_data.main_window_stack.stack.clone();
+    let recipe_id = value.0;
+    let recipe_type = value.1;
 
-stack.set_visible_child_name("page1");
+    match recipe_type.as_str() {
+        "Meal" => set_meal_recipe(&gui_data, recipe_id),
+        "Drink" => set_drink_recipe(&gui_data, recipe_id),
+        _ => return,
+    }
+    let tree_selection = gui_data
+        .main_window_category_notebook
+        .drink_category_tree_selection
+        .clone();
+
+    tree_selection.unselect_all();
+    stack.set_visible_child_name("page0");
 }
-*/
+
+fn set_drink_recipe(gui_data: &GuiData, recipe_id: i32) {
+    let drink = get_drink_recipe_by_id(recipe_id);
+    set_drink_recipe_fields(&gui_data, drink);
+}
+
+fn set_meal_recipe(gui_data: &GuiData, recipe_id: i32) {
+    let meal = get_meal_recipe_by_id(recipe_id);
+    set_meal_recipe_fields(&gui_data, meal);
+}

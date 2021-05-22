@@ -1,4 +1,6 @@
-use firestore_db_and_auth::{errors, sessions, users, Credentials};
+use firestore_db_and_auth::errors::FirebaseError;
+use firestore_db_and_auth::users::FirebaseAuthUserResponse;
+use firestore_db_and_auth::{errors, sessions, Credentials};
 
 pub mod email_handler;
 pub mod favorites;
@@ -14,10 +16,15 @@ fn get_credentials() -> Credentials {
     .unwrap()
 }
 
-pub fn get_user_info(session: &sessions::user::Session) {
-    let info = users::user_info(session).unwrap();
-    let a = info.users;
-    println!("test: {:#?}", a);
+pub fn get_user_info() -> Result<FirebaseAuthUserResponse, FirebaseError> {
+    let session = match read_cached_refresh_token() {
+        Ok(s) => s,
+        Err(e) => {
+            return Err(e);
+        }
+    };
+    let users = firestore_db_and_auth::users::user_info(&session)?;
+    Ok(users)
 }
 
 pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {

@@ -14,7 +14,6 @@ pub fn connect_search_bar(gui_data: &GuiData) {
 pub fn on_search_bar_search_changed(gui_data: &GuiData) {
     let search_bar = gui_data.main_window_search_bar.clone();
     let searched_name = search_bar.get_text().parse::<String>().unwrap();
-    println!("Test: on_search_bar_search_changed: {:?}", searched_name);
 
     update_stack(gui_data, &searched_name);
 }
