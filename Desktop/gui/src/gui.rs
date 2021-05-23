@@ -32,7 +32,7 @@ pub fn initialize(gui_data: &GuiData) {
     });
 }
 
-fn initialize_logo(gui_data: &GuiData){
+fn initialize_logo(gui_data: &GuiData) {
     let logo_image = gui_data.main_window_logo_image.clone();
     let pixbuf = Pixbuf::from_file("gui/ui/logo.png").unwrap();
     let pixbuf = pixbuf.scale_simple(135, 84, InterpType::Bilinear).unwrap();
@@ -44,6 +44,7 @@ pub fn initialize_user(gui_data: &GuiData) {
     let login_button = gui_data.main_window_buttons.login_button.clone();
     let user_image = gui_data.main_window_images.user_image.clone();
     let welcome_label = gui_data.main_window_welcome_label.clone();
+    let favorite_button = gui_data.main_window_buttons.favorite_button.clone();
     match users {
         Ok(u) => {
             let user_name = u.users[0]
@@ -57,17 +58,46 @@ pub fn initialize_user(gui_data: &GuiData) {
             let user_img = u.users[0].photoUrl.clone();
             user_image.set_from_pixbuf(Some(&get_user_image(user_img)));
             login_button.set_label("Logout");
+            favorite_button.set_sensitive(true);
         }
         Err(_) => {
             welcome_label.set_text("Welcome Geust!");
+            user_image.set_from_pixbuf(Some(&get_user_image(None)));
             login_button.set_label("Login");
+            favorite_button.set_sensitive(false);
         }
     };
+    set_favorite_button_image(&gui_data);
 }
 
 fn initialize_buttons(gui_data: &GuiData) {
     let previous_stack_button = gui_data.main_window_buttons.previous_stack_button.clone();
     previous_stack_button.set_sensitive(false);
+    let favorite_button = gui_data.main_window_buttons.favorite_button.clone();
+    favorite_button.set_label("Add to favorites");
+    favorite_button.set_sensitive(false);
+
+    let favorite_image = gui_data.main_window_favorite_button_image.clone();
+    if let Some(p) = set_favorite_button_image(&gui_data) {
+        favorite_image.set_from_pixbuf(Some(&p))
+    }
+}
+
+fn set_favorite_button_image(gui_data: &GuiData) -> Option<Pixbuf> {
+    let button = gui_data.main_window_buttons.favorite_button.clone();
+    let button_label = button.get_label().unwrap();
+    let button_label = button_label.as_str();
+    match button_label {
+        "Add to favorites" => {
+            let pix = Pixbuf::from_file("gui/ui/add_favorite.png").unwrap();
+            Some(pix)
+        }
+        "Remove from favorites" => {
+            let pix = Pixbuf::from_file("gui/ui/remove_favorite.png").unwrap();
+            Some(pix)
+        }
+        _ => None,
+    }
 }
 
 fn initialize_stack(gui_data: &GuiData) {
