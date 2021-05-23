@@ -6,6 +6,7 @@ pub struct MainWindowButtons {
     pub random_drink_recipe_button: gtk::Button,
     pub previous_stack_button: gtk::Button,
     pub login_button: gtk::Button,
+    pub favorite_button: gtk::Button,
 }
 
 impl MainWindowButtons {
@@ -22,11 +23,15 @@ impl MainWindowButtons {
         let login_button: gtk::Button = builder
             .get_object("login_button")
             .expect("\"login_button\" ID in \"Main_Window.glade\" should exist.");
+        let favorite_button: gtk::Button = builder
+            .get_object("favorite_button")
+            .expect("\"favorite_button\" ID in \"Main_Window.glade\" should exist.");
         Self {
             random_meal_recipe_button,
             random_drink_recipe_button,
             previous_stack_button,
             login_button,
+            favorite_button,
         }
     }
 }

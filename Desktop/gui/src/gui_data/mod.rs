@@ -23,6 +23,7 @@ pub struct GuiData {
     // Images
     pub main_window_images: main_window::images::MainWindowImages,
     pub main_window_logo_image: gtk::Image,
+    pub main_window_favorite_button_image: gtk::Image,
 
     // Category Notebook
     pub main_window_category_notebook: main_window::category_notebook::MainWindowCategoryNotebook,
@@ -71,6 +72,10 @@ impl GuiData {
         let main_window_logo_image: gtk::Image = builder
             .get_object("logo_image")
             .expect("\"logo_image\" ID in \"Cookbook.glade\" should exist.");
+
+        let main_window_favorite_button_image: gtk::Image = builder
+            .get_object("favorite_button_image")
+            .expect("\"favorite_button_image\" ID in \"Cookbook.glade\" should exist.");
         main_window.show_all();
 
         Self {
@@ -86,6 +91,7 @@ impl GuiData {
             main_window_search_bar,
             main_window_welcome_label,
             main_window_logo_image,
+            main_window_favorite_button_image,
         }
     }
 }
@@ -122,6 +128,9 @@ fn new_gui_data_test() {
     let main_window_logo_image: gtk::Image = builder
         .get_object("logo_image")
         .expect("\"logo_image\" ID in \"Cookbook.glade\" should exist.");
+    let main_window_favorite_button_image: gtk::Image = builder
+        .get_object("favorite_button_image")
+        .expect("\"favorite_button_image\" ID in \"Cookbook.glade\" should exist.");
 
     let should_be = GuiData {
         glade_src,
@@ -136,6 +145,7 @@ fn new_gui_data_test() {
         main_window_search_bar,
         main_window_welcome_label,
         main_window_logo_image,
+        main_window_favorite_button_image,
     };
 
     let tested = GuiData::new();

@@ -1,7 +1,10 @@
+use std::vec;
+
 use firestore_db_and_auth::documents::*;
 use firestore_db_and_auth::dto::{Document, FieldOperator};
 use firestore_db_and_auth::errors;
-
+use firestore_db_and_auth::sessions::user::Session;
+use rand::Rng;
 use serde::{Deserialize, Serialize};
 
 pub fn query_favorites() -> errors::Result<Vec<Document>> {
@@ -22,43 +25,73 @@ pub fn query_favorites() -> errors::Result<Vec<Document>> {
     Ok(results)
 }
 
-pub fn get_favorites() -> Vec<Favorite> {
+pub fn get_favorites() -> Vec<FavoriteMeal> {
     let results = query_favorites();
     let mut favorites_uid = vec![];
-    match results {
-        Ok(d) => {
-            for document in d {
-                favorites_uid.push(document.name.replace(
-                    "projects/cookbook-307109/databases/(default)/documents/favorites/",
-                    "",
-                ))
-            }
+    if let Ok(d) = results {
+        for document in d {
+            favorites_uid.push(document.name.replace(
+                "projects/cookbook-307109/databases/(default)/documents/favorites/",
+                "",
+            ));
         }
-        Err(e) => println!("Favorites error: {}", e),
     }
-
     get_favorite_recipe(favorites_uid)
 }
 
-pub fn get_favorite_recipe(uid: Vec<String>) -> Vec<Favorite> {
+pub fn get_favorite_recipe(uid: Vec<String>) -> Vec<FavoriteMeal> {
     let sesion = super::read_cached_refresh_token();
     let mut recipes = vec![];
-    match sesion {
-        Ok(s) => {
-            let path = "favorites";
-            for id in uid {
-                let x: Favorite = firestore_db_and_auth::documents::read(&s, path, id).unwrap();
-                recipes.push(x);
-            }
+    if let Ok(s) = sesion {
+        let path = "favorites";
+        for id in uid {
+            let x: FavoriteMeal = firestore_db_and_auth::documents::read(&s, path, id).unwrap();
+            recipes.push(x);
         }
-        Err(e) => println!("Session error: {}", e),
     }
 
     recipes
 }
+//favorite: FavoriteMeal
+pub fn save_favorite_meal_recipe() {
+    let sesion = super::read_cached_refresh_token();
+    if let Ok(_s) = sesion {
+        let _path = "favorites";
+        let id = Some(generate_random_id());
+        println!("uid: {:?}", id);
+        //let x = firestore_db_and_auth::documents::write(&s, path, id, document, options);
+    };
+}
+
+fn generate_random_id() -> String {
+    let sesion = super::read_cached_refresh_token();
+    let mut all_favorites_id = vec![];
+    if let Ok(s) = sesion {
+        let list: List<FavoriteMeal, Session> =
+            firestore_db_and_auth::documents::list(&s, "favorites");
+        for document in list {
+            let result = document.unwrap();
+            all_favorites_id.push(result.1.name.clone().replace(
+                "projects/cookbook-307109/databases/(default)/documents/favorites/",
+                "",
+            ));
+        }
+    }
+    loop {
+        let uid = rand::thread_rng()
+            .sample_iter(rand::distributions::Alphanumeric)
+            .map(char::from)
+            .take(20)
+            .collect();
+        if !all_favorites_id.contains(&uid) {
+            return uid;
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Favorite {
+pub struct FavoriteMeal {
     pub created_at: Option<String>,
     pub meal_area: Option<String>,
     pub meal_category: Option<String>,

@@ -197,6 +197,7 @@ name = "firebase_handler"
 version = "0.1.0"
 dependencies = [
  "firestore-db-and-auth",
+ "rand",
  "serde",
  "serde_json",
 ]

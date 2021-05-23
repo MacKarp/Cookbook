@@ -8,15 +8,11 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkTreeStore" id="favorite_tree_store">
-    <columns>
-      <!-- column-name gchararray1 -->
-      <column type="gchararray"/>
-      <!-- column-name gint1 -->
-      <column type="gint"/>
-      <!-- column-name gchararray2 -->
-      <column type="gchararray"/>
-    </columns>
+  <object class="GtkImage" id="email_logo">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="pixbuf">gui/ui/email.png</property>
   </object>
   <object class="GtkWindow" id="login_window">
     <property name="can-focus">False</property>
@@ -132,7 +128,7 @@
             </child>
             <child>
               <object class="GtkButton" id="email_login_button">
-                <property name="label" translatable="yes">email_login_button</property>
+                <property name="label" translatable="yes">Sing in with email</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="has-default">True</property>
@@ -141,6 +137,8 @@
                 <property name="margin-end">5</property>
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
+                <property name="image">email_logo</property>
+                <property name="always-show-image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -190,6 +188,21 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="favorite_button_image">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkTreeStore" id="favorite_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+      <!-- column-name gint1 -->
+      <column type="gint"/>
+      <!-- column-name gchararray2 -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkTreeStore" id="meal_category_tree_store">
     <columns>
@@ -279,29 +292,17 @@ Let's make something today!</property>
                         <property name="margin-start">5</property>
                         <property name="margin-end">5</property>
                         <child>
-                          <object class="GtkButton" id="FavoriteButton">
-                            <property name="label" translatable="yes">Add/Remove Favorite</property>
+                          <object class="GtkButton" id="favorite_button">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
+                            <property name="image">favorite_button_image</property>
+                            <property name="always-show-image">True</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="EditButton">
-                            <property name="label" translatable="yes">Edit/Save Recipe</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
                           </packing>
                         </child>
                         <child>

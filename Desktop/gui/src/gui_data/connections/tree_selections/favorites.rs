@@ -16,7 +16,7 @@ pub fn favorite_tree_selection(gui_data: &GuiData) {
     tree_selection.connect_changed(move |_| on_favorite_selection_changed(&gui_data));
 }
 
-fn on_favorite_selection_changed(gui_data: &GuiData)  {
+fn on_favorite_selection_changed(gui_data: &GuiData) {
     let tree_selection = gui_data
         .main_window_category_notebook
         .favorite_tree_selection
