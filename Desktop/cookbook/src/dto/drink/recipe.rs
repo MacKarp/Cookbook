@@ -234,6 +234,7 @@ fn measure_ingredient(measure: &Option<String>, ingredient: &Option<String>) -> 
         None => "".to_string(),
     };
     let measured_ingredient = measure + " " + ingredient.as_str().trim();
+    let measured_ingredient = measured_ingredient.trim().to_string();
     measured_ingredient
 }
 

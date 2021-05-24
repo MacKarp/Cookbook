@@ -210,9 +210,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkTextBuffer" id="recipe_ingredients_text_buffer"/>
-  <object class="GtkTextBuffer" id="recipe_name_text_buffer"/>
-  <object class="GtkTextBuffer" id="recipe_text_buffer"/>
   <object class="GtkTreeStore" id="selected_category_tree_store">
     <columns>
       <!-- column-name recipe_name -->
@@ -662,16 +659,13 @@ Let's make something today!</property>
                             <property name="margin-end">5</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkTextView" id="recipe_name_text_view">
+                              <object class="GtkLabel" id="recipe_name_text_label">
                                 <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="margin-bottom">5</property>
-                                <property name="justification">center</property>
-                                <property name="left-margin">10</property>
-                                <property name="right-margin">10</property>
-                                <property name="top-margin">10</property>
-                                <property name="bottom-margin">10</property>
-                                <property name="buffer">recipe_name_text_buffer</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">label</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Great Vibes 28"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -687,6 +681,9 @@ Let's make something today!</property>
                                 <property name="margin-top">5</property>
                                 <property name="margin-bottom">5</property>
                                 <property name="label" translatable="yes">Ingredients:</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Poppins 12"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -703,15 +700,26 @@ Let's make something today!</property>
                                 <property name="shadow-type">in</property>
                                 <property name="propagate-natural-height">True</property>
                                 <child>
-                                  <object class="GtkTextView" id="recipe_ingredients_text_view">
+                                  <object class="GtkViewport">
                                     <property name="visible">True</property>
-                                    <property name="can-focus">True</property>
-                                    <property name="justification">fill</property>
-                                    <property name="left-margin">10</property>
-                                    <property name="right-margin">10</property>
-                                    <property name="top-margin">10</property>
-                                    <property name="bottom-margin">10</property>
-                                    <property name="buffer">recipe_ingredients_text_buffer</property>
+                                    <property name="can-focus">False</property>
+                                    <child>
+                                      <object class="GtkLabel" id="recipe_ingredients_label">
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="halign">start</property>
+                                        <property name="margin-start">10</property>
+                                        <property name="margin-end">10</property>
+                                        <property name="margin-top">10</property>
+                                        <property name="margin-bottom">10</property>
+                                        <property name="label" translatable="yes">label</property>
+                                        <property name="wrap">True</property>
+                                        <property name="selectable">True</property>
+                                        <attributes>
+                                          <attribute name="font-desc" value="Poppins 14"/>
+                                        </attributes>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -760,6 +768,9 @@ Let's make something today!</property>
                             <property name="halign">start</property>
                             <property name="margin-top">5</property>
                             <property name="label" translatable="yes">Preparation:</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Poppins 12"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -775,16 +786,28 @@ Let's make something today!</property>
                             <property name="shadow-type">in</property>
                             <property name="propagate-natural-height">True</property>
                             <child>
-                              <object class="GtkTextView" id="recipe_text_view">
+                              <object class="GtkViewport">
                                 <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="hscroll-policy">natural</property>
-                                <property name="wrap-mode">word-char</property>
-                                <property name="left-margin">10</property>
-                                <property name="right-margin">10</property>
-                                <property name="top-margin">10</property>
-                                <property name="bottom-margin">10</property>
-                                <property name="buffer">recipe_text_buffer</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="recipe_text_label">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="valign">start</property>
+                                    <property name="margin-start">10</property>
+                                    <property name="margin-end">10</property>
+                                    <property name="margin-top">10</property>
+                                    <property name="margin-bottom">10</property>
+                                    <property name="vexpand">True</property>
+                                    <property name="label" translatable="yes">label</property>
+                                    <property name="wrap">True</property>
+                                    <property name="selectable">True</property>
+                                    <attributes>
+                                      <attribute name="font-desc" value="Poppins 14"/>
+                                    </attributes>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
