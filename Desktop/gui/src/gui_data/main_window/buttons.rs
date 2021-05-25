@@ -54,12 +54,16 @@ fn create_from_builder_test() {
     let login_button: gtk::Button = builder
         .get_object("login_button")
         .expect("\"login_button\" ID in \"Main_Window.glade\" should exist.");
+    let favorite_button: gtk::Button = builder
+        .get_object("favorite_button")
+        .expect("\"favorite_button\" ID in \"Main_Window.glade\" should exist.");
 
     let should_be = MainWindowButtons {
         random_meal_recipe_button,
         random_drink_recipe_button,
         previous_stack_button,
         login_button,
+        favorite_button,
     };
 
     let tested = MainWindowButtons::create_from_builder(&builder);

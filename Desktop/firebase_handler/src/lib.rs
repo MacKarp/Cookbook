@@ -2,6 +2,7 @@ use firestore_db_and_auth::errors::FirebaseError;
 use firestore_db_and_auth::users::FirebaseAuthUserResponse;
 use firestore_db_and_auth::{errors, sessions, Credentials};
 
+pub mod dto;
 pub mod email_handler;
 pub mod favorites;
 

@@ -1,3 +1,10 @@
+# Requiermentrs: 
+To get best experience using app following fonts are required to be installed:
+
+[Great Vibes](https://fonts.google.com/specimen/Great+Vibes)
+
+[Poppins](https://fonts.google.com/specimen/Poppins)
+
 # How to build:
 Generate and download the service accounts credentials file as JSON format from [Google Cloud Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts) and store it as `"firebase-service-account.json"`.
 

@@ -1,11 +1,12 @@
-use std::vec;
-
-use firestore_db_and_auth::documents::*;
+use cookbook::dto::meal::recipe::MealRecipe;
 use firestore_db_and_auth::dto::{Document, FieldOperator};
 use firestore_db_and_auth::errors;
 use firestore_db_and_auth::sessions::user::Session;
+use firestore_db_and_auth::{documents::*, errors::FirebaseError};
 use rand::Rng;
-use serde::{Deserialize, Serialize};
+use std::vec;
+
+use crate::dto::meal::FavoriteMeal;
 
 pub fn query_favorites() -> errors::Result<Vec<Document>> {
     let user_session = super::read_cached_refresh_token()?;
@@ -25,7 +26,7 @@ pub fn query_favorites() -> errors::Result<Vec<Document>> {
     Ok(results)
 }
 
-pub fn get_favorites() -> Vec<FavoriteMeal> {
+pub fn get_favorites() -> (Vec<FavoriteMeal>, Vec<String>) {
     let results = query_favorites();
     let mut favorites_uid = vec![];
     if let Ok(d) = results {
@@ -36,10 +37,10 @@ pub fn get_favorites() -> Vec<FavoriteMeal> {
             ));
         }
     }
-    get_favorite_recipe(favorites_uid)
+    (get_favorite_recipe(&favorites_uid), favorites_uid)
 }
 
-pub fn get_favorite_recipe(uid: Vec<String>) -> Vec<FavoriteMeal> {
+pub fn get_favorite_recipe(uid: &[String]) -> Vec<FavoriteMeal> {
     let sesion = super::read_cached_refresh_token();
     let mut recipes = vec![];
     if let Ok(s) = sesion {
@@ -52,15 +53,40 @@ pub fn get_favorite_recipe(uid: Vec<String>) -> Vec<FavoriteMeal> {
 
     recipes
 }
-//favorite: FavoriteMeal
-pub fn save_favorite_meal_recipe() {
+pub fn save_favorite_meal_recipe(meal_recipe: MealRecipe) -> Result<WriteResult, FirebaseError> {
     let sesion = super::read_cached_refresh_token();
-    if let Ok(_s) = sesion {
-        let _path = "favorites";
-        let id = Some(generate_random_id());
-        println!("uid: {:?}", id);
-        //let x = firestore_db_and_auth::documents::write(&s, path, id, document, options);
-    };
+    match sesion {
+        Ok(s) => {
+            let user_id = s.user_id.clone();
+            let user = super::get_user_info().unwrap();
+            let user_name = user.users[0].displayName.clone().unwrap_or_default();
+
+            let path = "favorites";
+            let document_id = Some(generate_random_id());
+            let user_info = (&user_id, &user_name);
+
+            let document = FavoriteMeal::from_meal_recipe(meal_recipe, user_info);
+            firestore_db_and_auth::documents::write(
+                &s,
+                path,
+                document_id,
+                &document,
+                WriteOptions::default(),
+            )
+        }
+        Err(e) => Err(e),
+    }
+}
+
+pub fn remove_favorite_recipe(document_id: &str) -> Result<(), FirebaseError> {
+    let sesion = super::read_cached_refresh_token();
+    match sesion {
+        Ok(s) => {
+            let path = "favorites/".to_owned() + document_id;
+            delete(&s, &path, false)
+        }
+        Err(e) => Err(e),
+    }
 }
 
 fn generate_random_id() -> String {
@@ -87,17 +113,4 @@ fn generate_random_id() -> String {
             return uid;
         }
     }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct FavoriteMeal {
-    pub created_at: Option<String>,
-    pub meal_area: Option<String>,
-    pub meal_category: Option<String>,
-    pub meal_id: Option<String>,
-    pub meal_name: Option<String>,
-    pub meal_photo_url: Option<String>,
-    pub user_id: Option<String>,
-    pub user_name: Option<String>,
 }

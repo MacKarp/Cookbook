@@ -1,14 +1,63 @@
 use gtk::prelude::*;
 
-use crate::gui_data::GuiData;
 use cookbook::data::drink::search::get_drink_recipe_by_search;
 use cookbook::data::meal::search::get_meal_recipe_by_search;
+
+use crate::gui::set_favorite_button_image;
+use crate::gui_data::GuiData;
 
 pub fn connect_search_bar(gui_data: &GuiData) {
     let gui_data = gui_data.clone();
     let search_bar = gui_data.main_window_search_bar.clone();
 
     search_bar.connect_search_changed(move |_| on_search_bar_search_changed(&gui_data));
+}
+
+pub fn connect_document_id_buffer(gui_data: &GuiData) {
+    let gui_data = gui_data.clone();
+    let text_buffer = gui_data
+        .main_window_text
+        .displayed_recipe_favorite_document_id_text_buffer
+        .clone();
+
+    text_buffer.connect_changed(move |_| on_document_id_text_buffer_changed(&gui_data));
+}
+
+fn on_document_id_text_buffer_changed(gui_data: &GuiData) {
+    let text_buffer = gui_data
+        .main_window_text
+        .displayed_recipe_favorite_document_id_text_buffer
+        .clone();
+    let document_id = text_buffer
+        .get_text(
+            &text_buffer.get_start_iter(),
+            &text_buffer.get_end_iter(),
+            false,
+        )
+        .unwrap()
+        .to_string();
+
+    let favorite_button = gui_data.main_window_buttons.favorite_button.clone();
+
+    match document_id.as_str() {
+        "" => {
+            favorite_button.set_label("Add to favorites");
+
+            let favorite_image = gui_data.main_window_favorite_button_image.clone();
+            if let Some(p) = set_favorite_button_image(&gui_data) {
+                favorite_image.set_from_pixbuf(Some(&p))
+            }
+        }
+
+        _ => {
+            favorite_button.set_label("Remove from favorites");
+
+            let favorite_image = gui_data.main_window_favorite_button_image.clone();
+            if let Some(p) = set_favorite_button_image(&gui_data) {
+                favorite_image.set_from_pixbuf(Some(&p))
+            }
+        }
+    };
 }
 
 pub fn on_search_bar_search_changed(gui_data: &GuiData) {

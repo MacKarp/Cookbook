@@ -83,7 +83,7 @@ fn initialize_buttons(gui_data: &GuiData) {
     }
 }
 
-fn set_favorite_button_image(gui_data: &GuiData) -> Option<Pixbuf> {
+pub fn set_favorite_button_image(gui_data: &GuiData) -> Option<Pixbuf> {
     let button = gui_data.main_window_buttons.favorite_button.clone();
     let button_label = button.get_label().unwrap();
     let button_label = button_label.as_str();
@@ -229,11 +229,14 @@ pub fn favorites_update(gui_data: &GuiData) {
         .clone();
     tree_selection.set_mode(gtk::SelectionMode::None);
     tree_store.clear();
-    for f in favorites {
-        let name = f.meal_name.unwrap();
-        let id = f.meal_id.unwrap().parse::<i32>().unwrap();
+    let meals = &favorites.0;
+    let docs = &favorites.1;
+    for (i, fav) in meals.iter().enumerate() {
+        let name = fav.meal_name.as_ref().unwrap();
+        let id = fav.meal_id.as_ref().unwrap().parse::<i32>().unwrap();
         let category = "Meal";
-        tree_store.insert_with_values(None, None, &[0, 1, 2], &[&name, &id, &category]);
+        let doc_id = &docs[i];
+        tree_store.insert_with_values(None, None, &[0, 1, 2, 3], &[&name, &id, &category, &doc_id]);
     }
 
     let tree_view = gui_data

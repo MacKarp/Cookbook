@@ -196,6 +196,8 @@ dependencies = [
 name = "firebase_handler"
 version = "0.1.0"
 dependencies = [
+ "chrono",
+ "cookbook",
  "firestore-db-and-auth",
  "rand",
  "serde",

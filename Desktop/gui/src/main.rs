@@ -15,6 +15,7 @@ fn main() {
     buttons::connect(&gui_data);
     tree_selections::connect(&gui_data);
     others::connect_search_bar(&gui_data);
+    others::connect_document_id_buffer(&gui_data);
 
     {
         let window_main = gui_data.main_window;

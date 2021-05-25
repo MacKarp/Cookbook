@@ -1,8 +1,9 @@
-use crate::field_set::set_drink_recipe_fields;
-use crate::gui_data::GuiData;
+use gtk::prelude::*;
+
 use cookbook::data::drink::random::get_random_drink_recipe;
 
-use gtk::prelude::*;
+use crate::field_set::set_drink_recipe_fields;
+use crate::gui_data::GuiData;
 
 pub fn random_button(gui_data: &GuiData) {
     let gui_data = gui_data.clone();
@@ -18,6 +19,12 @@ pub fn on_random_recipe_button_clicked(gui_data: &GuiData) {
         .main_window_stack
         .stack
         .set_visible_child(&gui_data.main_window_stack.recipe_editor_box);
+
+    let favorite_document_id = gui_data
+        .main_window_text
+        .displayed_recipe_favorite_document_id_text_buffer
+        .clone();
+    favorite_document_id.set_text("");
 
     let drink = get_random_drink_recipe();
     set_drink_recipe_fields(&gui_data, drink);
