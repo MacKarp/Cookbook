@@ -4,6 +4,9 @@ pub struct MainWindowText {
     pub recipe_name_text_label: gtk::Label,
     pub recipe_ingredients_label: gtk::Label,
     pub recipe_text_label: gtk::Label,
+    pub displayed_recipe_type_text_buffer: gtk::TextBuffer,
+    pub displayed_recipe_id_text_buffer: gtk::TextBuffer,
+    pub displayed_recipe_favorite_document_id_text_buffer: gtk::TextBuffer,
 }
 
 impl MainWindowText {
@@ -17,11 +20,29 @@ impl MainWindowText {
         let recipe_text_label: gtk::Label = builder
             .get_object("recipe_text_label")
             .expect("\"recipe_text_label\" ID in \"Main_Window.glade\" should exist.");
+        let displayed_recipe_type_text_buffer: gtk::TextBuffer = builder
+            .get_object("displayed_recipe_type_text_buffer")
+            .expect(
+                "\"displayed_recipe_type_text_buffer\" ID in \"Main_Window.glade\" should exist.",
+            );
+        let displayed_recipe_id_text_buffer: gtk::TextBuffer = builder
+            .get_object("displayed_recipe_id_text_buffer")
+            .expect(
+                "\"displayed_recipe_id_text_buffer\" ID in \"Main_Window.glade\" should exist.",
+            );
+        let displayed_recipe_favorite_document_id_text_buffer: gtk::TextBuffer = builder
+            .get_object("displayed_recipe_favorite_document_id_text_buffer")
+            .expect(
+                "\"displayed_recipe_favorite_document_id_text_buffer\" ID in \"Main_Window.glade\" should exist.",
+            );
 
         Self {
             recipe_name_text_label,
-            recipe_ingredients_label: recipe_ingredients_label,
-            recipe_text_label: recipe_text_label,
+            recipe_ingredients_label,
+            recipe_text_label,
+            displayed_recipe_type_text_buffer,
+            displayed_recipe_id_text_buffer,
+            displayed_recipe_favorite_document_id_text_buffer,
         }
     }
 }
@@ -41,11 +62,25 @@ fn create_from_builder_test() {
     let recipe_text_label: gtk::Label = builder
         .get_object("recipe_text_label")
         .expect("\"recipe_text_label\" ID in \"Main_Window.glade\" should exist.");
+    let displayed_recipe_type_text_buffer: gtk::TextBuffer = builder
+        .get_object("displayed_recipe_type_text_buffer")
+        .expect("\"displayed_recipe_type_text_buffer\" ID in \"Main_Window.glade\" should exist.");
+    let displayed_recipe_id_text_buffer: gtk::TextBuffer = builder
+        .get_object("displayed_recipe_id_text_buffer")
+        .expect("\"displayed_recipe_id_text_buffer\" ID in \"Main_Window.glade\" should exist.");
+    let displayed_recipe_favorite_document_id_text_buffer: gtk::TextBuffer = builder
+        .get_object("displayed_recipe_favorite_document_id_text_buffer")
+        .expect(
+            "\"displayed_recipe_favorite_document_id_text_buffer\" ID in \"Main_Window.glade\" should exist.",
+        );
 
     let should_be = MainWindowText {
-        recipe_name_text_label: recipe_ingredients_label,
         recipe_ingredients_label,
-        recipe_text_label: recipe_text_label,
+        recipe_ingredients_label,
+        recipe_text_label,
+        displayed_recipe_type_text_buffer,
+        displayed_recipe_id_text_buffer,
+        displayed_recipe_favorite_document_id_text_buffer,
     };
 
     let tested = MainWindowText::create_from_builder(&builder);

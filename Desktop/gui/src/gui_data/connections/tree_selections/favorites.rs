@@ -31,9 +31,17 @@ fn on_favorite_selection_changed(gui_data: &GuiData) {
 
     let selected_id = tree_model.get_value(&tree_iter, 1);
     let selected_category = tree_model.get_value(&tree_iter, 2);
+    let selected_document = tree_model.get_value(&tree_iter, 3);
 
     let selected_id = selected_id.get::<i32>().unwrap().unwrap();
     let selected_category = selected_category.get::<String>().unwrap().unwrap();
+    let selected_document = selected_document.get::<String>().unwrap().unwrap();
+
+    let favorite_document_id = gui_data
+        .main_window_text
+        .displayed_recipe_favorite_document_id_text_buffer
+        .clone();
+    favorite_document_id.set_text(&selected_document);
 
     update_stack_with_recipe(&gui_data, (selected_id, selected_category));
 }

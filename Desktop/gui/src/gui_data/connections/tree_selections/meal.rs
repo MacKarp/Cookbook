@@ -34,6 +34,12 @@ fn on_meal_category_selection_changed(gui_data: &GuiData) {
     let selected_value = tree_model.get_value(&tree_iter, 0);
     let value = selected_value.get::<String>().unwrap().unwrap();
 
+    let favorite_document_id = gui_data
+        .main_window_text
+        .displayed_recipe_favorite_document_id_text_buffer
+        .clone();
+    favorite_document_id.set_text("");
+
     update_stack(gui_data, (value, category));
 }
 

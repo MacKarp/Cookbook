@@ -15,10 +15,20 @@ fn set_meal_recipe_text_fields(gui_data: &GuiData, meal: &MealRecipe) {
     let recipe_name_text_label = gui_data.main_window_text.recipe_name_text_label.clone();
     let recipe_ingredients_label = gui_data.main_window_text.recipe_ingredients_label.clone();
     let recipe_text_label = gui_data.main_window_text.recipe_text_label.clone();
+    let recipe_type = gui_data
+        .main_window_text
+        .displayed_recipe_type_text_buffer
+        .clone();
+    let recipe_id = gui_data
+        .main_window_text
+        .displayed_recipe_id_text_buffer
+        .clone();
 
     recipe_name_text_label.set_text(&*meal.meal_name);
     recipe_ingredients_label.set_text(&*get_recipe_ingredients(&meal.ingredients));
     recipe_text_label.set_text(&*meal.instructions);
+    recipe_type.set_text("Meal");
+    recipe_id.set_text(&meal.id.to_string());
 }
 
 fn set_meal_recipe_image_fields(gui_data: &GuiData, meal: &MealRecipe) {
