@@ -6,7 +6,9 @@ To get best experience using app following fonts are required to be installed:
 [Poppins](https://fonts.google.com/specimen/Poppins)
 
 # How to build:
-Generate and download the service accounts credentials file as JSON format from [Google Cloud Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts) and store it as `"firebase-service-account.json"`.
+Generate and download the service accounts credentials file as JSON format from [Google Cloud Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts) and store it as
+
+`firebase-service-account.json`.
 
 Open `firebase-service-account.json` and add another field `"api_key" : "YOUR_API_KEY"` and replace `YOUR_API_KEY` with your *Web API key*, to be found in the [Google Firebase console](https://console.firebase.google.com) in "Project Overview -> Settings - > General".
 
