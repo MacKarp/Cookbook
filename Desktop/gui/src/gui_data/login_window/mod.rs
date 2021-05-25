@@ -1,5 +1,9 @@
 use gtk::prelude::*;
 
+use crate::gui_data::login_window::oauth_window::OAuthWindow;
+
+pub mod oauth_window;
+
 #[derive(Clone, PartialEq, Debug)]
 pub struct LoginWindow {
     pub window: gtk::Window,
@@ -9,6 +13,7 @@ pub struct LoginWindow {
     pub google_login_button: gtk::Button,
     pub facebook_login_button: gtk::Button,
     pub login_error_label: gtk::Label,
+    pub oauth_window: oauth_window::OAuthWindow,
 }
 impl LoginWindow {
     pub fn create_from_builder(builder: &gtk::Builder) -> Self {
@@ -34,6 +39,7 @@ impl LoginWindow {
             .get_object("login_error_label")
             .expect("\"login_error_label\" ID in \"Cookbook.glade\" should exist.");
 
+        let oauth_window = OAuthWindow::create_from_builder(&builder);
         Self {
             window,
             email_login_entry,
@@ -42,6 +48,7 @@ impl LoginWindow {
             google_login_button,
             facebook_login_button,
             login_error_label,
+            oauth_window,
         }
     }
 }
