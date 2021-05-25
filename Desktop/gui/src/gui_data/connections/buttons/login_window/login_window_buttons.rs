@@ -70,9 +70,8 @@ pub fn on_google_login_button_clicked(gui_data: &GuiData, login_window: &LoginWi
     let webview = WebView::new();
     google_test(&"asd".to_string());
     let google_client_id = ClientId::new(
-        "458563897259-7atvj2iaonpajo3s07jks383tlarcibb.apps.googleusercontent.com".to_string(),
-    );
-    let google_client_secret = ClientSecret::new("fOmkC0IVVg76gfRmmjHrj4HB".to_string());
+"".to_string()    );
+    let google_client_secret = ClientSecret::new("".to_string());
     let auth_url = AuthUrl::new("https://accounts.google.com/o/oauth2/v2/auth".to_string())
         .expect("Invalid authorization endpoint URL");
     let token_url = TokenUrl::new("https://www.googleapis.com/oauth2/v3/token".to_string())

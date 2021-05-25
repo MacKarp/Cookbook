@@ -52,10 +52,9 @@ pub fn write_cached_refresh_token(user_id: &str) -> errors::Result<()> {
 }
 
 pub fn google_test(access_token: &String) {
-    let access_token2 = "ya29.a0AfH6SMDsssy8xRxHeiyWXgAAMcCxHzwk_C210XCZ1zn8JwwlN-uBOXdz5Kg2u-WLVuwcBUswGZZ2ymRsv6sIexvHmvU72TGTlBkeTo3XAZYUQClYFyQVyyZit2EeHUqR3UkTopRDAPYIT62ZTCA1fsUkwMWG";
     let x = firestore_db_and_auth::sessions::user::Session::by_access_token(
         &get_credentials(),
-        access_token2,
+        access_token,
     );
     let y = x.unwrap();
     let u = y.refresh_token;
