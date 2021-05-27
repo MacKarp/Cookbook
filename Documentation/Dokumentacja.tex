@@ -57,6 +57,104 @@
 	%Streszczenie opisu technologicznego każdej aplikacji
 	\section{Opis technologiczny}
 		\subsection{Aplikacja desktopowa}
+			
+			\indent Aplikacja desktopowa została stworzona przy wykorzystaniu następujących technologii:
+				\subsubsection{Cargo}
+
+					\indent Cargo to menadżer pakietów i system kompilowania języka Rust. Cargo pobiera zależności, kompiluje je, tworzy pakiety do dystrybucji i przesyła je do
+					\url{crates.io}, rejestru pakietów społeczności Rust. Cargo można rozbudować o dodatkowe możliwości poprzez instalację dodatkowych pakietów np. watch lub clippy. Większość
+					użytkowników używa tego narzędzia do zarządzania swoimi projektami. 
+				\subsubsection{chrono}
+
+					\indent Pakiet chrono jest biblioteką dat i godzin dla Rust. Chrono ściśle przestrzega normy ISO 8601, domyślnie rozpoznaje strefę czasową,
+				 	posiada oddzielne typy, które nie posiadają strefy czasowej. 
+				\subsubsection{Cloud Firestore}
+
+					\indent	Cloud Firestore to elastyczna, skalowalna baza danych do tworzenia aplikacji mobilnych, internetowych i serwerowych z Firebase i Google Cloud.
+					Podobnie jak Baza danych czasu rzeczywistego Firebase, zapewnia synchronizację danych między aplikacjami klienckimi za pośrednictwem odbiorników w czasie
+					rzeczywistym i oferuje obsługę offline dla urządzeń przenośnych i internetowych, dzięki czemu możesz tworzyć responsywne aplikacje, które działają niezależnie
+					od opóźnień w sieci lub łączności z Internetem.
+				\subsubsection{Firebase}
+
+					\indent Firebase to platforma opracowana przez Google do tworzenia aplikacji mobilnych i internetowych. Platforma Firebase obejmuje 18 produktów podzielonych
+					na trzy grupy:
+					\begin{itemize}
+						\item Develop,
+						\item Quality,
+						\item Grow,
+					\end{itemize}
+					Aplikacja desktopowa wykrzystuje Cloud Firestore i Firebase Authentication.
+				\subsubsection{Firebase Authentication}
+
+					\indent	Firebase Authentication zapewnia usługę uwierzytelniania dla backendu, łatwe w użyciu pakiety SDK i gotowe biblioteki interfejsu użytkownika
+					do uwierzytelniania użytkowników w aplikacjach. Obsługuje uwierzytelnianie za pomocą haseł, numerów telefonów, popularnych dostawców tożsamości
+					federacyjnych, takich jak Google, Facebook i Twitter. Firebase Authentication ściśle integruje się z innymi usługami Firebase i wykorzystuje standardy
+					branżowe, takie jak OAuth 2.0 i OpenID Connect.								
+				\subsubsection{firestore-db-and-auth}
+
+					\indent Pakiet umożliwiający łatwy dostęp do bazy danych Cloud Firestore za pośrednictwem konta usługi lub poświadczeń OAuth Firebase Authentication.				
+				\subsubsection{gdk-pixbuf}
+
+					\indent Pakiet umożliwia wykorzystanie biblioteki Gdk-Pixbuf napisanej w C dla języka Rust.
+				\subsubsection{gio}
+
+					\indent Pakiet umożliwia wykorzystanie biblioteki GIO napisanej w C dla języka Rust.
+				\subsubsection{Glade}
+
+					\indent Glade jest aplikacją do wizualnego projektowania graficznego interfejsu użytkownika dla programów GTK+/GNOME.
+					Projektowany interfejs jest zapisywany jako plik XML. Pliki w formacie GtkBuider i Libglade mogą być ładowane przez odpowiednie biblioteki GTK+ lub Libglade. 
+				\subsubsection{glib}
+
+					\indent  Pakiet umożliwia wykorzystanie biblioteki GLib napisanej w C dla języka Rust.
+				\subsubsection{gtk}
+
+					\indent Pakiet umożliwia wykorzystanie bibliotek GDK 3, GTK+ 3 i Cairo napisanych w C dla języka Rust.
+				\subsubsection{GTK+ 3}
+
+					\indent  Biblioteka służąca do tworzenia interfejsu graficznego do programów komputerowych. Pierwotnie stworzona na potrzeby programu GIMP,
+					stąd też nazwa, pochodząca od ang. The GIMP Toolkit. Znak + pojawił się w nazwie, gdy autorzy dodali do oryginalnego GTK możliwość programowania obiektowego.
+					GTK+ została napisana w C, aczkolwiek jest zaprojektowana obiektowo, w oparciu o implementację obiektowości dla C – GObject. Z biblioteki GTK+ można korzystać
+					przy pomocy większości języków programowania. Biblioteka ta jest podstawą dla środowisk graficznych GNOME i Xfce. Na platformie uniksowej sama wykorzystuje
+					bibliotekę GDK (odpowiedzialną za rysowanie obiektów) oraz GLib, zawierającą specjalne typy danych. Dzięki takiemu odseparowaniu GTK+ od systemu graficznego
+					(w przypadku Uniksa jest to przeważnie X Window System) biblioteką bezpośrednio odpowiedzialną za interakcję z systemem graficznym, możliwe było łatwe
+					przeportowanie GTK+ na inne niż uniksowe architektury (np.: Microsoft Windows oraz linuksowy DirectFB).
+				\subsubsection{oauth2}
+
+					\indent Pakiet implementujący protokół OAuth2 (RFC 6749).
+				\subsubsection{rand}
+
+					\indent Biblioteka Rust przeznaczona do generowania liczb losowych;
+				\subsubsection{reqwest}
+
+					\indent Pakiet reqwest ergonomiczny klient HTTP/HTTPS dla języka Rust.
+				\subsubsection{Rust}
+
+					\indent Kompilowany język programowania ogólnego przeznaczenia rozwijany przez Fundację Mozilla. Stworzony z myślą, aby był ,,bezpieczny, współbieżny i praktyczny''.
+					Język zaprojektował Graydon Hoare w 2006 roku, w 2009 projekt został przyjęty pod skrzydła Mozilla Foundation. W 2010 Mozilla upubliczniła informację o języku.
+					W 2011 roku kompilator języka, znany jako rustc, został z powodzeniem skompilowany przez samego siebie. Pierwsza numerowana wersja alfa została wydana w 2012 roku.
+					15 maja 2015 ukazała się wersja 1.0. Rust wykorzystuje Cargo jako menadżer pakietów. Wiele organizacji wykorzystuje ten język programowania w zastosowaniach
+					produkcyjnych. Obecnie dwoma największymi otwartymi projektami korzystającymi z języka Rust są: Servo oraz kompilator Rusta. 
+				\subsubsection{serde}
+
+					\indent Serde to framework do wydajnej i ogólnej serializacji i deserializacji struktur danych Rust.
+				\subsubsection{serde\_ json}
+
+					\indent Serde\_ json jest rozszerzeniem frameworka o możliwość serializacji i deserializacji struktur danych do/z formatu JSON.
+				\subsubsection{url}
+
+					\indent Biblioteka URL dla Rust, oparta na standardzie URL WHATWG.
+				\subsubsection{Visual studio code}
+
+					\indent Visual Studio Code – darmowy edytor kodu źródłowego z kolorowaniem składni dla wielu języków, stworzony przez Microsoft,
+					o otwartym kodzie źródłowym. Oprogramowanie ma wsparcie dla debugowania kodu, zarządzania wersjami kodu źródłowego za pośrednictwem systemu kontroli wersji Git,
+					automatycznego uzupełniania kodu IntelliSense, zarządzania wycinkami kodu oraz jego refaktoryzacji. Funkcjonalność aplikacji można rozbudować za pomocą rozszerzeń
+					instalowanych z dedykowanego repozytorium rozszerzeń. Według badania przeprowadzonego przez serwis StackOverflow w 2018 roku, Visual Studio Code zostało
+					ogłoszone najpopularniejszym narzędziem służącym wytwarzaniu oprogramowania, za którym na drugim miejscu znajduje się produkt tego samego twórcy,
+					Microsoft Visual Studio. Oprogramowanie zostało stworzone w oparciu o framework Electron. 
+				\subsubsection{webkit2gtk}
+
+					\indent Pakiet umożliwia wykorzystanie biblioteki webkit2gtk napisanej w C dla języka Rust.
+
 		\subsection{Aplikacja mobilna}
 		\subsection{Aplikacja webowa}
 	\newpage
@@ -64,6 +162,40 @@
 	%Strzeszczenie wykorzystywanych wzorców projektowych w każdej aplikacji
 	\section{Wzorce projektowe}
 		\subsection{Aplikacja desktopowa}
+
+			\indent Pakiet bibliotek gtk-rs wykorzystuje następujące wzorce projektowe:
+			\begin{itemize}
+				\item Adapter
+				\item Builder
+				\item Singleton								 
+			\end{itemize}
+
+			\indent Biblioteka firestore-db-and-auth wykorzystuje wzorce projektowe:
+			\begin{itemize}
+				\item Data mapper
+				\item Repository
+			\end{itemize}
+			Główny obiekt przechowujący informacje dotyczącą interfejsu ,,GuiData'' wykorzystuje wzorce projektowe:
+			\begin{itemize}
+				\item Builder
+				\item Pool
+				\item Prototype
+			\end{itemize}
+
+			\indent Kod obsługujący API \href{https://www.thecocktaildb.com/api.php}{TheCocktailDB} i \href{https://www.themealdb.com/api.php}{TheMealDB}
+			wykorzystuje następujące wzorce projektowe:
+			\begin{itemize}
+				\item Data mapper
+				\item Chain of Responsibilities
+				\item Repository
+			\end{itemize}
+
+			\indent Gdzie tylko było to możliwe wykorzystany w kodzie zostały następujące wzorce projektowe:
+			\begin{itemize}
+			\item Iterator
+			\item Płynny interfejs
+			\item Wstrzykiwanie zależności
+			\end{itemize}			 
 		\subsection{Aplikacja mobilna}
 		\subsection{Aplikacja webowa}	 
 	\newpage
@@ -71,6 +203,18 @@
 	%Instrukcja lokalnego i zdalengo uruchamiania testów oraz samego systemu
 	\section{Instrukcja uruchamiania testów i systemu}
 		\subsection{Aplikacja desktopowa}
+
+			\indent Testy można uruchomić jedynie w systemie operacyjnym Linux. W celu lokalnego uruchomienia testów aplikacji należy w katalogu ,,Desktop''
+			uruchomić w terminalu polecenie:
+			\begin{tcolorbox}[minipage,colback=white,arc=0pt,outer arc=0pt, fontupper=\normalsize]
+				\center					
+					cargo test -- --test-threads=1
+			\end{tcolorbox}
+
+			\indent W celu zdalnego uruchomienia testów należy udać się na stronę \href{https://github.com/MacKarp/Cookbook/actions/workflows/DesktopCI.yml}{GitHub Actions}.
+			 
+			\indent Po pobraniu archiwum przeznaczonego dla systemu Windows lub Linux z strony \href{https://github.com/MacKarp/Cookbook/releases}{GitHub Releases},
+			należy je wypakować a następnie uruchomić przy wykorzystaniu skrótu(Windows) lub aktywatora(Linux) o nazwie ,,Cookbook''. 		
 		\subsection{Aplikacja mobilna}
 		\subsection{Aplikacja webowa}	 
 	
