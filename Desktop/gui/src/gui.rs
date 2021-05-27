@@ -25,11 +25,25 @@ pub fn initialize(gui_data: &GuiData) {
     initialize_user(&gui_data);
     favorites_update(&gui_data);
 
-    let gui_data = gui_data.clone();
+    let favorites_gui_data = gui_data.clone();
     timeout_add_local(5000, move || {
-        favorites_update(&gui_data);
+        favorites_update(&favorites_gui_data);
         Continue(true)
     });
+
+    let user_gui_data = gui_data.clone();
+    timeout_add_local(1000, move || {
+        refresh_initialize_user(&user_gui_data);
+        Continue(true)
+    });
+}
+
+fn refresh_initialize_user(gui_data: &GuiData) {
+    let login_button = gui_data.main_window_buttons.login_button.clone();
+    let label = login_button.get_label().unwrap().to_string();
+    if label == "Login" {
+        initialize_user(&gui_data);
+    }
 }
 
 fn initialize_logo(gui_data: &GuiData) {
