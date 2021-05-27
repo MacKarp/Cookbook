@@ -12,6 +12,7 @@ Open `firebase-service-account.json` and add another field `"api_key" : "YOUR_AP
 
 Download the 2 public key files and put them into `firebase_handler` directory:
 
-* https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com -> Store as `securetoken.jwks`
-* https://www.googleapis.com/service_accounts/v1/jwk/{your-service-account-email} -> Store as `service-account.jwks`
+* https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com -> Save as `securetoken.jwks`
+* https://www.googleapis.com/service_accounts/v1/jwk/{your-service-account-email} -> Save as `service-account.jwks`
 
+Go to [Credentials – APIs & Services – Cookbook – Google Cloud Platform](https://console.cloud.google.com/apis/credentials) Add new *OAuth 2.0 Client IDs* and save `Client ID` as -> `google_client_id` and `Client secret` as ->`google_client_secret`

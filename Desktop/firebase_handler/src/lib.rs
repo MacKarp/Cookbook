@@ -1,6 +1,7 @@
 use firestore_db_and_auth::errors::FirebaseError;
 use firestore_db_and_auth::users::FirebaseAuthUserResponse;
 use firestore_db_and_auth::{errors, sessions, Credentials};
+use serde::{Deserialize, Serialize};
 
 pub mod dto;
 pub mod email_handler;
@@ -8,10 +9,10 @@ pub mod favorites;
 
 pub fn get_credentials() -> Credentials {
     Credentials::new(
-        include_str!("../firebase-service-account.json"),
+        include_str!("../../firebase-service-account.json"),
         &[
-            include_str!("../securetoken.jwks"),
-            include_str!("../service-account.jwks"),
+            include_str!("../../securetoken.jwks"),
+            include_str!("../../service-account.jwks"),
         ],
     )
     .unwrap()
@@ -29,7 +30,7 @@ pub fn get_user_info() -> Result<FirebaseAuthUserResponse, FirebaseError> {
 }
 
 pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {
-    let refresh_token: String = match std::fs::read_to_string("token.txt") {
+    let refresh_token: String = match std::fs::read_to_string("token") {
         Ok(v) => v,
         Err(e) => {
             if e.kind() != std::io::ErrorKind::NotFound {
@@ -47,16 +48,63 @@ pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {
 pub fn write_cached_refresh_token(user_id: &str) -> errors::Result<()> {
     let credentials = get_credentials();
     let user_session = sessions::user::Session::by_user_id(&credentials, user_id, true)?;
-    std::fs::write("token.txt", &user_session.refresh_token.as_ref().unwrap())?;
+    std::fs::write("token", &user_session.refresh_token.as_ref().unwrap())?;
     Ok(())
 }
 
-pub fn google_test(access_token: &String) {
-    let x = firestore_db_and_auth::sessions::user::Session::by_access_token(
-        &get_credentials(),
-        access_token,
-    );
-    let y = x.unwrap();
-    let u = y.refresh_token;
-    println!("google refresh token: {:?}", u);
+pub fn google_oauth(token: &str) -> Result<(), reqwest::Error> {
+    let credentials = get_credentials();
+    let uri = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=".to_owned()
+        + &credentials.api_key;
+
+    let post_body = format!("access_token={}&providerId=google.com", token);
+    let request_uri = "http://localhost".to_string();
+    let return_idp_credential = true;
+    let return_secure_token = true;
+
+    let json = &SignInWithIdpRequest {
+        post_body,
+        request_uri,
+        return_idp_credential,
+        return_secure_token,
+    };
+
+    let response = reqwest::blocking::Client::new()
+        .post(&uri)
+        .json(&json)
+        .send()?;
+
+    let oauth_response: OAuthResponse = response.json()?;
+
+    write_cached_refresh_token(&oauth_response.local_id).unwrap();
+    Ok(())
+}
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Debug)]
+struct SignInWithIdpRequest {
+    pub post_body: String,
+    pub request_uri: String,
+    pub return_idp_credential: bool,
+    pub return_secure_token: bool,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OAuthResponse {
+    pub federated_id: String,
+    pub provider_id: String,
+    pub local_id: String,
+    pub email_verified: bool,
+    pub email: String,
+    pub oauth_access_token: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub full_name: String,
+    pub display_name: String,
+    pub id_token: String,
+    pub photo_url: String,
+    pub refresh_token: String,
+    pub expires_in: String,
+    pub raw_user_info: String,
 }

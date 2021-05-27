@@ -32,22 +32,21 @@ fn on_login_button_clicked(gui_data: &GuiData) {
 
             login_error_label.set_text("");
 
+            window.show_all();
+
             let email_gui_data = gui_data.clone();
             let email_login_window = login_window.clone();
             email_login_button.connect_clicked(move |_| {
                 on_email_login_button_clicked(&email_gui_data, &email_login_window)
             });
 
-            let google_gui_data = gui_data.clone();
-            let google_login_window = login_window.clone();
             google_login_button.connect_clicked(move |_| {
-                on_google_login_button_clicked(&google_gui_data, &google_login_window)
+                on_google_login_button_clicked(&login_window);
+                window.hide()
             });
-
-            window.show_all();
         }
         "Logout" => {
-            let x = std::fs::write("token.txt", "");
+            let x = std::fs::write("token", "");
             match x {
                 Ok(_) => {
                     initialize_user(&gui_data);

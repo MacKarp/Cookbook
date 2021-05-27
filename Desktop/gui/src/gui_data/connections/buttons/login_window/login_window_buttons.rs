@@ -5,22 +5,19 @@ use std::thread;
 use webkit2gtk::WebView;
 use webkit2gtk::WebViewExt;
 
-use oauth2::{basic::BasicClient, revocation::StandardRevocableToken, TokenResponse};
-// Alternatively, this can be oauth2::curl::http_client or a custom.
 use oauth2::reqwest::http_client;
+use oauth2::{basic::BasicClient, revocation::StandardRevocableToken, TokenResponse};
 use oauth2::{
     AuthUrl, AuthorizationCode, ClientId, ClientSecret, CsrfToken, PkceCodeChallenge, RedirectUrl,
     RevocationUrl, Scope, TokenUrl,
 };
-use std::env;
 use std::io::{BufRead, BufReader, Write};
 use std::net::TcpListener;
 use url::Url;
 
 use firebase_handler::email_handler::login_with_email;
-use firebase_handler::google_test;
+use firebase_handler::google_oauth;
 
-use crate::gui;
 use crate::gui::favorites_update;
 use crate::gui::initialize_user;
 use crate::gui_data::login_window::LoginWindow;
@@ -65,50 +62,44 @@ pub fn on_email_login_button_clicked(gui_data: &GuiData, login_window: &LoginWin
     }
 }
 
-pub fn on_google_login_button_clicked(gui_data: &GuiData, login_window: &LoginWindow) {
+pub fn on_google_login_button_clicked(login_window: &LoginWindow) {
     let window = login_window.oauth_window.oauth_window.clone();
     let webview = WebView::new();
-    google_test(&"asd".to_string());
     let google_client_id = ClientId::new(
-"".to_string()    );
-    let google_client_secret = ClientSecret::new("".to_string());
+        include_str!("../../../../../../google_client_id")
+            .trim()
+            .to_string(),
+    );
+    let google_client_secret = ClientSecret::new(
+        include_str!("../../../../../../google_client_secret")
+            .trim()
+            .to_string(),
+    );
     let auth_url = AuthUrl::new("https://accounts.google.com/o/oauth2/v2/auth".to_string())
         .expect("Invalid authorization endpoint URL");
     let token_url = TokenUrl::new("https://www.googleapis.com/oauth2/v3/token".to_string())
         .expect("Invalid token endpoint URL");
 
-    // Set up the config for the Google OAuth2 process.
     let client = BasicClient::new(
         google_client_id,
         Some(google_client_secret),
         auth_url,
         Some(token_url),
     )
-    // This example will be running its own server at localhost:8080.
-    // See below for the server implementation.
     .set_redirect_uri(
         RedirectUrl::new("http://localhost:8080".to_string()).expect("Invalid redirect URL"),
     )
-    // Google supports OAuth 2.0 Token Revocation (RFC-7009)
     .set_revocation_uri(
         RevocationUrl::new("https://oauth2.googleapis.com/revoke".to_string())
             .expect("Invalid revocation endpoint URL"),
     );
 
-    // Google supports Proof Key for Code Exchange (PKCE - https://oauth.net/2/pkce/).
-    // Create a PKCE code verifier and SHA-256 encode it as a code challenge.
     let (pkce_code_challenge, pkce_code_verifier) = PkceCodeChallenge::new_random_sha256();
 
-    // Generate the authorization URL to which we'll redirect the user.
     let (authorize_url, csrf_state) = client
         .authorize_url(CsrfToken::new_random)
-        // This example is requesting access to the "calendar" features and the user's profile.
-        .add_scope(Scope::new(
-            "https://www.googleapis.com/auth/calendar".to_string(),
-        ))
-        .add_scope(Scope::new(
-            "https://www.googleapis.com/auth/plus.me".to_string(),
-        ))
+        .add_scope(Scope::new("profile".to_string()))
+        .add_scope(Scope::new("email".to_string()))
         .set_pkce_challenge(pkce_code_challenge)
         .url();
 
@@ -116,14 +107,14 @@ pub fn on_google_login_button_clicked(gui_data: &GuiData, login_window: &LoginWi
     window.add(&webview);
     window.show_all();
 
-    thread::spawn(|| {
+    thread::spawn(move || {
         start_listener(pkce_code_verifier, csrf_state, client);
     });
 }
 
 fn start_listener(
     pkce_code_verifier: PkceCodeVerifier,
-    csrf_state: CsrfToken,
+    _csrf_state: CsrfToken,
     client: Client<
         oauth2::StandardErrorResponse<oauth2::basic::BasicErrorResponseType>,
         oauth2::StandardTokenResponse<oauth2::EmptyExtraTokenFields, oauth2::basic::BasicTokenType>,
@@ -140,7 +131,7 @@ fn start_listener(
     for stream in listener.incoming() {
         if let Ok(mut stream) = stream {
             let code;
-            let state;
+            let _state;
             {
                 let mut reader = BufReader::new(&stream);
 
@@ -170,24 +161,42 @@ fn start_listener(
                     .unwrap();
 
                 let (_, value) = state_pair;
-                state = CsrfToken::new(value.into_owned());
+                _state = CsrfToken::new(value.into_owned());
             }
-            
-            // Exchange the code with a token.
+
             let token_response = client
                 .exchange_code(code)
                 .set_pkce_verifier(pkce_code_verifier)
                 .request(http_client);
 
-            println!(
-                "Google returned the following token:\n{:?}\n",
-                token_response
-            );
-            let x = token_response.unwrap();
-            let x = x.access_token();
-            let y = x.secret();
-            println!("y: {}", y);
-            google_test(x.secret());
+            match token_response {
+                Ok(token) => {
+                    let x = google_oauth(token.access_token().secret());
+                    match x {
+                        Ok(()) => {
+                            let message = "Everything is good. Go back to application! :)";
+                            let response = format!(
+                                "HTTP/1.1 200 OK\r\ncontent-length: {}\r\n\r\n{}",
+                                message.len(),
+                                message
+                            );
+                            stream.write_all(response.as_bytes()).unwrap();
+                        }
+                        Err(e) => {
+                            let message = format!("Something go wrong :( Error: {}", e);
+                            let response = format!(
+                                "HTTP/1.1 200 OK\r\ncontent-length: {}\r\n\r\n{}",
+                                message.len(),
+                                message
+                            );
+                            stream.write_all(response.as_bytes()).unwrap();
+                        }
+                    }
+                }
+                Err(e) => {
+                    println!("Token respone error: {}", e)
+                }
+            }
             break;
         }
     }

@@ -17,6 +17,35 @@
     <property name="margin-end">5</property>
     <property name="pixbuf">gui/ui/email.png</property>
   </object>
+  <object class="GtkImage" id="facebook_logo">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="pixbuf">gui/ui/facebook.png</property>
+  </object>
+  <object class="GtkImage" id="favorite_button_image">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
+  <object class="GtkTreeStore" id="favorite_tree_store">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+      <!-- column-name gint1 -->
+      <column type="gint"/>
+      <!-- column-name gchararray2 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray3 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkImage" id="google_logo">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="pixbuf">gui/ui/google.png</property>
+  </object>
   <object class="GtkWindow" id="login_window">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Sing in</property>
@@ -150,7 +179,7 @@
         </child>
         <child>
           <object class="GtkButton" id="google_login_button">
-            <property name="label" translatable="yes">google_login_button</property>
+            <property name="label" translatable="yes">Sign in with Google</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -158,6 +187,8 @@
             <property name="margin-end">5</property>
             <property name="margin-top">5</property>
             <property name="margin-bottom">5</property>
+            <property name="image">google_logo</property>
+            <property name="always-show-image">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -167,7 +198,7 @@
         </child>
         <child>
           <object class="GtkButton" id="facebook_login_button">
-            <property name="label" translatable="yes">facebook_login_button</property>
+            <property name="label" translatable="yes">Sign in with Facebook</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -175,6 +206,8 @@
             <property name="margin-end">5</property>
             <property name="margin-top">5</property>
             <property name="margin-bottom">5</property>
+            <property name="image">facebook_logo</property>
+            <property name="always-show-image">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -185,23 +218,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="favorite_button_image">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-missing-image</property>
-  </object>
-  <object class="GtkTreeStore" id="favorite_tree_store">
-    <columns>
-      <!-- column-name gchararray1 -->
-      <column type="gchararray"/>
-      <!-- column-name gint1 -->
-      <column type="gint"/>
-      <!-- column-name gchararray2 -->
-      <column type="gchararray"/>
-      <!-- column-name gchararray3 -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkTreeStore" id="meal_category_tree_store">
     <columns>
       <!-- column-name gchararray1 -->
@@ -210,8 +226,9 @@
   </object>
   <object class="GtkWindow" id="oauth_window">
     <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Sing in</property>
     <property name="default-width">600</property>
-    <property name="default-height">600</property>
+    <property name="default-height">700</property>
     <child>
       <placeholder/>
     </child>
