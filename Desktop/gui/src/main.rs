@@ -19,6 +19,7 @@ fn main() {
 
     {
         let window_main = gui_data.main_window;
+        window_main.show_all();
         window_main.connect_delete_event(move |_, _| {
             gtk::main_quit();
             Inhibit(false)
