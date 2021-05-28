@@ -30,7 +30,7 @@ pub fn get_user_info() -> Result<FirebaseAuthUserResponse, FirebaseError> {
 }
 
 pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {
-    let refresh_token: String = match std::fs::read_to_string("token") {
+    let refresh_token: String = match std::fs::read_to_string(".token") {
         Ok(v) => v,
         Err(e) => {
             if e.kind() != std::io::ErrorKind::NotFound {
@@ -48,7 +48,7 @@ pub fn read_cached_refresh_token() -> errors::Result<sessions::user::Session> {
 pub fn write_cached_refresh_token(user_id: &str) -> errors::Result<()> {
     let credentials = get_credentials();
     let user_session = sessions::user::Session::by_user_id(&credentials, user_id, true)?;
-    std::fs::write("token", &user_session.refresh_token.as_ref().unwrap())?;
+    std::fs::write(".token", &user_session.refresh_token.as_ref().unwrap())?;
     Ok(())
 }
 pub fn facebook_oauth(token: &str) -> Result<(), reqwest::Error> {
