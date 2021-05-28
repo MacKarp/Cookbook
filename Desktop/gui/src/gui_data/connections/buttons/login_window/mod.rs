@@ -56,8 +56,8 @@ fn on_login_button_clicked(gui_data: &GuiData) {
             });
         }
         "Logout" => {
-            let x = std::fs::write("token", "");
-            match x {
+            let result = std::fs::write(".token", "");
+            match result {
                 Ok(_) => {
                     initialize_user(&gui_data);
                     favorites_update(&gui_data);

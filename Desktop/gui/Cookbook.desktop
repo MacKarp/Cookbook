@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Icon=/home/karpiu/Pulpit/Linux/gui/ui/logo.png
+Name=Cookbook
+Exec=/home/karpiu/Pulpit/Linux/cookbook_gui
+Path=/home/karpiu/Pulpit/Linux
+Terminal=false
+Hidden=false
