@@ -38,7 +38,7 @@ fn on_login_button_clicked(gui_data: &GuiData) {
             window.show_all();
 
             let email_gui_data = gui_data.clone();
-            let email_login_window = login_window.clone();
+            let email_login_window = login_window;
             email_login_button.connect_clicked(move |_| {
                 on_email_login_button_clicked(&email_gui_data, &email_login_window)
             });
@@ -49,7 +49,7 @@ fn on_login_button_clicked(gui_data: &GuiData) {
                 google_window.hide()
             });
 
-            let facebook_window = window.clone();
+            let facebook_window = window;
             facebook_login_button.connect_clicked(move |_| {
                 on_facebook_login_button_clicked();
                 facebook_window.hide()
