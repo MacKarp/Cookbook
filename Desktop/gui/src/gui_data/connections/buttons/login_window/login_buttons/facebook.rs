@@ -1,4 +1,3 @@
-use gtk::prelude::*;
 use oauth2::basic::BasicClient;
 use oauth2::reqwest::http_client;
 use oauth2::*;
@@ -6,22 +5,10 @@ use std::io::*;
 use std::net::TcpListener;
 use std::thread;
 use url::Url;
-use webkit2gtk::*;
 
 use firebase_handler::facebook_oauth;
 
-use crate::gui_data::login_window::oauth_window::OAuthWindow;
-use crate::gui_data::GuiData;
-
-pub fn on_facebook_login_button_clicked() -> () {
-    let gui_data = GuiData::new();
-    let src = gui_data.glade_src.clone();
-    let builder = gtk::Builder::from_string(src.as_str());
-    let window = OAuthWindow::create_from_builder(&builder)
-        .oauth_window
-        .clone();
-
-    let webview = WebView::new();
+pub fn on_facebook_login_button_clicked() {
     let facebook_client_id = ClientId::new(
         include_str!("../../../../../../../facebook_client_id")
             .trim()
@@ -58,9 +45,7 @@ pub fn on_facebook_login_button_clicked() -> () {
         .set_pkce_challenge(pkce_code_challenge)
         .url();
 
-    webview.load_uri(authorize_url.as_str());
-    window.add(&webview);
-    window.show_all();
+    open::that(authorize_url.as_str()).unwrap();
 
     thread::spawn(move || {
         start_listener(pkce_code_verifier, csrf_state, client);
