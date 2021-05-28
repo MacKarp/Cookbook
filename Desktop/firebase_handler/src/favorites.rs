@@ -4,8 +4,12 @@ use firestore_db_and_auth::errors;
 use firestore_db_and_auth::sessions::user::Session;
 use firestore_db_and_auth::{documents::*, errors::FirebaseError};
 use rand::Rng;
-use std::vec;
+use std::collections::HashMap;
+use std::thread;
 
+use cookbook::dto::drink::recipe::DrinkRecipe;
+
+use crate::dto::drink::FavoriteDrink;
 use crate::dto::meal::FavoriteMeal;
 
 pub fn query_favorites() -> errors::Result<Vec<Document>> {
@@ -26,7 +30,10 @@ pub fn query_favorites() -> errors::Result<Vec<Document>> {
     Ok(results)
 }
 
-pub fn get_favorites() -> (Vec<FavoriteMeal>, Vec<String>) {
+pub fn get_favorites() -> (
+    HashMap<String, FavoriteMeal>,
+    HashMap<String, FavoriteDrink>,
+) {
     let results = query_favorites();
     let mut favorites_uid = vec![];
     if let Ok(d) = results {
@@ -37,47 +44,84 @@ pub fn get_favorites() -> (Vec<FavoriteMeal>, Vec<String>) {
             ));
         }
     }
-    (get_favorite_recipe(&favorites_uid), favorites_uid)
+    (
+        get_favorite_meal_recipe(&favorites_uid),
+        get_favorite_drink_recipe(&favorites_uid),
+    )
 }
 
-pub fn get_favorite_recipe(uid: &[String]) -> Vec<FavoriteMeal> {
+fn get_favorite_drink_recipe(uid: &[String]) -> HashMap<String, FavoriteDrink> {
     let sesion = super::read_cached_refresh_token();
-    let mut recipes = vec![];
+    let mut drink_recipes = HashMap::new();
     if let Ok(s) = sesion {
         let path = "favorites";
         for id in uid {
-            let x: FavoriteMeal = firestore_db_and_auth::documents::read(&s, path, id).unwrap();
-            recipes.push(x);
+            let drink: FavoriteDrink =
+                firestore_db_and_auth::documents::read(&s, path, id).unwrap();
+            if drink.drink_name.is_some() {
+                drink_recipes.insert(id.clone(), drink);
+            }
         }
     }
+    drink_recipes
+}
 
-    recipes
+pub fn get_favorite_meal_recipe(uid: &[String]) -> HashMap<String, FavoriteMeal> {
+    let sesion = super::read_cached_refresh_token();
+    let mut meal_recipes = HashMap::new();
+    if let Ok(s) = sesion {
+        let path = "favorites";
+        for id in uid {
+            let meal: FavoriteMeal = firestore_db_and_auth::documents::read(&s, path, id).unwrap();
+            if meal.meal_name.is_some() {
+                meal_recipes.insert(id.clone(), meal);
+            }
+        }
+    }
+    meal_recipes
 }
 pub fn save_favorite_meal_recipe(meal_recipe: MealRecipe) -> Result<WriteResult, FirebaseError> {
-    let sesion = super::read_cached_refresh_token();
-    match sesion {
-        Ok(s) => {
-            let user_id = s.user_id.clone();
-            let user = super::get_user_info().unwrap();
-            let user_name = user.users[0].displayName.clone().unwrap_or_default();
+    let thread = thread::spawn(|| {
+        let sesion = super::read_cached_refresh_token();
+        match sesion {
+            Ok(s) => {
+                let user_id = s.user_id.clone();
+                let user = super::get_user_info().unwrap();
+                let user_name = user.users[0].displayName.clone().unwrap_or_default();
 
-            let path = "favorites";
-            let document_id = Some(generate_random_id());
-            let user_info = (&user_id, &user_name);
+                let path = "favorites";
+                let document_id = Some(generate_random_id());
+                let user_info = (&user_id, &user_name);
 
-            let document = FavoriteMeal::from_meal_recipe(meal_recipe, user_info);
-            firestore_db_and_auth::documents::write(
-                &s,
-                path,
-                document_id,
-                &document,
-                WriteOptions::default(),
-            )
+                let document = FavoriteMeal::from_meal_recipe(meal_recipe, user_info);
+                write(&s, path, document_id, &document, WriteOptions::default())
+            }
+            Err(e) => Err(e),
         }
-        Err(e) => Err(e),
-    }
+    });
+    thread.join().unwrap()
 }
+pub fn save_favorite_drink_recipe(drink_recipe: DrinkRecipe) -> Result<WriteResult, FirebaseError> {
+    let thread = thread::spawn(|| {
+        let sesion = super::read_cached_refresh_token();
+        match sesion {
+            Ok(s) => {
+                let user_id = s.user_id.clone();
+                let user = super::get_user_info().unwrap();
+                let user_name = user.users[0].displayName.clone().unwrap_or_default();
 
+                let path = "favorites";
+                let document_id = Some(generate_random_id());
+                let user_info = (&user_id, &user_name);
+
+                let document = FavoriteDrink::from_drink_recipe(drink_recipe, user_info);
+                write(&s, path, document_id, &document, WriteOptions::default())
+            }
+            Err(e) => Err(e),
+        }
+    });
+    thread.join().unwrap()
+}
 pub fn remove_favorite_recipe(document_id: &str) -> Result<(), FirebaseError> {
     let sesion = super::read_cached_refresh_token();
     match sesion {

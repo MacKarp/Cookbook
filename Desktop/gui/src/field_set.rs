@@ -42,13 +42,24 @@ pub fn set_drink_recipe_fields(gui_data: &GuiData, drink: DrinkRecipe) {
 }
 
 fn set_drink_recipe_text_fields(gui_data: &GuiData, drink: &DrinkRecipe) {
-    let recipe_name_text_buffer = gui_data.main_window_text.recipe_name_text_label.clone();
-    let recipe_ingredients_text_buffer = gui_data.main_window_text.recipe_ingredients_label.clone();
-    let recipe_text_buffer = gui_data.main_window_text.recipe_text_label.clone();
+    let recipe_name_text_label = gui_data.main_window_text.recipe_name_text_label.clone();
+    let recipe_ingredients_label = gui_data.main_window_text.recipe_ingredients_label.clone();
+    let recipe_text_label = gui_data.main_window_text.recipe_text_label.clone();
 
-    recipe_name_text_buffer.set_text(&*drink.drink_name);
-    recipe_ingredients_text_buffer.set_text(&*get_recipe_ingredients(&drink.ingredients));
-    recipe_text_buffer.set_text(&*drink.instructions);
+    let recipe_type = gui_data
+        .main_window_text
+        .displayed_recipe_type_text_buffer
+        .clone();
+    let recipe_id = gui_data
+        .main_window_text
+        .displayed_recipe_id_text_buffer
+        .clone();
+
+    recipe_name_text_label.set_text(&*drink.drink_name);
+    recipe_ingredients_label.set_text(&*get_recipe_ingredients(&drink.ingredients));
+    recipe_text_label.set_text(&*drink.instructions);
+    recipe_type.set_text("Drink");
+    recipe_id.set_text(&drink.id.to_string());
 }
 
 fn set_drink_recipe_image_fields(gui_data: &GuiData, drink: &DrinkRecipe) {

@@ -1,12 +1,15 @@
 use gtk::prelude::*;
 
-use crate::buttons::login_window::login_window_buttons::on_email_login_button_clicked;
-use crate::buttons::login_window::login_window_buttons::on_google_login_button_clicked;
+use crate::gui::favorites_update;
 use crate::gui::initialize_user;
+use crate::gui_data::login_window::LoginWindow;
 use crate::gui_data::GuiData;
-use crate::{gui::favorites_update, gui_data::login_window::LoginWindow};
 
-pub mod login_window_buttons;
+use crate::buttons::login_window::login_buttons::email::on_email_login_button_clicked;
+use crate::buttons::login_window::login_buttons::facebook::on_facebook_login_button_clicked;
+use crate::buttons::login_window::login_buttons::google::on_google_login_button_clicked;
+
+pub mod login_buttons;
 
 pub fn login_button(gui_data: &GuiData) {
     let gui_data = gui_data.clone();
@@ -27,7 +30,7 @@ fn on_login_button_clicked(gui_data: &GuiData) {
             let window = login_window.window.clone();
             let email_login_button = login_window.email_login_button.clone();
             let google_login_button = login_window.google_login_button.clone();
-            let _facebook_login_button = login_window.facebook_login_button.clone();
+            let facebook_login_button = login_window.facebook_login_button.clone();
             let login_error_label = login_window.login_error_label.clone();
 
             login_error_label.set_text("");
@@ -40,9 +43,16 @@ fn on_login_button_clicked(gui_data: &GuiData) {
                 on_email_login_button_clicked(&email_gui_data, &email_login_window)
             });
 
+            let google_window = window.clone();
             google_login_button.connect_clicked(move |_| {
-                on_google_login_button_clicked(&login_window);
-                window.hide()
+                on_google_login_button_clicked();
+                google_window.hide()
+            });
+
+            let facebook_window = window.clone();
+            facebook_login_button.connect_clicked(move |_| {
+                on_facebook_login_button_clicked();
+                facebook_window.hide()
             });
         }
         "Logout" => {

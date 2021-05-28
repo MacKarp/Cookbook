@@ -16,3 +16,5 @@ Download the 2 public key files and put them into `firebase_handler` directory:
 * https://www.googleapis.com/service_accounts/v1/jwk/{your-service-account-email} -> Save as `service-account.jwks`
 
 Go to [Credentials – APIs & Services – Cookbook – Google Cloud Platform](https://console.cloud.google.com/apis/credentials) Add new *OAuth 2.0 Client IDs* and save `Client ID` as -> `google_client_id` and `Client secret` as ->`google_client_secret`
+
+Go to [Facebook Credentials]((https://facebook.com)) Add new *OAuth 2.0 Client IDs* and save `Client ID` as -> `facebook_client_id` and `Client secret` as ->`facebook_client_secret`

@@ -1,77 +1,32 @@
-use gtk::prelude::*;
-use oauth2::Client;
-use oauth2::PkceCodeVerifier;
-use std::thread;
-use webkit2gtk::WebView;
-use webkit2gtk::WebViewExt;
-
-use oauth2::reqwest::http_client;
-use oauth2::{basic::BasicClient, revocation::StandardRevocableToken, TokenResponse};
-use oauth2::{
-    AuthUrl, AuthorizationCode, ClientId, ClientSecret, CsrfToken, PkceCodeChallenge, RedirectUrl,
-    RevocationUrl, Scope, TokenUrl,
-};
-use std::io::{BufRead, BufReader, Write};
-use std::net::TcpListener;
-use url::Url;
-
-use firebase_handler::email_handler::login_with_email;
 use firebase_handler::google_oauth;
+use gtk::prelude::*;
+use oauth2::basic::BasicClient;
+use oauth2::reqwest::http_client;
+use oauth2::*;
+use std::io::*;
+use std::net::TcpListener;
+use std::thread;
+use url::Url;
+use webkit2gtk::*;
 
-use crate::gui::favorites_update;
-use crate::gui::initialize_user;
-use crate::gui_data::login_window::LoginWindow;
+use crate::gui_data::login_window::oauth_window::OAuthWindow;
 use crate::gui_data::GuiData;
 
-pub fn on_email_login_button_clicked(gui_data: &GuiData, login_window: &LoginWindow) {
-    let email_login_entry = login_window.email_login_entry.clone();
-    let password_login_entry = login_window.password_login_entry.clone();
-    let window = login_window.window.clone();
-
-    let email = email_login_entry.get_text();
-    let email = email.as_str();
-
-    let password = password_login_entry.get_text();
-    let password = password.as_str();
-
-    let session_result = login_with_email(email, password);
-
-    match session_result {
-        Ok(session) => {
-            let login_session =
-                firebase_handler::write_cached_refresh_token(session.user_id.as_str());
-
-            match login_session {
-                Ok(()) => {
-                    window.hide();
-                    initialize_user(&gui_data);
-                    favorites_update(&gui_data);
-                }
-                Err(e) => {
-                    println!("Login session error: {}", e);
-                    let login_error_label = login_window.login_error_label.clone();
-                    login_error_label.set_text("Incorrect email or password");
-                }
-            }
-        }
-        Err(e) => {
-            println!("Login error: {}", e);
-            let login_error_label = login_window.login_error_label.clone();
-            login_error_label.set_text("Incorrect email or password");
-        }
-    }
-}
-
-pub fn on_google_login_button_clicked(login_window: &LoginWindow) {
-    let window = login_window.oauth_window.oauth_window.clone();
+pub fn on_google_login_button_clicked() {
+    let gui_data = GuiData::new();
+    let src = gui_data.glade_src.clone();
+    let builder = gtk::Builder::from_string(src.as_str());
+    let window = OAuthWindow::create_from_builder(&builder)
+        .oauth_window
+        .clone();
     let webview = WebView::new();
     let google_client_id = ClientId::new(
-        include_str!("../../../../../../google_client_id")
+        include_str!("../../../../../../../google_client_id")
             .trim()
             .to_string(),
     );
     let google_client_secret = ClientSecret::new(
-        include_str!("../../../../../../google_client_secret")
+        include_str!("../../../../../../../google_client_secret")
             .trim()
             .to_string(),
     );
@@ -87,7 +42,7 @@ pub fn on_google_login_button_clicked(login_window: &LoginWindow) {
         Some(token_url),
     )
     .set_redirect_uri(
-        RedirectUrl::new("http://localhost:8080".to_string()).expect("Invalid redirect URL"),
+        RedirectUrl::new("http://localhost:5252".to_string()).expect("Invalid redirect URL"),
     )
     .set_revocation_uri(
         RevocationUrl::new("https://oauth2.googleapis.com/revoke".to_string())
@@ -127,7 +82,8 @@ fn start_listener(
         oauth2::StandardErrorResponse<oauth2::RevocationErrorResponseType>,
     >,
 ) {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    let listener = TcpListener::bind("127.0.0.1:5252").unwrap();
+
     for stream in listener.incoming() {
         if let Ok(mut stream) = stream {
             let code;

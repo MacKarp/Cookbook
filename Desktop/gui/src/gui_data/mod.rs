@@ -76,7 +76,7 @@ impl GuiData {
         let main_window_favorite_button_image: gtk::Image = builder
             .get_object("favorite_button_image")
             .expect("\"favorite_button_image\" ID in \"Cookbook.glade\" should exist.");
-        main_window.show_all();
+        //main_window.show_all();
 
         Self {
             glade_src,

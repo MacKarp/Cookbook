@@ -1,7 +1,11 @@
 use gtk::prelude::*;
 
+use cookbook::data::drink::id::get_drink_recipe_by_id;
 use cookbook::data::meal::id::get_meal_recipe_by_id;
-use firebase_handler::favorites::{remove_favorite_recipe, save_favorite_meal_recipe};
+
+use firebase_handler::favorites::{
+    remove_favorite_recipe, save_favorite_drink_recipe, save_favorite_meal_recipe,
+};
 
 use crate::gui::{favorites_update, set_favorite_button_image};
 use crate::gui_data::GuiData;
@@ -82,6 +86,26 @@ fn add_to_favorites(gui_data: &GuiData) {
     match recipe_type.as_str() {
         "Meal" => {
             let result = save_favorite_meal_recipe(get_meal_recipe_by_id(recipe_id));
+            match result {
+                Ok(r) => {
+                    let favorite_button = gui_data.main_window_buttons.favorite_button.clone();
+                    favorite_button.set_label("Remove from favorites");
+
+                    let favorite_image = gui_data.main_window_favorite_button_image.clone();
+                    if let Some(p) = set_favorite_button_image(&gui_data) {
+                        favorite_image.set_from_pixbuf(Some(&p))
+                    }
+                    let favorite_id = gui_data
+                        .main_window_text
+                        .displayed_recipe_favorite_document_id_text_buffer
+                        .clone();
+                    favorite_id.set_text(&r.document_id);
+                }
+                Err(e) => println!("Adding to favorites error: {}", e),
+            }
+        }
+        "Drink" => {
+            let result = save_favorite_drink_recipe(get_drink_recipe_by_id(recipe_id));
             match result {
                 Ok(r) => {
                     let favorite_button = gui_data.main_window_buttons.favorite_button.clone();

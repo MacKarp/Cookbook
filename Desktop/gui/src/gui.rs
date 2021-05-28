@@ -7,8 +7,11 @@ use cookbook::data::drink::{
     alcoholic::get_alcoholic_list, categories::get_drink_category_list, glass::get_glass_list,
     ingredient::get_drink_ingredient_list,
 };
-use cookbook::data::meal::ingredient::get_meal_ingredient_list;
-use cookbook::data::meal::{area::get_area_category_list, categories::get_meal_category_list};
+use cookbook::data::meal::{
+    area::get_area_category_list, categories::get_meal_category_list,
+    ingredient::get_meal_ingredient_list,
+};
+use firebase_handler::favorites::get_favorites;
 
 use crate::gui_data::{
     connections::buttons::{random_drink, random_meal},
@@ -26,7 +29,7 @@ pub fn initialize(gui_data: &GuiData) {
     favorites_update(&gui_data);
 
     let favorites_gui_data = gui_data.clone();
-    timeout_add_local(5000, move || {
+    timeout_add_local(15000, move || {
         favorites_update(&favorites_gui_data);
         Continue(true)
     });
@@ -230,12 +233,18 @@ fn initialize_meal_category_tab(gui_data: &GuiData) {
 }
 
 pub fn favorites_update(gui_data: &GuiData) {
+    println!("Updating favorites started");
     let tree_store = gui_data
         .main_window_category_notebook
         .favorite_tree_store
         .clone();
 
-    let favorites = firebase_handler::favorites::get_favorites();
+    let (favorites_meal, favorites_drinks) = get_favorites();
+    let mut favorites_meal: Vec<_> = favorites_meal.iter().collect();
+    favorites_meal.sort_by_key(|a| a.0);
+
+    let mut favorites_drinks: Vec<_> = favorites_drinks.iter().collect();
+    favorites_drinks.sort_by_key(|a| a.0);
 
     let tree_selection = gui_data
         .main_window_category_notebook
@@ -243,16 +252,21 @@ pub fn favorites_update(gui_data: &GuiData) {
         .clone();
     tree_selection.set_mode(gtk::SelectionMode::None);
     tree_store.clear();
-    let meals = &favorites.0;
-    let docs = &favorites.1;
-    for (i, fav) in meals.iter().enumerate() {
-        let name = fav.meal_name.as_ref().unwrap();
-        let id = fav.meal_id.as_ref().unwrap().parse::<i32>().unwrap();
+
+    for (document_id, meal) in favorites_meal {
+        let name = meal.meal_name.as_ref().unwrap();
+        let id = meal.meal_id.as_ref().unwrap().parse::<i32>().unwrap();
         let category = "Meal";
-        let doc_id = &docs[i];
+        let doc_id = document_id;
         tree_store.insert_with_values(None, None, &[0, 1, 2, 3], &[&name, &id, &category, &doc_id]);
     }
-
+    for (document_id, drink) in favorites_drinks {
+        let name = drink.drink_name.as_ref().unwrap();
+        let id = drink.drink_id.as_ref().unwrap().parse::<i32>().unwrap();
+        let category = "Drink";
+        let doc_id = document_id;
+        tree_store.insert_with_values(None, None, &[0, 1, 2, 3], &[&name, &id, &category, &doc_id]);
+    }
     let tree_view = gui_data
         .main_window_category_notebook
         .favorite_tree_view
@@ -260,4 +274,5 @@ pub fn favorites_update(gui_data: &GuiData) {
 
     tree_selection.set_mode(gtk::SelectionMode::Single);
     tree_view.expand_all();
+    println!("Updating favorites ended");
 }
