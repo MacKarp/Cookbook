@@ -33,7 +33,8 @@ pub fn on_facebook_login_button_clicked() {
         Some(token_url),
     )
     .set_redirect_uri(
-        RedirectUrl::new("http://localhost:5252".to_string()).expect("Invalid redirect URL"),
+        RedirectUrl::new("http://localhost:5252/users/auth/facebook".to_string())
+            .expect("Invalid redirect URL"),
     );
 
     let (pkce_code_challenge, pkce_code_verifier) = PkceCodeChallenge::new_random_sha256();
