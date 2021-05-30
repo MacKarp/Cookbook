@@ -215,6 +215,21 @@
             <property name="position">5</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkLinkButton">
+            <property name="label" translatable="yes">No account yet? Go to sing up page</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="relief">none</property>
+            <property name="uri">https://cookbook-307109.web.app/signup</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
