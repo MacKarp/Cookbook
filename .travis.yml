@@ -29,9 +29,9 @@ addons:
 
 before_script:
   - openbox & # needs a window manager for the tests (to get focus to work)
+  - cd ./Desktop
 
 script:
-  -cd ./Desktop
   - rustc --version
   - if [ "$TRAVIS_RUST_VERSION" == "nightly" ]; then
     rustup component add clippy;
