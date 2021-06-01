@@ -7,7 +7,9 @@ jobs:
     name: Test Suite
     runs-on: ubuntu-latest
     steps:
+      - name: Install gtk dependecy
       - run: sudo apt install libgtk-3-0 libgtk-3-dev
+      - name: Create empty secret files
       - uses: actions/checkout@v2
       - run: cd Desktop && touch facebook_client_id
       - run: cd Desktop && touch facebook_client_secret
@@ -16,11 +18,13 @@ jobs:
       - run: cd Desktop && touch google_client_secret
       - run: cd Desktop && touch securetoken.jwks
       - run: cd Desktop && touch service-account.jwks
+      - name: Setup rust toolchain
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          args: cd Desktop && cargo test -- --test-threads=1
+      - name: Run test
+        working-directory: ./Desktop
+        run: cargo test -- --test-threads=1
+    
