@@ -133,6 +133,10 @@ fn add_to_favorites(gui_data: &GuiData) {
 fn on_favorite_button_clicked_test() {
     gtk::init().expect("Failed to initialize GTK...");
     let gui_data = crate::gui_data::GuiData::new();
+    gui_data
+        .main_window_buttons
+        .favorite_button
+        .set_label("test_label");
 
     assert_eq!((), on_favorite_button_clicked(&gui_data));
 }

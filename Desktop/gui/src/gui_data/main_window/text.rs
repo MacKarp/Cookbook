@@ -75,7 +75,7 @@ fn create_from_builder_test() {
         );
 
     let should_be = MainWindowText {
-        recipe_ingredients_label,
+        recipe_name_text_label,
         recipe_ingredients_label,
         recipe_text_label,
         displayed_recipe_type_text_buffer,

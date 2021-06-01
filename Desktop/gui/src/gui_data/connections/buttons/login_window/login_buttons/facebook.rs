@@ -6,7 +6,7 @@ use std::net::TcpListener;
 use std::thread;
 use url::Url;
 
-use firebase_handler::facebook_oauth;
+use firebase_handler::facebook_auth_handler::facebook_oauth;
 
 pub fn on_facebook_login_button_clicked() {
     let facebook_client_id = ClientId::new(

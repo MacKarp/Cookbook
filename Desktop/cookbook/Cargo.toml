@@ -1,12 +1,10 @@
 [package]
 name = "cookbook"
 version = "0.1.0"
-authors = ["MacKarp"]
- edition = "2018"
-description = "Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica"
+authors = ["Maciej Karpiński"]
+edition = "2018"
+description = "Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica. cookbook crate is responsible for gathering information from TheMealDB - https://www.themealdb.com/api.php and TheCocktailDB API https://www.thecocktaildb.com/api.php"
 repository = "https://github.com/MacKarp/Cookbook" 
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 serde = { version = "1.0.125", features = ["derive"] }

@@ -1,12 +1,10 @@
 [package]
 name = "gui"
 version = "0.1.0"
-authors = ["MacKarp"]
+authors = ["Maciej Karpiński"]
 edition = "2018"
-description = "GUI for Cookbook project" 
+description = "Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica. GUI for project" 
 repository = "https://github.com/MacKarp/Cookbook" 
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 cookbook = { path = "../cookbook" }
