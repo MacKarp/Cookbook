@@ -21,4 +21,4 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-      - run: cd Desktop && cargo test -- --test-threads=1
+      - run: cd Desktop && cargo test "-- --test-threads=1"
