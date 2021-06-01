@@ -1,0 +1,48 @@
+dist: focal
+sudo: required
+language: rust
+services:
+  - xvfb
+rust:
+  - nightly
+  - beta
+  - 1.51.0 # stable
+
+env:
+  - GTK=3.24
+
+addons:
+  apt:
+    packages:
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
+      - binutils-dev
+      - libgtk-3-dev
+      - libmount-dev
+      - libsoup2.4-dev
+      - libxtst-dev
+      - at-spi2-core
+      - openbox
+      - libxdo-dev
+      - libgtk-3-0
+
+before_script:
+  - openbox & # needs a window manager for the tests (to get focus to work)
+  - cd ./Desktop
+  - touch facebook_client_id
+  - touch facebook_client_secret
+  - touch firebase-service-account.json
+  - touch google_client_id
+  - touch google_client_secret
+  - touch securetoken.jwks
+  - touch service-account.jwks
+
+script:
+  - rustc --version
+  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ]; then
+    rustup component add clippy;
+    cargo clippy --release;
+    fi
+  - cargo build
+  - cargo test -- --test-threads 1
