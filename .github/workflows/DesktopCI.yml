@@ -10,6 +10,9 @@ jobs:
       - run: sudo apt install libgtk-3-0 libgtk-3-dev libcurl4-openssl-dev libcurl4-openssl-dev libelf-dev 
       - run: sudo apt install libdw-dev binutils-dev libmount-dev libsoup2.4-dev libxtst-dev
       - run: sudo apt install at-spi2-core openbox libxdo-dev
+      - run: export DISPLAY=:99.0
+      - run: sh -e /etc/init.d/xvfb start
+      - run: sleep 3
       - run: openbox &
       - uses: actions/checkout@v2
       - run: cd Desktop && touch facebook_client_id
