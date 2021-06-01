@@ -1,11 +1,13 @@
-mod field_set;
-mod gui;
-mod gui_data;
-mod user;
+#![windows_subsystem = "windows"]
 
 use gtk::prelude::*;
 
 use gui_data::connections::*;
+
+mod field_set;
+mod gui;
+mod gui_data;
+mod user;
 
 fn main() {
     gtk::init().expect("Failed to initialize GTK...");

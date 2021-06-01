@@ -233,7 +233,6 @@ fn initialize_meal_category_tab(gui_data: &GuiData) {
 }
 
 pub fn favorites_update(gui_data: &GuiData) {
-    println!("Updating favorites started");
     let tree_store = gui_data
         .main_window_category_notebook
         .favorite_tree_store
@@ -274,5 +273,78 @@ pub fn favorites_update(gui_data: &GuiData) {
 
     tree_selection.set_mode(gtk::SelectionMode::Single);
     tree_view.expand_all();
-    println!("Updating favorites ended");
+}
+
+#[test]
+fn initialize_logo_test() {
+    gtk::init().expect("Failed to initialize GTK...");
+
+    let should_be = Pixbuf::from_file("gui/ui/logo.png").unwrap();
+    let should_be = should_be
+        .scale_simple(135, 84, InterpType::Bilinear)
+        .unwrap();
+    let should_be = unsafe { should_be.get_pixels() };
+
+    let gui_data = GuiData::new();
+    initialize_logo(&gui_data);
+    let tested = gui_data.main_window_logo_image.get_pixbuf().unwrap();
+    let tested = unsafe { tested.get_pixels() };
+
+    assert_eq!(should_be, tested);
+}
+
+#[test]
+fn initialize_meal_category_tab_test() {
+   gtk::init().expect("Failed to initialize GTK...");
+    let gui_data = GuiData::new();
+    initialize_meal_category_tab(&gui_data);
+
+    let meal_category_tree_store = gui_data
+        .main_window_category_notebook
+        .meal_category_tree_store;
+    let iter = meal_category_tree_store.get_iter_first().unwrap();
+    let category_tested = meal_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Categories", category_tested);
+
+    meal_category_tree_store.iter_next(&iter);
+    let category_tested = meal_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Area", category_tested);
+
+    meal_category_tree_store.iter_next(&iter);
+    let category_tested = meal_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Ingredients", category_tested);
+}
+
+#[test]
+fn initialize_drink_category_tab_test() {
+    std::env::set_current_dir(std::path::Path::new("../")).unwrap();
+    gtk::init().expect("Failed to initialize GTK...");
+    let gui_data = GuiData::new();
+    initialize_drink_category_tab(&gui_data);
+
+    let drink_category_tree_store = gui_data
+        .main_window_category_notebook
+        .drink_category_tree_store;
+    let iter = drink_category_tree_store.get_iter_first().unwrap();
+    let category_tested = drink_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Categories", category_tested);
+
+    drink_category_tree_store.iter_next(&iter);
+    let category_tested = drink_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Glass", category_tested);
+
+    drink_category_tree_store.iter_next(&iter);
+    let category_tested = drink_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Alcoholic", category_tested);
+
+    drink_category_tree_store.iter_next(&iter);
+    let category_tested = drink_category_tree_store.get_value(&iter, 0);
+    let category_tested = category_tested.get::<String>().unwrap().unwrap();
+    assert_eq!("Ingredients", category_tested);
 }
