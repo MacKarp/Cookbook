@@ -25,6 +25,4 @@ jobs:
           toolchain: stable
           override: true
       - name: Run test
-        working-directory: ./Desktop
-        run: cargo test -- --test-threads=1
-    
+      - run: cd Desktop && cargo test -- --test-threads=1 
