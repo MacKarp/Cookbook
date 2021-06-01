@@ -1,4 +1,4 @@
-dist: xenial
+dist: focal
 sudo: required
 language: rust
 services:
@@ -6,10 +6,9 @@ services:
 rust:
   - nightly
   - beta
-  - 1.40.0 # stable
+  - 1.51.0 # stable
 
 env:
-  - GTK=3.14
   - GTK=3.24
 
 addons:
@@ -26,6 +25,7 @@ addons:
       - at-spi2-core
       - openbox
       - libxdo-dev
+      - libgtk-3-0
 
 before_script:
   - openbox & # needs a window manager for the tests (to get focus to work)
