@@ -1,4 +1,3 @@
-use firebase_handler::google_oauth;
 use oauth2::basic::BasicClient;
 use oauth2::reqwest::http_client;
 use oauth2::*;
@@ -6,6 +5,8 @@ use std::io::*;
 use std::net::TcpListener;
 use std::thread;
 use url::Url;
+
+use firebase_handler::google_auth_handler::google_oauth;
 
 pub fn on_google_login_button_clicked() {
     let google_client_id = ClientId::new(

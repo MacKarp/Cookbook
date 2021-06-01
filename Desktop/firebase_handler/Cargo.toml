@@ -1,10 +1,10 @@
 [package]
 name = "firebase_handler"
 version = "0.1.0"
-authors = ["Karpfly <karpfly@gmail.com>"]
+authors = ["Maciej Karpiński"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Cookbook is project for ZMP in The Witelon State Univeristy of Applied Sciences in Legnica. Firebase_handler crate is responsible for authenticating, reading and writing data to/from Google Firebase."
+repository = "https://github.com/MacKarp/Cookbook" 
 
 [dependencies]
 cookbook = { path = "../cookbook" }

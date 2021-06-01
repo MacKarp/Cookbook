@@ -1,4 +1,4 @@
-use firebase_handler::email_handler::login_with_email;
+use firebase_handler::email_auth_handler::login_with_email;
 use gtk::prelude::*;
 
 use crate::gui::favorites_update;
