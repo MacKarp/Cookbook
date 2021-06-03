@@ -27,8 +27,7 @@
 \author{
 	\\\includegraphics[width=0.7\linewidth]{img/logoPWSZ.eps} \\\\\\\\
 	\hfill Karpiński Maciej\\
-	\hfill Kuczma Łukasz\\
-	\hfill Zawada Marcin\\\\
+	\hfill Kuczma Łukasz\\\\
 	\hfill Prowadzący mgr inż. Marcin Tracz
 	}
 \title{\textbf{Zaawansowane metody programowania}\\\line(1,0){400}\\\textbf{laboratorium}}
@@ -52,6 +51,36 @@
 
 	%opis funkcjonalny systemu oraz jego części składowych
 	\section{Opis funkcjonalny systemu}	
+		\includegraphics[width=0.7\linewidth]{img/logo.png}
+		
+		\indent Projekt ,,Cookbook'' jest systemem do przeglądania oraz zapisywania ulubionych potraw i koktajli. W skład systemu wchodzi:
+		\begin{itemize}
+			\item Aplikacja desktopowa dla systemu Windows i Linux
+			\item Aplikacja webowa
+			\item Baza danych Cloud Firestore
+			\item System uwierzytelniania Firebase Authentication
+		\end{itemize}
+		
+		\indent System realizuje następujące funkcjonalności:
+		\begin{enumerate}
+			\item Aplikacja desktopowa
+			\begin{itemize}
+				\item Aplikacja dla systemu Windows
+				\item Aplikacja dla systemu Linux
+				\item Logowanie przy pomocy e-maila
+				\item Logowanie przy pomocy Google
+				\item Logowanie przy pomocy Facebooka
+				\item Dodawanie i usuwanie ulubionych przepisów na posiłki
+				\item Dodawanie i usuwanie ulubionych przepisów na koktajle
+				\item Synchronizacja z bazą danych Cloud Firestore
+			\end{itemize}
+					\item Aplikacja webowa
+			\begin{itemize}
+				\item
+			\end{itemize}
+		\end{enumerate}
+		
+		\indent Repozytorium projektu znajduje sie pod adresem: \url{https://github.com/MacKarp/Cookbook} .
 	\newpage
 	
 	%Streszczenie opisu technologicznego każdej aplikacji
@@ -95,20 +124,20 @@
 					\indent Pakiet umożliwiający łatwy dostęp do bazy danych Cloud Firestore za pośrednictwem konta usługi lub poświadczeń OAuth Firebase Authentication.				
 				\subsubsection{gdk-pixbuf}
 
-					\indent Pakiet umożliwia wykorzystanie biblioteki Gdk-Pixbuf napisanej w C dla języka Rust.
+					\indent Pakiet umożliwia wykorzystanie biblioteki Gdk-Pixbuf napisanej w C dla języka Rust. Część projektu gtk-rs.
 				\subsubsection{gio}
 
-					\indent Pakiet umożliwia wykorzystanie biblioteki GIO napisanej w C dla języka Rust.
+					\indent Pakiet umożliwia wykorzystanie biblioteki GIO napisanej w C dla języka Rust. Część projektu gtk-rs.
 				\subsubsection{Glade}
 
 					\indent Glade jest aplikacją do wizualnego projektowania graficznego interfejsu użytkownika dla programów GTK+/GNOME.
 					Projektowany interfejs jest zapisywany jako plik XML. Pliki w formacie GtkBuider i Libglade mogą być ładowane przez odpowiednie biblioteki GTK+ lub Libglade. 
 				\subsubsection{glib}
 
-					\indent  Pakiet umożliwia wykorzystanie biblioteki GLib napisanej w C dla języka Rust.
+					\indent  Pakiet umożliwia wykorzystanie biblioteki GLib napisanej w C dla języka Rust. Część projektu gtk-rs.
 				\subsubsection{gtk}
 
-					\indent Pakiet umożliwia wykorzystanie bibliotek GDK 3, GTK+ 3 i Cairo napisanych w C dla języka Rust.
+					\indent Pakiet umożliwia wykorzystanie bibliotek GDK 3, GTK+ 3 i Cairo napisanych w C dla języka Rust. Część projektu gtk-rs.
 				\subsubsection{GTK+ 3}
 
 					\indent  Biblioteka służąca do tworzenia interfejsu graficznego do programów komputerowych. Pierwotnie stworzona na potrzeby programu GIMP,
@@ -126,7 +155,7 @@
 					\indent Biblioteka Rust przeznaczona do generowania liczb losowych;
 				\subsubsection{reqwest}
 
-					\indent Pakiet reqwest ergonomiczny klient HTTP/HTTPS dla języka Rust.
+					\indent Pakiet reqwest to ergonomiczny klient HTTP/HTTPS dla języka Rust.
 				\subsubsection{Rust}
 
 					\indent Kompilowany język programowania ogólnego przeznaczenia rozwijany przez Fundację Mozilla. Stworzony z myślą, aby był ,,bezpieczny, współbieżny i praktyczny''.
@@ -139,10 +168,10 @@
 					\indent Serde to framework do wydajnej i ogólnej serializacji i deserializacji struktur danych Rust.
 				\subsubsection{serde\_ json}
 
-					\indent Serde\_ json jest rozszerzeniem frameworka o możliwość serializacji i deserializacji struktur danych do/z formatu JSON.
+					\indent Serde\_ json jest rozszerzeniem frameworka ,,serde'' o możliwość serializacji i deserializacji struktur danych do i z formatu JSON.
 				\subsubsection{url}
 
-					\indent Biblioteka URL dla Rust, oparta na standardzie URL WHATWG.
+					\indent Pakiet wprowadzający typ URL oparty na standardzie URL WHATWG dla języka Rust.
 				\subsubsection{Visual studio code}
 
 					\indent Visual Studio Code – darmowy edytor kodu źródłowego z kolorowaniem składni dla wielu języków, stworzony przez Microsoft,
@@ -151,11 +180,7 @@
 					instalowanych z dedykowanego repozytorium rozszerzeń. Według badania przeprowadzonego przez serwis StackOverflow w 2018 roku, Visual Studio Code zostało
 					ogłoszone najpopularniejszym narzędziem służącym wytwarzaniu oprogramowania, za którym na drugim miejscu znajduje się produkt tego samego twórcy,
 					Microsoft Visual Studio. Oprogramowanie zostało stworzone w oparciu o framework Electron. 
-				\subsubsection{webkit2gtk}
-
-					\indent Pakiet umożliwia wykorzystanie biblioteki webkit2gtk napisanej w C dla języka Rust.
-
-		\subsection{Aplikacja mobilna}
+				
 		\subsection{Aplikacja webowa}
 	\newpage
 	
@@ -170,7 +195,7 @@
 				\item Singleton								 
 			\end{itemize}
 
-			\indent Biblioteka firestore-db-and-auth wykorzystuje wzorce projektowe:
+			\indent Pakiet firestore-db-and-auth wykorzystuje wzorce projektowe:
 			\begin{itemize}
 				\item Data mapper
 				\item Repository
@@ -190,13 +215,13 @@
 				\item Repository
 			\end{itemize}
 
-			\indent Gdzie tylko było to możliwe wykorzystany w kodzie zostały następujące wzorce projektowe:
+			\indent Gdzie tylko było to możliwe wykorzystane w kodzie zostały następujące wzorce projektowe:
 			\begin{itemize}
 			\item Iterator
-			\item Płynny interfejs
-			\item Wstrzykiwanie zależności
+			\item Fluent Interface
+			\item Dependency injection
 			\end{itemize}			 
-		\subsection{Aplikacja mobilna}
+
 		\subsection{Aplikacja webowa}	 
 	\newpage
 	
@@ -205,26 +230,32 @@
 		\subsection{Aplikacja desktopowa}
 
 			\indent Testy można uruchomić jedynie w systemie operacyjnym Linux. W celu lokalnego uruchomienia testów aplikacji należy w katalogu ,,Desktop''
-			uruchomić w terminalu polecenie:
+			wywołać w terminalu polecenie:
 			\begin{tcolorbox}[minipage,colback=white,arc=0pt,outer arc=0pt, fontupper=\normalsize]
 				\center					
 					cargo test -- --test-threads=1
 			\end{tcolorbox}
 
-			\indent W celu zdalnego uruchomienia testów należy udać się na stronę \href{https://github.com/MacKarp/Cookbook/actions/workflows/DesktopCI.yml}{GitHub Actions}.
+			\indent Zdalne uruchomienie testów odbywa się automatycznie poprzez platformę \href{https://www.travis-ci.com/github/MacKarp/Cookbook}{Travis CI} 
+			przy każdym ,,pushu'' do repozytorium GitHub
 			 
 			\indent Po pobraniu archiwum przeznaczonego dla systemu Windows lub Linux z strony \href{https://github.com/MacKarp/Cookbook/releases}{GitHub Releases},
-			należy je wypakować a następnie uruchomić przy wykorzystaniu skrótu(Windows) lub aktywatora(Linux) o nazwie ,,Cookbook''. 		
-		\subsection{Aplikacja mobilna}
+			należy je wypakować a następnie uruchomić przy wykorzystaniu pliku wykonywalnego o nazwie gui.exe(Windows) lub aktywatora(Linux) o nazwie ,,Cookbook''. 		
 		\subsection{Aplikacja webowa}	 
 	
 	\newpage
 
 	%wnioski projektowe
 	\section{Wnioski projektowe}
-	\newpage
+		\subsection{Aplikacja desktopowa}
+	
+		\indent Tworzenie aplikacji desktopowej przy użyciu języka programowania Rust było mniejszym wyzwaniem niż początkowo się wydawało, praca nad projektem bardzo
+		rozwinęła moją znajomość tego języka programowania. Brak oficjalnego SDK do API Google Firebase i słabo rozwinięte biblioteki stworzone przez użytkowników
+		sprawiały niekiedy problemy przez co musiałem część funkcjonalności stworzyć samemu. Wybór technologii GTK do stworzenia interfejsu użytkownika był nowym i interesującym
+		doświadczeniem, jedynymi problemami okazała się słaba dokumentacja dotycząca kompilacji aplikacji dla systemu Windows, oraz niekompatybilność biblioteki webkit
+		(o czym w czasie wyboru technologii nie wiedziałem) z systemem Windows przez co jedna z zaplanowanych funkcjonaliści nie działa do końca poprawnie. 
+		Tworząc aplikacje nauczyłem się wielu rzeczy takich jak cross kompilacja, autoryzacja OAuth2, obsługa Google Firebase, Travis CI czy wykorzystanie zewnętrznego API.
 
-	\newpage	
-	\section{Spis rysunków}
-		\listoffigures
+		\subsection{Aplikacja webowa}	 
+
 \end{document}
