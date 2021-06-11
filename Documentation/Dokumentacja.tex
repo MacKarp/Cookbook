@@ -51,14 +51,17 @@
 
 	%opis funkcjonalny systemu oraz jego części składowych
 	\section{Opis funkcjonalny systemu}	
+	\begin{center}
 		\includegraphics[width=0.7\linewidth]{img/logo.png}
+	\end{center}
+	
 		
 		\indent Projekt ,,Cookbook'' jest systemem do przeglądania oraz zapisywania ulubionych potraw i koktajli. W skład systemu wchodzi:
 		\begin{itemize}
 			\item Aplikacja desktopowa dla systemu Windows i Linux
 			\item Aplikacja webowa
 			\item Baza danych Cloud Firestore
-			\item System uwierzytelniania Firebase Authentication
+			\item System uwierzytelniania Firebase Authentication\\\\
 		\end{itemize}
 		
 		\indent System realizuje następujące funkcjonalności:
@@ -74,12 +77,29 @@
 				\item Przeglądanie przepisów na koktajle,
 				\item Dodawanie i usuwanie ulubionych przepisów na posiłki,
 				\item Dodawanie i usuwanie ulubionych przepisów na koktajle,
-				\item Synchronizacja z bazą danych Cloud Firestore.
+				\item Synchronizacja z bazą danych Cloud Firestore.\\\\\\\\\\
 			\end{itemize}
 					\item Aplikacja webowa
+					
 			\begin{itemize}
-				\item
-			\end{itemize}
+				\item Przeglądanie przepisów posiłków,
+							\begin{itemize}
+							\item Wyszukiwanie posiłków po nazwie
+							\item Wyszukiwanie posiłków po kategorii
+							\item Wyszukiwanie posiłków po regionie świata
+							\item Wyszukiwanie posiłków po składnikach
+							\end{itemize}					
+				\item Logowanie przy pomocy e-maila,
+				\item Logowania przy pomocy konta Google,
+				\item Logowanie przy pomocy konta Facebook,
+				\item Dodawanie i usuwanie przepisów do/z ulubionych,
+
+				\item Synchronizacja między aplikacjami,
+				\item Obsługa zewnętrznych API z przepisami posiłków,
+				\item Obsługa bazy danych Cloud Firestore
+			\end{itemize}					
+							
+
 		\end{enumerate}
 		
 		\indent Repozytorium projektu znajduje sie pod adresem: \url{https://github.com/MacKarp/Cookbook} .
@@ -187,7 +207,67 @@
 					ogłoszone najpopularniejszym narzędziem służącym wytwarzaniu oprogramowania, za którym na drugim miejscu znajduje się produkt tego samego twórcy,
 					Microsoft Visual Studio. Oprogramowanie zostało stworzone w oparciu o framework Electron. 
 				
-		\subsection{Aplikacja webowa}
+\subsection{Aplikacja webowa}
+
+		\subsubsection{HTML}
+		\indent HTML to język wykorzystywany do tworzenia i prezentowania stron internetowych www. Jest rozwinięciem języka HTML 4 i jego XML-owej odmiany (XHTML 1), opracowywane w ramach prac grupy roboczej WHATWG (Web Hypertext Application Technology Working Group) i W3C.
+		\subsubsection{CSS}
+		Kaskadowe arkusze stylów (ang. Cascading Style Sheets, w skrócie CSS) – język służący do opisu formy prezentacji (wyświetlania) stron WWW. CSS został opracowany przez organizację W3C w 1996 r. jako potomek języka DSSSL przeznaczony do używania w połączeniu z SGML-em.
+		CSS został stworzony w celu odseparowania struktury dokumentu od formy jego prezentacji. Separacja ta zwiększa zakres dostępności witryny, zmniejsza zawiłość dokumentu, ułatwia wprowadzanie zmian w strukturze dokumentu. CSS ułatwia także zmiany w renderowaniu strony w zależności od obsługiwanego medium (ekran, palmtop, dokument w druku, czytnik ekranowy). Stosowanie zewnętrznych arkuszy CSS daje możliwość zmiany wyglądu wielu stron naraz bez ingerowania w sam kod (X)HTML, ponieważ arkusze mogą być wspólne dla wielu dokumentów.
+		\subsubsection{JavaScript}
+		JavaScript, w skrócie JS – skryptowy język programowania, stworzony przez firmę Netscape, najczęściej stosowany na stronach internetowych. Twórcą JavaScriptu jest Brendan Eich. W połowie lat 90. XX wieku organizacja ECMA wydała na podstawie JavaScriptu standard języka skryptowego o nazwie ECMAScript, aktualnie rozwijaniem tego standardu zajmuje się komisja TC39.
+		\subsubsection{Vue.js}
+		Vue.js to front-endowy framework JavaScript typu open source model-view-viewmodel do tworzenia interfejsów użytkownika i aplikacji jednostronicowych. Został stworzony przez Evana You i jest utrzymywany przez niego i pozostałych aktywnych członków zespołu.
+		Vue.js zawiera stopniowo adaptowalną architekturę, która koncentruje się na renderowaniu deklaratywnym i komponowaniu komponentów. Podstawowa biblioteka koncentruje się tylko na warstwie widoku. Zaawansowane funkcje wymagane w przypadku złożonych aplikacji, takich jak routing, zarządzanie stanem i narzędzia do budowania, są oferowane za pośrednictwem oficjalnie utrzymywanych bibliotek pomocniczych i pakietów.
+
+Vue.js pozwala rozszerzyć HTML o atrybuty HTML zwane dyrektywami. Dyrektywy oferują funkcjonalność aplikacjom HTML i są dostępne jako dyrektywy wbudowane lub zdefiniowane przez użytkownika. 
+		\subsubsection{Cypress}
+		Cypress to narzędzie do testowania front-end nowej generacji stworzone z myślą o nowoczesnym internecie. Zajmuje się kluczowymi problemami, z którymi borykają się programiści i inżynierowie QA podczas testowania nowoczesnych aplikacji.
+\newline
+\newline
+Umożliwia:
+\begin{itemize}
+\item Skonfigurowanie testów
+\item Napisanie testów
+\item Uruchomienie testów
+\item Wykonanie testów debugowania
+\end{itemize}
+
+		\subsubsection{Cloud Firestore}
+
+					\indent	Cloud Firestore to elastyczna, skalowalna baza danych do tworzenia aplikacji mobilnych, internetowych i serwerowych z Firebase i Google Cloud.
+					Podobnie jak Baza danych czasu rzeczywistego Firebase, zapewnia synchronizację danych między aplikacjami klienckimi za pośrednictwem odbiorników w czasie
+					rzeczywistym i oferuje obsługę offline dla urządzeń przenośnych i internetowych, dzięki czemu możesz tworzyć responsywne aplikacje, które działają niezależnie
+					od opóźnień w sieci lub łączności z Internetem.
+				\subsubsection{Firebase}
+
+					\indent Firebase to platforma opracowana przez Google do tworzenia aplikacji mobilnych i internetowych. Platforma Firebase obejmuje 18 produktów podzielonych
+					na trzy grupy:
+					\begin{itemize}
+						\item Develop,
+						\item Quality,
+						\item Grow,
+					\end{itemize}
+					Aplikacja desktopowa wykrzystuje Cloud Firestore i Firebase Authentication.
+				\subsubsection{Firebase Authentication}
+
+					\indent	Firebase Authentication zapewnia usługę uwierzytelniania dla backendu, łatwe w użyciu pakiety SDK i gotowe biblioteki interfejsu użytkownika
+					do uwierzytelniania użytkowników w aplikacjach. Obsługuje uwierzytelnianie za pomocą haseł, numerów telefonów, popularnych dostawców tożsamości
+					federacyjnych, takich jak Google, Facebook i Twitter. Firebase Authentication ściśle integruje się z innymi usługami Firebase i wykorzystuje standardy
+					branżowe, takie jak OAuth 2.0 i OpenID Connect.								
+				\subsubsection{firestore-db-and-auth}
+
+					\indent Pakiet umożliwiający łatwy dostęp do bazy danych Cloud Firestore za pośrednictwem konta usługi lub poświadczeń OAuth Firebase Authentication.
+					\subsubsection{Visual studio code}
+
+					\indent Visual Studio Code – darmowy edytor kodu źródłowego z kolorowaniem składni dla wielu języków, stworzony przez Microsoft,
+					o otwartym kodzie źródłowym. Oprogramowanie ma wsparcie dla debugowania kodu, zarządzania wersjami kodu źródłowego za pośrednictwem systemu kontroli wersji Git,
+					automatycznego uzupełniania kodu IntelliSense, zarządzania wycinkami kodu oraz jego refaktoryzacji. Funkcjonalność aplikacji można rozbudować za pomocą rozszerzeń
+					instalowanych z dedykowanego repozytorium rozszerzeń. Według badania przeprowadzonego przez serwis StackOverflow w 2018 roku, Visual Studio Code zostało
+					ogłoszone najpopularniejszym narzędziem służącym wytwarzaniu oprogramowania, za którym na drugim miejscu znajduje się produkt tego samego twórcy,
+					Microsoft Visual Studio. Oprogramowanie zostało stworzone w oparciu o framework Electron. 
+					\subsubsection{Postman}
+		Postman to platforma do współpracy podczas tworzenia lub korzystania z API. Funkcje Postmana upraszczają każdy etap tworzenia interfejsu API i usprawniają współpracę, dzięki czemu możesz tworzyć lepsze interfejsy API szybciej.
 	\newpage
 	
 	%Strzeszczenie wykorzystywanych wzorców projektowych w każdej aplikacji
@@ -228,7 +308,13 @@
 			\item Dependency injection
 			\end{itemize}			 
 
-		\subsection{Aplikacja webowa}	 
+		\subsection{Aplikacja webowa}	
+		Podczas tworzenia aplikacji webowej zastosowane zostały następujące wzorce projektowe:
+		\begin{itemize}
+			\item Polecenie (Przycisk/komponent dodawania posiłku do ulubionych)
+			\item Iterator (Wykorzystywany podczas odczytu kolekcji)
+			\item Metoda szablonowa (Komponenty Vue)
+			\end{itemize} 
 	\newpage
 	
 	%Instrukcja lokalnego i zdalengo uruchamiania testów oraz samego systemu
@@ -248,6 +334,17 @@
 			\indent Po pobraniu archiwum przeznaczonego dla systemu Windows lub Linux z strony \href{https://github.com/MacKarp/Cookbook/releases}{GitHub Releases},
 			należy je wypakować a następnie uruchomić przy wykorzystaniu pliku wykonywalnego o nazwie gui.exe(Windows) lub aktywatora(Linux) o nazwie ,,Cookbook''. 		
 		\subsection{Aplikacja webowa}	 
+		\indent Aplikacje uruchomić można pod adresem: \href{https://cookbook-307109.web.app}{https://cookbook-307109.web.app} \\\\
+	\indent Testy integracyjne realizowane są za pomocą narzędzia Cypress. Środowiskiem testowym jest środowisko developerskie. Aby uruchomić testy należ odpalić serwer lokalny poprzez terminal (npm run serve). Po uruchomieniu serwera należy włączyć narzędzie testujące komendą \textit{npm run cypress:open}. Otwarte zostanie okno aplikacji Cypress.\\
+		\newline
+	\includegraphics[width=1.0\linewidth]{img/cypress.jpg}\\\\
+	\newline
+	Do dyspozycji są tu dwa pliki zawierające szereg testów.
+	\newline
+	\newline
+	\includegraphics[width=1.0\linewidth]{img/cypres1.jpg}\\
+	\newline
+	$Plik favorite_test.js$
 	
 	\newpage
 
@@ -263,5 +360,6 @@
 		Tworząc aplikacje nauczyłem się wielu rzeczy takich jak cross kompilacja, autoryzacja OAuth2, obsługa Google Firebase, Travis CI czy wykorzystanie zewnętrznego API.
 
 		\subsection{Aplikacja webowa}	 
-
+\indent Mimo początkowych problemów, praca z frameworkiem Vue okazała się dla mnie dość przejrzysta i przyjemna. Możliwość tworzenia komponentów i wykorzystywania ich ponownie w różnych obszarach aplikacji jest niezwykle przyjemna i oszczędza czas przeznaczony na ponowne pisanie kodu. Możliwości manipulacji elementami DOM w html, oraz zastosowania narzędzi programistycznych takich jak pętle i warunki plus JavaScript, dają niemal nieskończone możliwości w tworzeniu aplikacji webowych. Jestem pewien, że wykorzystam to narzędzie podczas tworzenia aplikacji będącej częścią mojej pracy dyplomowej. \\\\
+Dodatkowo pozytywnym zaskoczeniem jest dla mnie platforma Firebase. Oferuje mnóstwo możliwości od tworzenia baz danych przez udostępnianie miejsca na zasoby po hosting. 
 \end{document}
