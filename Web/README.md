@@ -1,9 +1,11 @@
 <div align="center">
-  
-# ZMP PROJECT: CoockBook
 
 
-<img src="https://github.com/LK-herman/CoockBook/blob/master/coocklogo.png" alt="drawing" width="250" style="text-aling: center;" />
+# API.CookBook
+## PWSZ N3PAM / ZMP PROJECT 
+
+
+<img src="src/assets/logo.png" alt="drawing" width="350" style="text-aling: center;" />
 
 Vue.js / Firebase / API
 
@@ -13,22 +15,6 @@ Meals: [API webpage - https://www.themealdb.com/api.php](https://www.themealdb.c
 Cocktails: [API webpage - https://www.thecocktaildb.com/api.php](https://www.thecocktaildb.com/api.php).
 
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Project website
+[API.Cookbook https://cookbook-307109.web.app](https://cookbook-307109.web.app)
 </div>
-
